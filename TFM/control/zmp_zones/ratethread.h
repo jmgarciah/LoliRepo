@@ -24,6 +24,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
     /**
+	// RAMP REFERENCES NO BACK TO ZERO. FORWARDS
         if (n <=  300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.02/30)*n-0.2;}
         else if (n >= 600 && n <= 630){ref = (0.02/30)*n-0.38;}
@@ -37,6 +38,7 @@ public:
         else{ref = ref;} **/
 
    /**
+	// RAMP REFERENCES BACK TO ZERO. SAME REACH TIME DIFFERENT SLOPE. FORWARDS
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
         else if (n >= 600 && n <= 630){ref = -(0.01/30)*n + 0.21;}
@@ -53,6 +55,7 @@ public:
         else {ref = ref;} **/
 
 	/**
+	// RAMP REF BACK TO ZERO. SAME SLOPE. FORWARDS
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
         else if (n >= 600 && n <= 630){ref = -(0.01/30)*n + 0.21;}
@@ -64,6 +67,7 @@ public:
         else if (n >= 2400 && n <= 2520){ref = -(0.04/120)*n + 0.84;}
         else {ref = ref;} **/
 
+	// RAMPO REF BACK TO ZERO. LOW INCREMENT. FORWARDS
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.005/30)*n - 0.05;}
         else if (n >= 600 && n <= 630){ref = -(0.005/30)*n + 0.105;}
@@ -79,6 +83,18 @@ public:
         else if (n >= 3600 && n <= 3630){ref = -(0.03/30)*n + 3.63;}
         else {ref = ref;}
 
+	/** RAMP REFERENCES. BACKWARDS
+	if (n <= 300){ref = 0.0;}
+        else if (n >= 300 && n <= 330){ref = -0.005/30)*n + 0.05;}
+        else if (n >= 600 && n <= 630){ref = (0.005/30)*n - 0.105;}
+        else if (n >= 900 && n <= 930){ref = -(0.01/30)*n + 0.3;}
+        else if (n >= 1200 && n <= 1230){ref = (0.01/30)*n - 0.41;}
+        else if (n >= 1500 && n <= 1530){ref = -(0.015/30)*n + 0.75;}
+        else if (n >= 1800 && n <= 1830){ref = (0.015/30)*n - 0.915;}
+        else if (n >= 2100 && n <= 2130){ref = -(0.02/30)*n + 1.4;}
+        else if (n >= 2400 && n <= 2430){ref = (0.02/30)*n - 1.62;}
+	else {ref = ref;}
+**/
         getInitialTime();
         readFTSensor();
         zmpComp();
