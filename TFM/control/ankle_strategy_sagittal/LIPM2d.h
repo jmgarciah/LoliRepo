@@ -25,6 +25,8 @@ public:
     float _u_ref; // reference pendulum angle. In static position, the corresponding
               // angle to the reference ZMP u_ref = 0.0
     float _u; //Compensated angle
+
+    float _z[2]; // model state variable
 private:
     float _A[2][2];
     float _B[2][1];
@@ -34,7 +36,7 @@ private:
     float _Kp, _Ki, _Ku; // P, I, U gains
     float _T; // sample time
 
-    float _z[2]; // model state variable
+
     float pre_zmp_error; // previous z --> z[k-1]
 
 };

@@ -89,7 +89,7 @@ public:
             offs_x = sum / n;
             printf("offs = %f\n", offs_x);
         }
-//        offs_x = 0.0;
+
         _xzmp = _xzmp - offs_x;
         _yzmp = _yzmp - offs_y;
         
@@ -103,22 +103,22 @@ public:
         _eval_x.model(_xzmp, ref);
         // _eval_y.model(_yzmp);
 
-        // angle_x = -1.5*asin(_eval_x.y/1.03)*180/PI;
+        angle_x = -asin(_eval_x.y/1.03)*180/PI;
         // angle_y = asin(_eval_x.y/1.03)*180/PI;
-        vel = 1*_eval_x.dy * (1/1.03) * (180/PI); //velocity in degrees per second
+        // vel = 1*_eval_x.dy * (1/1.03) * (180/PI); //velocity in degrees per second
     }
     void setJoints(){
         /** Position control **/
-        //posRightLeg->positionMove(4, angle_x); // psition in degrees
-        //posLeftLeg->positionMove(4, angle_x);
+        posRightLeg->positionMove(4, angle_x); // position in degrees
+        posLeftLeg->positionMove(4, angle_x);
         //        posRightLeg->positionMove(5, -angle_y); // axial ankle Right Leg
         //        posRightLeg->positionMove(1, -angle_y); // axial hip Right Leg
         //        posLeftLeg->positionMove(5, angle_y); // axial ankle Left Leg
         //        posLeftLeg->positionMove(1, angle_y); // axial hip Left Leg
 
         /** Velocity control **/
-        velRightLeg->velocityMove(4, -vel); // velocity in degrees per second
-        velLeftLeg->velocityMove(4, -vel);
+        // velRightLeg->velocityMove(4, -vel); // velocity in degrees per second
+        // velLeftLeg->velocityMove(4, -vel);
     }
     void printData(){
         cout << "t = " << _dt << endl;
@@ -138,11 +138,11 @@ public:
         fprintf(fp,",%.4f", _dt);
         fprintf(fp,",%.15f", _xzmp);
         fprintf(fp,",%.15f", _eval_x.y);
-        fprintf(fp,",%.15f", _eval_x._x1[0]);
+        fprintf(fp,",%.15f", _eval_x._zmp_error);
         fprintf(fp,",%.15f", _eval_x._zmp_ref);
-        fprintf(fp,",%f", _eval_x._u);
-//        fprintf(fp,",%f", angle_x);
-        fprintf(fp,",%f", vel);
+        fprintf(fp,",%f", _eval_x._z[1]);
+        fprintf(fp,",%f", angle_x);
+//        fprintf(fp,",%f", vel);
 
         //        fprintf(fp,",%.15f", _eval_y._r);
         //        fprintf(fp,",%.15f", _yzmp);

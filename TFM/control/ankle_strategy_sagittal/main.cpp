@@ -52,10 +52,10 @@ int main(void) {
         return false;
     } else printf("[success] testTEO acquired robot IPositionControl leftLeg interface\n");
     // Velocity control
-    if (! devLeftLeg.view(velLeftLeg)) {
-        printf("[warning] Problems acquiring robot IVelocityControl leftLeg interface\n");
-        return false;
-    } else printf("[success] testTEO acquired robot IVelocityControl leftLeg interface\n");
+//    if (! devLeftLeg.view(velLeftLeg)) {
+//        printf("[warning] Problems acquiring robot IVelocityControl leftLeg interface\n");
+//        return false;
+//    } else printf("[success] testTEO acquired robot IVelocityControl leftLeg interface\n");
 
     /** SET CONFIG RIGHT LEG **/
     yarp::os::Property optionsRightLeg;
@@ -76,10 +76,10 @@ int main(void) {
         return false;
     } else printf("[success] testTEO acquired robot IPositionControl rightLeg inteface\n");
     // Velocity control
-    if (!devRightLeg.view(velRightLeg)) {
-        printf("[warning] Problems acquiring robot IVelocityControl rightLeg interface\n");
-        return false;
-    } else printf("[success] testTEO acquired robot IPositionControl rightLeg inteface\n");
+//    if (!devRightLeg.view(velRightLeg)) {
+//        printf("[warning] Problems acquiring robot IVelocityControl rightLeg interface\n");
+//        return false;
+//    } else printf("[success] testTEO acquired robot IPositionControl rightLeg inteface\n");
 
     /** SET MODE **/
     /** Position Mode **/
@@ -88,10 +88,10 @@ int main(void) {
     printf("Set position mode Right Leg\n");
     posRightLeg->setPositionMode();
     /** Velocity Mode **/
-    printf("Set velocity mode Left Leg\n");
-    velLeftLeg->setVelocityMode();
-    printf("Set velocity mode Right Leg\n");
-    velRightLeg->setVelocityMode();
+//    printf("Set velocity mode Left Leg\n");
+//    velLeftLeg->setVelocityMode();
+//    printf("Set velocity mode Right Leg\n");
+//    velRightLeg->setVelocityMode();
 
     /** POSITION CONTROL. SET LEFT LEG TO 0 **/
     posLeftLeg->positionMove(0,0);
@@ -111,7 +111,7 @@ int main(void) {
     printf("Right Leg :(0 0 0 0 0 0)\n");
    
     yarp::os::Time::delay(10);
-    /** LOOP THREAD**/
+    /** LOOP THREAD **/
     MyRateThread myRateThread;
     myRateThread.start();
 
