@@ -16,6 +16,8 @@ class MyRateThread : public yarp::os::RateThread
 public:
     MyRateThread() : yarp::os::RateThread(TS*1000.0){
         n = 1;
+	sum = 0.0;
+	e = 0.194;
 
     }
     void run(){
@@ -50,6 +52,7 @@ public:
         else if (n >= 3600 && n <= 3630){ref = -(0.06/30)*n + 7.26;}
         else {ref = ref;} **/
 
+	/**
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
         else if (n >= 600 && n <= 630){ref = -(0.01/30)*n + 0.21;}
@@ -59,7 +62,23 @@ public:
         else if (n >= 1800 && n <= 1890){ref = -(0.03/90)*n + 0.63;}
         else if (n >= 2100 && n <= 2220){ref = (0.04/120)*n - 0.7;}
         else if (n >= 2400 && n <= 2520){ref = -(0.04/120)*n + 0.84;}
+        else {ref = ref;} **/
+
+        if (n <= 300){ref = 0.0;}
+        else if (n >= 300 && n <= 330){ref = (0.005/30)*n - 0.05;}
+        else if (n >= 600 && n <= 630){ref = -(0.005/30)*n + 0.105;}
+        else if (n >= 900 && n <= 930){ref = (0.01/30)*n - 0.3;}
+        else if (n >= 1200 && n <= 1230){ref = -(0.01/30)*n + 0.41;}
+        else if (n >= 1500 && n <= 1530){ref = (0.015/30)*n - 0.75;}
+        else if (n >= 1800 && n <= 1830){ref = -(0.015/30)*n + 0.915;}
+        else if (n >= 2100 && n <= 2130){ref = (0.02/30)*n - 1.4;}
+        else if (n >= 2400 && n <= 2430){ref = -(0.02/30)*n + 1.62;}
+        else if (n >= 2700 && n <= 2730){ref = (0.025/30)*n - 2.25;}
+        else if (n >= 3000 && n <= 3030){ref = -(0.025/30)*n + 2.525;}
+        else if (n >= 3300 && n <= 3330){ref = (0.03/30)*n - 3.3;}
+        else if (n >= 3600 && n <= 3630){ref = -(0.03/30)*n + 3.63;}
         else {ref = ref;}
+
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -101,7 +120,6 @@ public:
 
     void zmpComp(){
         /** ZMP Equations : Double Support **/
-        e = 0.194;
         _xzmp0 = -(_my0 + e*_fx0) / _fz0;
         _yzmp0 = (_mx0 + e*_fy0) / _fz0;
 
@@ -112,8 +130,13 @@ public:
         _yzmp = (_yzmp0 * _fz0 + _yzmp1 * _fz1) / (_fz0 + _fz1);
 
         // OFFSET
-        _xzmp = (_xzmp - (-0.019));
-        _yzmp = _yzmp - (-0.019);
+
+	if (n >=0 && n < 10){
+		sum = _xzmp + sum;
+		offs_x = sum / n;
+	}
+        _xzmp = (_xzmp - offs_x);
+        _yzmp = _yzmp - offs_y;
 
         if ((_xzmp != _xzmp) || (_yzmp != _yzmp)){
             printf ("Warning: No zmp data\n");
@@ -174,6 +197,9 @@ private:
 
 
     float e; // distance [m] between ground and sensor center
+    float offs_x; // zmp offset in initial time.
+    float offs_y;
+    float sum;
     float _xzmp0, _yzmp0; // ZMP sensor 0
     float _xzmp1, _yzmp1; // ZMP sensor 1
     float _xzmp; // Global x_ZMP
