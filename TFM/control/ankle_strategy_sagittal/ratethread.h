@@ -17,7 +17,7 @@ class MyRateThread : public yarp::os::RateThread
 public:
     MyRateThread() : yarp::os::RateThread(TS*1000.0){
         n = 1;
-        e = 0.194;
+        e = 0.0255; // distance from the ground to sensor center in metres
         sum = 0.0;
         offs_x = 0.0;
         offs_y = 0.0;
@@ -29,7 +29,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.06/30)*n - 0.6;}
+        else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
         else {ref = ref;}
         //ref = 0.0;
         getInitialTime();
