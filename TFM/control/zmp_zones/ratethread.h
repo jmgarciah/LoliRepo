@@ -21,15 +21,15 @@ public:
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
-        if(n >= 200){ref = 0.02;}
-        else if (n >= 400){ref = 0.04;}
-        else if (n >= 600){ref = 0.06;}
-        else if (n >= 800){ref = 0.08;}
-        else if (n >= 1000){ref = 0.10;}
-        else if (n >= 1200){ref = 0.12;}
-        else if (n >= 1400){ref = 0.14;}
-        else if (n >= 1600){ref = 0.16;}
-        else if (n >= 1800){ref = 0.18;}
+        if (n >= 200 && n <= 400){ref = 0.02;}
+        else if (n >= 400 && n <= 600){ref = 0.04;}
+        else if (n >= 600 && n <= 800){ref = 0.06;}
+        else if (n >= 800 && n <= 1000){ref = 0.08;}
+        else if (n >= 1000 && n <= 1200){ref = 0.10;}
+        else if (n >= 1200 && n <= 1400){ref = 0.12;}
+        else if (n >= 1400 && n <= 1600){ref = 0.14;}
+        else if (n >= 1600 && n <= 1800){ref = 0.16;}
+        else if (n >= 1800 && n <= 2000){ref = 0.18;}
         else{ref = 0.0;}
         getInitialTime();
         readFTSensor();
@@ -100,6 +100,7 @@ public:
     }
     void printData(){
         cout << "t = " << _dt << endl;
+        cout << "ref = " << _eval_x._zmp_ref << endl;
         cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
         cout << "Azmp = " << _eval_x._zmp_error << endl;
         cout << "x_model = " << _eval_x.y << endl;
