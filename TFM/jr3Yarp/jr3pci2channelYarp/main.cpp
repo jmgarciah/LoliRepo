@@ -20,21 +20,24 @@
 #include "jr3pci-ioctl.h"
 
 int main(void) {
-
+    
     yarp::os::Network yarp;
     yarp::os::Port port0;
     yarp::os::Port port1;
-
+    double init;
+    double end;
+    double t;
     port0.open("/jr3ch0:o");
     port1.open("/jr3ch1:o");
 
     six_axis_array fm0, fm1;
     force_array fs0, fs1;
     int ret, fd;
-    int f0[3], m0[3]; // F-T from the sensor 0 in Newton
-    int f1[3], m1[3]; // F-T from the sensor 1 in Newton
-    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0 in dN*m (0.1N*m)
-    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1 in dN*m (0.1N*m)
+    int f0[3], m0[3]; // F-T from the sensor 0 in cN (100*N) and cN*m (100*N*m)
+    int f1[3], m1[3]; // F-T from the sensor 1 in cN (100*N) and cN*m (100*N*m)
+// Jr3 provides Forces in Newton and Torques in dN*m. Scaled to get accuracy.
+    float fx0, fy0, fz0, mx0, my0, mz0; // F-T from sensor 0 in N and N*m
+    float fx1, fy1, fz1, mx1, my1, mz1; // F-T from sensor 1 in N and N*m
 
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
         perror("Can't open device. No way to read force!");
@@ -46,9 +49,10 @@ int main(void) {
     printf("Full scales of Sensor 1 are: %d %d %d %d %d %d\n", fs1.f[0],fs1.f[1],fs1.f[2],fs1.m[0],fs1.m[1],fs1.m[2]);
     ret=ioctl(fd,IOCTL0_JR3_ZEROOFFS);
     ret=ioctl(fd,IOCTL1_JR3_ZEROOFFS);
-
+    
 
     while (1) {
+        init = yarp::os::Time::now();
         ret=ioctl(fd,IOCTL0_JR3_FILTER0,&fm0);
         ret=ioctl(fd,IOCTL1_JR3_FILTER0,&fm1);
 
@@ -56,10 +60,9 @@ int main(void) {
             yarp::os::Bottle b0;
             yarp::os::Bottle b1;
 
-            printf("Reading device ...\n");
+            //printf("Reading device ...\n");
 
             // -------- SENSOR 0 ------------ //
-            printf("Sensor 0 : [ ");
 
             f0[0] = 100*fm0.f[0]*fs0.f[0]/16384;
             f0[1]= 100*fm0.f[1]*fs0.f[1]/16384;
@@ -127,10 +130,14 @@ int main(void) {
             port0.write(b0);
             port1.write(b1);
 
-        } else perror("");
+        } else perror("Could not read device\n");
 
         //Sample time = 1ms
-        usleep(100000); // delay in microseconds
+//        usleep(100000); // delay in microseconds
+
+        end = yarp::os::Time::now();
+        t = end - init;
+        printf("t=%f\n",t);
     }
     close(fd);
 }
