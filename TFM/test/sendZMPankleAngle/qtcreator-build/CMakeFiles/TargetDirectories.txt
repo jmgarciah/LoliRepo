@@ -1,1 +1,0 @@
-/home/teo/repos/LoliRepo/TFM/test/sendZMPankleAngle/qtcreator-build/CMakeFiles/yarpy.dir
