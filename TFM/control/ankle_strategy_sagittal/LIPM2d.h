@@ -35,7 +35,7 @@ private:
     float _T; // sample time
 
     float _z[2]; // model state variable
-    float pre_z; // previous z --> z[k-1]
+    float pre_zmp_error; // previous z --> z[k-1]
 
 };
 

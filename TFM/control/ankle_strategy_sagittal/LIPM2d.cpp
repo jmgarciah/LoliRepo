@@ -46,6 +46,7 @@ LIPM2d::LIPM2d()
 
     // Inicializacion variables
     _zmp_error = 0.0;
+    pre_zmp_error = 0.0;
     _u = 0.0;
     _x1[0] = 0.0;
     _x1[1] = 0.0*3.1415/180;
@@ -67,22 +68,40 @@ LIPM2d::~LIPM2d(){
 
 float LIPM2d::model(float zmp_real, float ref){
      /** STATE FEEDBACK WITH INTEGRAL ACTION **/
+//    _zmp_ref = ref;
+//    _zmp_error = _zmp_ref - zmp_real;
+//    _x1[0] = _x1[1];
+//    _x2[0] = _x2[1];
+//    _z[0] = _z[1];
+//    _u_ref = sin(_zmp_ref/1.03); // L is the pendulum longitude.
+//
+//    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_z + _z[0])*_T + _Kp*_z[0] - _Ku*_u_ref;
+//    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
+//    dy = (y - pre_y) / _T; // velocity
+//    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
+//    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
+//    _z[1] = _zmp_error - y;
+//
+//    pre_z = _z[0];
+//    pre_y = y;
+
     _zmp_ref = ref;
-    _zmp_error = _zmp_ref - zmp_real;
+
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
-    _z[0] = _z[1];
-    _u_ref = sin(_zmp_ref/1.03); // L is the pendulum longitude.
 
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_z + _z[0])*_T + _Kp*_z[0] - _Ku*_u_ref;
+    _u_ref = sin(_zmp_ref/1.03); // L is the pendulum longitude.
+    _zmp_error = _zmp_ref - zmp_real;
+
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_zmp_error + _zmp_error)*_T + _Kp*_zmp_error - _Ku*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
     dy = (y - pre_y) / _T; // velocity
+
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-    _z[1] = _zmp_error - y;
 
-    pre_z = _z[0];
     pre_y = y;
+    pre_zmp_error = _zmp_error;
 
     return 0;
 }
