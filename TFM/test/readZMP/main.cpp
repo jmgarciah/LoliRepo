@@ -27,10 +27,14 @@ yarp::os::Port port0;
 yarp::os::Port port1;
 float fx0, fy0, fz0, mx0, my0, mz0;
 float fx1, fy1, fz1, mx1, my1, mz1;
-float e = 0.194;  // distance [m] between ground and sensor center
+float e = 0.0358;  // distance [m] between ground and sensor center
 float xzmp0, yzmp0; // Right foot ZMP
 float xzmp1, yzmp1; // Left foot ZMP
 float xzmp, yzmp; // Global ZMP
+int n;
+float sum = 0.0;
+float offs_x = 0.0;
+float X = 0.0;
 
 int main(void) {
     yarp::os::Network yarp;
@@ -51,6 +55,8 @@ int main(void) {
     yarp::os::Time::delay(0.5);
     yarp.connect("/jr3ch1:o","/jr3ch1:i");
     
+    n=1;
+
     while (1) {
         yarp::os::Bottle b0;
         yarp::os::Bottle b1;
@@ -82,14 +88,30 @@ int main(void) {
         xzmp = (xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
         yzmp = (yzmp0 * fz0 + yzmp1 * fz1) / (fz0 + fz1);
         
-        xzmp = xzmp * 1000; //in mm
-        yzmp = yzmp * 1000;
+        // xzmp = xzmp * 1000; //in mm
+        // yzmp = yzmp * 1000;
         
-        if ((xzmp != xzmp) || (yzmp != yzmp)){
+
+        // OFFSET
+        if (n >=1 && n < 50){
+            sum = xzmp + sum;
+            offs_x = sum / n;
+            printf("offs = %f\n", offs_x);
+        }
+
+        X  = (xzmp - offs_x);
+
+        if ((X != X) || (yzmp != yzmp)){
             printf ("Warning: No zmp data\n");
         } else {
-        cout << "ZMP = [" << xzmp << ", " << yzmp << "]" << endl;
+            cout << "ZMP = [" << X << ", " << yzmp << "]" << endl;
+            cout << "FxR = " << fx0 << endl;
+            cout << "FxL = " << fx1 << endl;
+            cout << "TyR = " << my0 << endl;
+            cout << "TyL = " << my1 << endl;
         }
+
+        n++;
     }
 
 }
