@@ -1,4 +1,4 @@
-#ifndef _ratethread_H_
+ #ifndef _ratethread_H_
 #define _ratethread_H_
 
 #include "LIPM2d.h"
@@ -29,7 +29,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
+        else if (n >= 300 && n <= 330){ref = (0.025/30)*n - 0.25;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
@@ -110,7 +110,7 @@ public:
 
     void setJoints(){
         /** Position control **/
-        angle_x = - ref/0.0135;
+        angle_x = - ref/0.0172;
         posRightLeg->positionMove(4, angle_x); // position in degrees
         posLeftLeg->positionMove(4, angle_x);
 
@@ -130,6 +130,10 @@ public:
 //        cout << "angle_x_pre = " << angle_x_pre << endl;
         printf("angle_x = %.15f\n", angle_x);
 //        cout << "angVel = " << angVel << endl;
+        cout << "FxR = " << _fx0 << endl;
+        cout << "FxL = " << _fx1 << endl;
+        cout << "TyR = " << _my0 << endl;
+        cout << "TyL = " << _my1 << endl;
 
     }
     void saveToFile()

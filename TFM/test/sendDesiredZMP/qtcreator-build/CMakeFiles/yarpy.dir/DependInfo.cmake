@@ -4,8 +4,8 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/teo/repos/LoliRepo/TFM/test/sendZMPankleAngle/LIPM2d.cpp" "/home/teo/repos/LoliRepo/TFM/test/sendZMPankleAngle/qtcreator-build/CMakeFiles/yarpy.dir/LIPM2d.cpp.o"
-  "/home/teo/repos/LoliRepo/TFM/test/sendZMPankleAngle/main.cpp" "/home/teo/repos/LoliRepo/TFM/test/sendZMPankleAngle/qtcreator-build/CMakeFiles/yarpy.dir/main.cpp.o"
+  "/home/teo/repos/LoliRepo/TFM/test/sendDesiredZMP/LIPM2d.cpp" "/home/teo/repos/LoliRepo/TFM/test/sendDesiredZMP/qtcreator-build/CMakeFiles/yarpy.dir/LIPM2d.cpp.o"
+  "/home/teo/repos/LoliRepo/TFM/test/sendDesiredZMP/main.cpp" "/home/teo/repos/LoliRepo/TFM/test/sendDesiredZMP/qtcreator-build/CMakeFiles/yarpy.dir/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
