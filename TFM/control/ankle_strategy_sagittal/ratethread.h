@@ -7,8 +7,8 @@ static FILE *fp;
 
 yarp::os::Port port0;
 yarp::os::Port port1;
-//yarp::dev::IPositionControl *posRightLeg;
-//yarp::dev::IPositionControl *posLeftLeg;
+yarp::dev::IPositionControl *posRightLeg;
+yarp::dev::IPositionControl *posLeftLeg;
 yarp::dev::IVelocityControl *velRightLeg;
 yarp::dev::IVelocityControl *velLeftLeg;
 
@@ -112,18 +112,18 @@ public:
     }
     void printData(){
         cout << "t = " << _dt << endl;
-        cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
-        cout << "Azmp = " << _eval_x._zmp_error << endl;
-        cout << "x_model = " << _eval_x.y << endl;
-        cout << "x1[0] = " << _eval_x._x1[0] << endl;
-        cout << "Ud = " << _eval_x._u_ref << endl;
-        cout << "u = " << _eval_x._u << endl;
-        cout << "angle_x = " << angle_x << endl;
+//        cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
+//        cout << "Azmp = " << _eval_x._zmp_error << endl;
+//        cout << "x_model = " << _eval_x.y << endl;
+//        cout << "x1[0] = " << _eval_x._x1[0] << endl;
+//        cout << "Ud = " << _eval_x._u_ref << endl;
+//        cout << "u = " << _eval_x._u << endl;
+//        cout << "angle_x = " << angle_x << endl;
     }
     void saveToFile()
     {
         fprintf(fp,"\n%d", n);
-        fprintf(fp,",%.4f",_dt);
+        fprintf(fp,",%.4f", _dt);
         fprintf(fp,",%.15f", _xzmp);
         fprintf(fp,",%.15f", _eval_x.y);
         fprintf(fp,",%.15f", _eval_x._x1[0]);
