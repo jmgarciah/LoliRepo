@@ -62,11 +62,12 @@ public:
 
     void zmpComp(){
         /** ZMP Equations : Double Support **/
-        _xzmp0 = -_my0 / _fz0;
-        _yzmp0 = _mx0 / _fz0;
+        e = 0.194;
+        _xzmp0 = -(_my0 + e*_fx0) / _fz0; 
+        _yzmp0 = (_mx0 + e*_fy0) / _fz0;
 
-        _xzmp1 = -_my1 /_fz1;
-        _yzmp1 = _mx1 /_fz1;
+        _xzmp1 = -(_my1 + e*_fx1) /_fz1;
+        _yzmp1 = (_mx1 + e*_fy1) /_fz1;
 
         _xzmp = (_xzmp0 * _fz0 + _xzmp1 * _fz1) / (_fz0 + _fz1);
         _yzmp = (_yzmp0 * _fz0 + _yzmp1 * _fz1) / (_fz0 + _fz1);
@@ -124,9 +125,10 @@ private:
     int n;
     LIPM2d _eval_x;
     //LIPM2d _eval_y;
-    float _fz0, _mx0, _my0; // F-T from sensor 0 in dN*m (0.1N*m)
-    float _fz1, _mx1, _my1; // F-T from sensor 1 in dN*m (0.1N*m)
+    float _fx0, _fy0, _fz0, _mx0, _my0; // F-T from sensor 0
+    float _fx1, _fy1, _fz1, _mx1, _my1; // F-T from sensor 1
 
+    float e; // distance [m] between ground and sensor center
     float _xzmp0, _yzmp0; // ZMP sensor 0
     float _xzmp1, _yzmp1; // ZMP sensor 1
     float _xzmp; // Global x_ZMP
