@@ -34,7 +34,7 @@ int main(void) {
     yarp::os::Time::delay(0.5);
     yarp.connect("/jr3ch1:o","/jr3ch1:i");
 
-    /** SET CONFIG **/
+    /** SET CONFIG LEFT LEG **/
     yarp::os::Property optionsLeftLeg;
     optionsLeftLeg.put("device","remote_controlboard");
     optionsLeftLeg.put("remote","/teo/leftLeg");
@@ -46,13 +46,18 @@ int main(void) {
         yarp::os::Network::fini();
         return 1;
     }
-
-    bool okLL = devLeftLeg.view(posLeftLeg);
-    if (!okLL) {
-        printf("[warning] Problems acquiring robot interface\n");
+    // Position control
+    if (! devLeftLeg.view(posLeftLeg)) {
+        printf("[warning] Problems acquiring robot IPositionControl leftLeg interface\n");
         return false;
-    } else printf("[success] testTEO acquired robot LeftArm interface\n");
-
+    } else printf("[success] testTEO acquired robot IPositionControl leftLeg interface\n");
+    // Velocity control
+/**    if (! devLeftLeg.view(velLeftLeg)) {
+        printf("[warning] Problems acquiring robot IVelocityControl leftLeg interface\n");
+        return false;
+    } else printf("[success] testTEO acquired robot IVelocityControl leftLeg interface\n");
+**/
+    /** SET CONFIG RIGHT LEG **/
     yarp::os::Property optionsRightLeg;
     optionsRightLeg.put("device","remote_controlboard");
     optionsRightLeg.put("remote","/teo/rightLeg");
@@ -65,21 +70,32 @@ int main(void) {
         yarp::os::Network::fini();
         return 1;
     }
-
-    bool okRL = devRightLeg.view(posRightLeg);
-    if (!okRL) {
-        printf("[warning] Problems acquiring robot interface\n");
+    // Position control
+    if (! devRightLeg.view(posRightLeg)) {
+        printf("[warning] Problems acquiring robot IPositionControl rightLeg interface\n");
         return false;
-    } else printf("[success] testTEO acquired robot RightArm inteface\n");
-
+    } else printf("[success] testTEO acquired robot IPositionControl rightLeg inteface\n");
+    // Velocity control
+/**    if (!devRightLeg.view(velRightLeg)) {
+        printf("[warning] Problems acquiring robot IVelocityControl rightLeg interface\n");
+        return false;
+    } else printf("[success] testTEO acquired robot IPositionControl rightLeg inteface\n");
+**/
 
     /** SET MODE **/
+    /** Position Mode **/
     printf("Set position mode Left Leg\n");
     posLeftLeg->setPositionMode();
-    printf("Set position mode Left Leg\n");
+    printf("Set position mode Right Leg\n");
     posRightLeg->setPositionMode();
+    /** Velocity Mode **/
+/**    printf("Set velocity mode Left Leg\n");
+    velLeftLeg->setVelocityMode();
+    printf("Set velocity mode Right Leg\n");
+    velRightLeg->setVelocityMode();
+**/
 
-    /** SET LEFT LEG TO 0 **/
+    /** POSITION CONTROL. SET LEFT LEG TO 0 **/
     posLeftLeg->positionMove(0,0);
     posLeftLeg->positionMove(1,0);
     posLeftLeg->positionMove(2,0);
@@ -87,7 +103,7 @@ int main(void) {
     posLeftLeg->positionMove(4,0);
     posLeftLeg->positionMove(5,0);
     printf("Left Leg :(0 0 0 0 0 0)\n");
-    /** SET RIGHT LEG TO 0 **/
+    /** POSITION CONTROL. SET RIGHT LEG TO 0 **/
     posRightLeg->positionMove(0,0);
     posRightLeg->positionMove(1,0);
     posRightLeg->positionMove(2,0);
@@ -96,9 +112,8 @@ int main(void) {
     posRightLeg->positionMove(5,0);
     printf("Right Leg :(0 0 0 0 0 0)\n");
 
-   
-    yarp::os::Time::delay(10);
-    /** LOOP THREAD**/
+    yarp::os::Time::delay(5);
+    /** LOOP THREAD **/
     MyRateThread myRateThread;
     myRateThread.start();
 
@@ -109,7 +124,8 @@ int main(void) {
     myRateThread.stop();
     port0.close();
     port1.close();
-    yarp::os::Time::delay(0.5); 
-    
+    devRightLeg.close();
+    devLeftLeg.close();
+    yarp::os::Time::delay(0.5);
 
 }

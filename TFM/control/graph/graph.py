@@ -1,96 +1,40 @@
-import yarp
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
 
+data = np.loadtxt('/home/teo/data.csv', delimiter=",")
+n = data[:,0]
+t = data[:,1]
+zmp = data[:,2]
+y = data[:,3]
+error = data[:,4]
+ref = data[:,5]
+u = data[:,6]
+x1 = data[:,7]
+x2 = data [:,8]
+angle = data[:,9]
 
-# Initialise YARP
-yarp.Network.init()
-# Create a port
-p = yarp.Port()
-
-# Open the port
-p.open("/gui:i")
-
-# Connect output and input ports
-yarp.Network.connect("/jr3:o", "/gui:i")
-# Read the data from de port
-data = yarp.Bottle()
-
+# Sole borders
+front = ((120+55)/1000)*np.ones(n.size);
+back = -70/1000*np.ones(n.size);
+#left = (140+37.5)/1000*np.ones(size(n));
+#right = -(140+37.5)/1000*np.ones(size(n));
 
 fig = plt.figure()
 
+plt.plot(t, zmp, 'g-', label= 'zmp')
+plt.plot(t, y, 'r-', label = 'zmp_model')
+plt.plot(t, error, 'b-', label = 'error')
+plt.plot(t,ref,'k-', label = 'ref')
+plt.plot(t,u,'m-', label = 'u')
+plt.plot(t,x1,'y')
+plt.plot(t,x2,'c')
+plt.plot(t,angle,'y-', label = 'angle')
+plt.plot(t,front,'k--',t,back,'k--');
 
-XZMP = np.zeros(1)
-YZMP = np.zeros(1)
-XZMP_real = np.zeros(1)
-YZMP_real = np.zeros(1)
-U = np.zeros(1)
-Y = np.zeros(1)
-t = np.zeros(1)
-n=0
+plt.title('K=[12.55, 4.91], Ki=10, Kp=-1.5, Ku=-2.05')
+plt.xlabel('t [s]')
 
-while 1:
-
-    plt.grid()
-    plt.title('System Outputs', fontsize=12, fontweight='bold')
-    plt.xlabel('t [mm]')
-
-
-    # Reading YARP port
-    print "Reading..."
-
-    p.read(data)
-    Fx = data.get(0).asDouble()/100
-    Fy = data.get(1).asDouble()/100
-    Fz = data.get(2).asDouble()/100
-    Mx = data.get(3).asDouble()/100
-    My = data.get(4).asDouble()/100
-    Mz = data.get(5).asDouble()/100
-    print "F = [" + repr(Fx) + "," + repr(Fy) + "," + repr(Fz) +"]"
-    print "M = [" + repr(Mx) + "," + repr(My) + "," + repr(Mz) +"]"
-
-    xzmp = data.get(6).asDouble()
-    yzmp = data.get(7).asDouble()
-    u = data.get(8).asDouble()
-    y = data.get(9).asDouble()
-    xzmp_real = data.get(10).asDouble()
-    yzmp_real = data.get(11).asDouble()
-
-    T=0.001
+plt.show()
 
 
-    print "zmp = [" + repr(xzmp) + "," + repr(yzmp)+ "]"
-    print "u = " + repr(u)
-    print "y = " + repr(y)
-    print "zmp_real = [" + repr(xzmp_real) + "," + repr(yzmp_real)+ "]"
-
-    XZMP = np.append(XZMP,xzmp)
-    YZMP = np.append(YZMP,yzmp)
-    XZMP_real = np.append(XZMP_real,xzmp_real)
-    YZMP_real = np.append(YZMP_real,yzmp_real)
-    U = np.append(U,u)
-    Y = np.append(Y,y)
-    t = np.append(t, T*n)
-
-    print "t = " + repr(t[n])
-
-    plt.plot(t,XZMP,'c', label='x_zmp')
-    plt.plot(t,YZMP,'y', label='y_zmp')
-    plt.plot(t,XZMP_real,'b', label='x_zmp_real')
-    plt.plot(t,YZMP_real,'g', label='y_zmp_real')
-    plt.plot(t,U,'g', label='u')
-    plt.plot(t,Y,'r', label='T')
-
-    legend = plt.legend(loc='upper right')
-
-    n=n+1
-
-    fig.show()
-
-    #Sample time 1ms
-    plt.pause(0.00001) #delay in seconds
-    fig.savefig('./graph.png')
-    fig.clf()
-
-
-    p.close()
