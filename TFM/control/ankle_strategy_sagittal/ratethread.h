@@ -18,13 +18,24 @@ public:
     MyRateThread() : yarp::os::RateThread(TS*1000.0){
         n = 1;
         e = 0.194;
+        sum = 0.0;
+        offs_x = 0.0;
+        offs_y = 0.0;
     }
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
         //  if(n >= 400 && n<=430){ref = 0.00067*n-0.267;}
         //  else if(n >= 430){ref= 0.0211;}
-        ref = 0.0;
+        if (n <= 300){ref = 0.0;}
+        else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
+        else if (n >= 600 && n <= 630){ref = -(0.01/30)*n + 0.21;}
+        else if (n >= 900 && n <= 930){ref = (0.02/30)*n - 0.6;}
+        else if (n >= 1200 && n <= 1230){ref = -(0.02/30)*n + 0.82;}
+        else if (n >= 1500 && n <= 1530){ref = (0.03/30)*n - 1.5;}
+        else if (n >= 1800 && n <= 1830){ref = -(0.03/30)*n + 1.83;}
+        else {ref = ref;}
+        //ref = 0.0;
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -76,11 +87,13 @@ public:
         _yzmp = (_yzmp0 * _fz0 + _yzmp1 * _fz1) / (_fz0 + _fz1);
         
         // OFFSET
-        if (n >=0 && n < 10){
+        if (n >=1 && n < 10){
             sum = _xzmp + sum;
             offs_x = sum / n;
+            printf("offs = %f\n", offs_x);
         }
-        _xzmp = (_xzmp - offs_x);
+//        offs_x = 0.0;
+        _xzmp = _xzmp - offs_x;
         _yzmp = _yzmp - offs_y;
         
         if ((_xzmp != _xzmp) || (_yzmp != _yzmp)){
@@ -107,18 +120,20 @@ public:
         //        posLeftLeg->positionMove(1, angle_y); // axial hip Left Leg
 
         /** Velocity control **/
-        velRightLeg->velocityMove(4, vel); // velocity in degrees per second
-        velLeftLeg->velocityMove(4, vel);
+        velRightLeg->velocityMove(4, -vel); // velocity in degrees per second
+        velLeftLeg->velocityMove(4, -vel);
     }
     void printData(){
         cout << "t = " << _dt << endl;
-//        cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
+        cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
 //        cout << "Azmp = " << _eval_x._zmp_error << endl;
 //        cout << "x_model = " << _eval_x.y << endl;
 //        cout << "x1[0] = " << _eval_x._x1[0] << endl;
 //        cout << "Ud = " << _eval_x._u_ref << endl;
 //        cout << "u = " << _eval_x._u << endl;
 //        cout << "angle_x = " << angle_x << endl;
+        cout << "vel = " << vel << endl;
+
     }
     void saveToFile()
     {

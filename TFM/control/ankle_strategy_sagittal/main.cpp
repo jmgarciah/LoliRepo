@@ -122,6 +122,8 @@ int main(void) {
     myRateThread.stop();
     port0.close();
     port1.close();
+    devRightLeg.close();
+    devLeftLeg.close();
     yarp::os::Time::delay(0.5); 
     
 
