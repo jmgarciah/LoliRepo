@@ -51,10 +51,14 @@ public:
         port0.read(b0);
         port1.read(b1);
 
+        _fx0 = b0.get(0).asDouble();
+        _fy0 = b0.get(1).asDouble();
         _fz0 = b0.get(2).asDouble();
         _mx0 = b0.get(3).asDouble();
         _my0 = b0.get(4).asDouble();
 
+        _fx1 = b1.get(0).asDouble();
+        _fy1 = b1.get(1).asDouble();
         _fz1 = b1.get(2).asDouble();
         _mx1 = b1.get(3).asDouble();
         _my1 = b1.get(4).asDouble();
@@ -71,6 +75,11 @@ public:
 
         _xzmp = (_xzmp0 * _fz0 + _xzmp1 * _fz1) / (_fz0 + _fz1);
         _yzmp = (_yzmp0 * _fz0 + _yzmp1 * _fz1) / (_fz0 + _fz1);
+        
+        // OFFSET
+        _xzmp = (_xzmp - (-0.017));
+        _yzmp = _yzmp - (-0.017);
+        
         if ((_xzmp != _xzmp) || (_yzmp != _yzmp)){
             printf ("Warning: No zmp data\n");
         }
@@ -81,7 +90,7 @@ public:
         _eval_x.model(_xzmp, ref);
        // _eval_y.model(_yzmp);
 
-        angle_x = -asin(_eval_x.y/1.03)*180/PI;
+        angle_x = -1.5*asin(_eval_x.y/1.03)*180/PI;
         // angle_y = 90-(acos(_eval_y.y/1.03)*180/PI);
 
     }
