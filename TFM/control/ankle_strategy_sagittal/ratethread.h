@@ -21,12 +21,13 @@ public:
         sum = 0.0;
         offs_x = 0.0;
         offs_y = 0.0;
-    }
+    	X = 0.0;
+	}
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
+        else if (n >= 300 && n <= 330){ref = (0.02/30)*n - 0.2;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
@@ -78,14 +79,16 @@ public:
         _xzmp = (_xzmp0 * _fz0 + _xzmp1 * _fz1) / (_fz0 + _fz1);
         _yzmp = (_yzmp0 * _fz0 + _yzmp1 * _fz1) / (_fz0 + _fz1);
 
+
+
         // OFFSET
-        if (n >=1 && n < 30){
+        if (n >=1 && n < 50){
             sum = _xzmp + sum;
             offs_x = sum / n;
             printf("offs = %f\n", offs_x);
         }
 
-        _xzmp = _xzmp - offs_x;
+        X  = (_xzmp - offs_x);
         _yzmp = _yzmp - offs_y;
 
         if ((_xzmp != _xzmp) || (_yzmp != _yzmp)){
@@ -95,10 +98,11 @@ public:
 
     void evaluateModel(){
         /** EVALUACION MODELO **/
-        _eval_x.model(_xzmp, ref);
+//        _eval_x.model(X, ref);
         // _eval_y.model(_yzmp);
 
-        angle_x = -asin(_eval_x.y/L)*180/PI;
+        //angle_x = -asin(ref/L)*180/PI;
+	angle_x = -(1.5*ref/0.016);
 //	angle_x = - _eval_x._u *180/PI;
         // angle_y = asin(_eval_x.y/1.03)*180/PI;
 //        vel = 0.35* _eval_x.dy * (1/L) * (180/PI); //velocity in degrees per second
@@ -118,7 +122,7 @@ public:
     }
     void printData(){
         cout << "t = " << _dt << endl;
-        cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
+        cout << "ZMP = [" << X << ", " << _yzmp << "]" << endl;
 //        cout << "Azmp = " << _eval_x._zmp_error << endl;
 //        cout << "x_model = " << _eval_x.y << endl;
 //        cout << "x1[0] = " << _eval_x._x1[0] << endl;
@@ -132,7 +136,7 @@ public:
     {
         fprintf(fp,"\n%d", n);
         fprintf(fp,",%.4f", _dt);
-        fprintf(fp,",%.15f", _xzmp);
+        fprintf(fp,",%.15f", X);
         fprintf(fp,",%.15f", _eval_x.y);
         fprintf(fp,",%.15f", _eval_x._zmp_error);
         fprintf(fp,",%.15f", _eval_x._zmp_ref);
@@ -164,7 +168,7 @@ private:
     float _xzmp1, _yzmp1; // ZMP sensor 1
     float _xzmp; // Global x_ZMP
     float _yzmp; // Global y_ZMP
-
+    float X;
     float angle_x;
     float angle_y;
     float vel;

@@ -20,9 +20,9 @@ LIPM2d::LIPM2d()
     _D = 0.3257;
     _K[0] = 13.5366;
     _K[1] = 5.1035;
-    _Ki = 10.0;
-    _Kp = 0.1;
-    _Kd = 0.01;
+    _Ki = 2.0;
+    _Kp = 0.2;
+    _Kd = 0.001;
     _Ku = 1.75;
     _T = 0.03;
 
@@ -159,7 +159,7 @@ float LIPM2d::model(float zmp_real, float ref){
     Dout = _Kd * ((_zmp_error - _pre_zmp_error) / _T);
 
     PIDout = Pout + Iout + Dout;
-
+    y = 1.0 * PIDout;
     _pre_zmp_error = _zmp_error;
 
     return PIDout;
