@@ -121,8 +121,6 @@ int main(void) {
     do {
         c=getchar();
     } while(c != '\n');
-//    velRightLeg->velocityMove(4, 0);
-//    velLeftLeg->velocityMove(4, 0);
     myRateThread.stop();
     port0.close();
     port1.close();

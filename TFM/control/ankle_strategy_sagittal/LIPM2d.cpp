@@ -20,10 +20,10 @@ LIPM2d::LIPM2d()
     _D = 0.3257;
     _K[0] = 13.5366;
     _K[1] = 5.1035;
-    _Ki = 2.0;
-    _Kp = 0.2;
-    _Kd = 0.001;
-    _Ku = 1.75;
+    _Ki = 10.0;
+    _Kp = -0.5;
+    //_Kd = -0.5;
+    _Ku = 1.6;
     _T = 0.03;
 
     cout << "Discrete-time Space State Model description:" << endl;
@@ -73,12 +73,14 @@ LIPM2d::~LIPM2d(){
 
 float LIPM2d::model(float zmp_real, float ref){
      /** STATE FEEDBACK WITH INTEGRAL ACTION **/
-/**    _zmp_ref = ref;
+
+/**
+    _zmp_ref = ref;
     _zmp_error = _zmp_ref - zmp_real;
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
     _z[0] = _z[1];
-    _u_ref = sin(_zmp_ref/1.03); // L is the pendulum longitude.
+    _u_ref = _zmp_ref/L; // L is the pendulum longitude.
 
     _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_z + _z[0])*_T + _Kp*_z[0] - _Ku*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
@@ -91,15 +93,17 @@ float LIPM2d::model(float zmp_real, float ref){
     pre_y = y;
 **/
 
-/**    _zmp_ref = ref;
+    // Control diagram where ""error = ZMPref - ZMPreal"" and y is not feedbacked, it is sent to the robot
+
+    _zmp_ref = ref;
 
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
 
-    _u_ref = sin(_zmp_ref/L); // L = 1.03 is the pendulum longitude.
+    _u_ref = _zmp_ref/L; // L = 0.8927 is the pendulum longitude.
     _zmp_error = _zmp_ref - zmp_real;
 
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_zmp_error + _zmp_error)*_T + _Kp*_zmp_error - _Ku*_u_ref;
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(_pre_zmp_error + _zmp_error)*_T + _Kp*_zmp_error - _Ku*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
 //    dy = (y - pre_y) / _T; // velocity
 
@@ -107,8 +111,10 @@ float LIPM2d::model(float zmp_real, float ref){
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
 
     pre_y = y;
-    pre_zmp_error = _zmp_error;
-**/
+    _pre_zmp_error = _zmp_error;
+
+    return y;
+
 
 /**    _zmp_ref = ref;
 
@@ -151,7 +157,7 @@ float LIPM2d::model(float zmp_real, float ref){
 
     /** PID CLASSIC CONTROL **/
 
-    _zmp_ref = ref;
+/**    _zmp_ref = ref;
     _zmp_error = ref - zmp_real;
 
     Pout = _Kp * _zmp_error;
@@ -163,6 +169,6 @@ float LIPM2d::model(float zmp_real, float ref){
     _pre_zmp_error = _zmp_error;
 
     return PIDout;
-
+**/
 
 }
