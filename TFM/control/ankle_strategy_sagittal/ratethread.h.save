@@ -27,7 +27,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.05/30)*n - 0.5;}
+        else if (n >= 300 && n <= 330){ref = (0.02/30)*n - 0.2;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
@@ -102,10 +102,7 @@ public:
         // _eval_y.model(_yzmp);
 
         //angle_x = -asin(ref/L)*180/PI;
-	//angle_x = -(1.5*ref/0.016);
-	if (ref == 0){angle_x = 0.0;} else { angle_x = -(ref +0.0018)/0.0135;}
-//	angle_x = -((ref/0.0156)+(0.5186*exp(-100*ref))+12*ref);
-
+	angle_x = -(0.95*ref*100);
 //	angle_x = - _eval_x._u *180/PI;
         // angle_y = asin(_eval_x.y/1.03)*180/PI;
 //        vel = 0.35* _eval_x.dy * (1/L) * (180/PI); //velocity in degrees per second
@@ -131,7 +128,7 @@ public:
 //        cout << "x1[0] = " << _eval_x._x1[0] << endl;
 //        cout << "Ud = " << _eval_x._u_ref << endl;
 //        cout << "u = " << _eval_x._u << endl;
-        cout << "angle_x = " << angle_x << endl;
+//        cout << "angle_x = " << angle_x << endl;
 //        cout << "vel = " << vel << endl;
 
     }

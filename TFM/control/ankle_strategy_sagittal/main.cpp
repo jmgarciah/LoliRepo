@@ -112,7 +112,7 @@ int main(void) {
     posRightLeg->positionMove(5,0);
     printf("Right Leg :(0 0 0 0 0 0)\n");
 
-    yarp::os::Time::delay(10);
+    yarp::os::Time::delay(5);
     /** LOOP THREAD **/
     MyRateThread myRateThread;
     myRateThread.start();
