@@ -27,7 +27,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.05/30)*n - 0.5;}
+        else if (n >= 300 && n <= 330){ref = (0.07/30)*n - 0.7;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
@@ -103,8 +103,9 @@ public:
 
         //angle_x = -asin(ref/L)*180/PI;
 	//angle_x = -(1.5*ref/0.016);
-	if (ref == 0){angle_x = 0.0;} else { angle_x = -(ref +0.0018)/0.0135;}
-//	angle_x = -((ref/0.0156)+(0.5186*exp(-100*ref))+12*ref);
+	if (ref == 0){angle_x = 0.0;} else { 
+	//angle_x = -(ref +0.0018)/0.0135;}
+	angle_x = -((ref/0.0135)+(0.5186*exp(-100*ref)));}
 
 //	angle_x = - _eval_x._u *180/PI;
         // angle_y = asin(_eval_x.y/1.03)*180/PI;
