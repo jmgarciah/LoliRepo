@@ -22,6 +22,8 @@ public:
         offs_x = 0.0;
         offs_y = 0.0;
     	X = 0.0;
+        angle_x = 0.0;
+        angle_x_pre = 0.0;
 	}
     void run(){
         printf("----------\n Running\n");
@@ -29,6 +31,7 @@ public:
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.06/30)*n - 0.6;}
         else {ref = ref;}
+        //ref = 0.0;
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -99,26 +102,21 @@ public:
     void evaluateModel(){
         /** EVALUACION MODELO **/
         _eval_x.model(X, ref);
-        // _eval_y.model(_yzmp);
 
+        // Angle sent to ankle joints
         angle_x = -(_eval_x.y-(4.3948*pow(_eval_x.y,2))+0.23*_eval_x.y)/0.0135;
-
-//      angle_y = asin(_eval_x.y/1.03)*180/PI;
-//      vel = 0.35* _eval_x.dy * (1/L) * (180/PI); //velocity in degrees per second
+        angVel = 0.22*((angle_x - angle_x_pre)/TS);
+        angle_x_pre = angle_x;
     }
 
     void setJoints(){
         /** Position control **/
-        posRightLeg->positionMove(4, angle_x); // position in degrees
-        posLeftLeg->positionMove(4, angle_x);
-        //        posRightLeg->positionMove(5, -angle_y); // axial ankle Right Leg
-        //        posRightLeg->positionMove(1, -angle_y); // axial hip Right Leg
-        //        posLeftLeg->positionMove(5, angle_y); // axial ankle Left Leg
-        //        posLeftLeg->positionMove(1, angle_y); // axial hip Left Leg
+//        posRightLeg->positionMove(4, angle_x); // position in degrees
+//        posLeftLeg->positionMove(4, angle_x);
 
         /** Velocity control **/
-//        velRightLeg->velocityMove(4, -vel); // velocity in degrees per second
-//        velLeftLeg->velocityMove(4, -vel);
+        velRightLeg->velocityMove(4, angVel); // velocity in degrees per second
+        velLeftLeg->velocityMove(4, angVel);
     }
     void printData(){
         cout << "t = " << _dt << endl;
@@ -128,8 +126,10 @@ public:
 //        cout << "x1[0] = " << _eval_x._x1[0] << endl;
 //        cout << "Ud = " << _eval_x._u_ref << endl;
 //        cout << "u = " << _eval_x._u << endl;
-        cout << "angle_x = " << angle_x << endl;
-//        cout << "vel = " << vel << endl;
+//        cout << "angle_x = " << angle_x << endl;
+//        cout << "angle_x_pre = " << angle_x_pre << endl;
+        printf("angle_x = %.15f\n", angle_x);
+        cout << "angVel = " << angVel << endl;
 
     }
     void saveToFile()
@@ -143,20 +143,15 @@ public:
         fprintf(fp,",%10f", _eval_x._u);
 	fprintf(fp,",%10f", _eval_x._x1[0]);
 	fprintf(fp,",%10f", _eval_x._x2[0]);
-        fprintf(fp,",%f", angle_x);
-//        fprintf(fp,",%f", vel);
-
-        //        fprintf(fp,",%.15f", _eval_y._r);
-        //        fprintf(fp,",%.15f", _yzmp);
-        //        fprintf(fp,",%.15f", _eval_y.y);
-        //        fprintf(fp,",%f", angle_y);
+        //fprintf(fp,",%f", angle_x);
+        fprintf(fp,",%f", angVel);
     }
 
 
 private:
     int n;
     LIPM2d _eval_x;
-    //LIPM2d _eval_y;
+
     float _fx0, _fy0, _fz0, _mx0, _my0; // F-T from sensor 0
     float _fx1, _fy1, _fz1, _mx1, _my1; // F-T from sensor 1
 
@@ -169,9 +164,9 @@ private:
     float _xzmp; // Global x_ZMP
     float _yzmp; // Global y_ZMP
     float X;
-    float angle_x;
+    float angle_x, angle_x_pre;
     float angle_y;
-    float vel;
+    float angVel; //Angular velocity in degrees per second
 
     double init_time, init_loop, curr_time, _dt;
 

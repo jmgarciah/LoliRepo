@@ -22,7 +22,6 @@ LIPM2d::LIPM2d()
     _K[1] = 5.1035;
     _Ki = 10.0;
     _Kp = -0.5;
-    //_Kd = -0.5;
     _Ku = 1.65;
     _T = 0.03;
 
@@ -74,25 +73,6 @@ LIPM2d::~LIPM2d(){
 float LIPM2d::model(float zmp_real, float ref){
      /** STATE FEEDBACK WITH INTEGRAL ACTION **/
 
-/**
-    _zmp_ref = ref;
-    _zmp_error = _zmp_ref - zmp_real;
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-    _z[0] = _z[1];
-    _u_ref = _zmp_ref/L; // L is the pendulum longitude.
-
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_z + _z[0])*_T + _Kp*_z[0] - _Ku*_u_ref;
-    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-    dy = (y - pre_y) / _T; // velocity
-    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
-    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-    _z[1] = _zmp_error - y;
-
-    pre_z = _z[0];
-    pre_y = y;
-**/
-
     // Control diagram where ""error = ZMPref - ZMPreal"" and y is not feedbacked, it is sent to the robot
 
     _zmp_ref = ref;
@@ -115,60 +95,5 @@ float LIPM2d::model(float zmp_real, float ref){
 
     return y;
 
-
-/**    _zmp_ref = ref;
-
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-
-    _u_ref = sin(_zmp_ref/L); // L = 1.03 is the pendulum longitude.
-    _zmp_error = _zmp_ref - zmp_real;
-    _z[1] = _zmp_error - y;
-
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(_z[0] + _z[1])*_T + _Kp*_z[1] - _Ku*_u_ref;
-    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-
-    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
-    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-
-    _z[0] = _z[1];
-**/
-
-/**    _zmp_ref = ref;
-
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-
-    _u_ref = sin(_zmp_ref/L); // L is the pendulum longitude.
-    _zmp_error = _zmp_ref - zmp_real;
-    _z[1] = zmp_real - y;
-
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(_z[0] + _z[1])*_T + _Kp*_z[1] - _Ku*_u_ref - _zmp_error;
-    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-    dy = (y - pre_y) / _T; // velocity
-
-
-    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
-    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-
-    _z[0] = _z[1];
-    pre_y = y;
-**/
-
-    /** PID CLASSIC CONTROL **/
-
-/**    _zmp_ref = ref;
-    _zmp_error = ref - zmp_real;
-
-    Pout = _Kp * _zmp_error;
-    Iout =  _Ki * (_pre_zmp_error + _zmp_error) * _T;
-    Dout = _Kd * ((_zmp_error - _pre_zmp_error) / _T);
-
-    PIDout = Pout + Iout + Dout;
-    y = 1.0 * PIDout;
-    _pre_zmp_error = _zmp_error;
-
-    return PIDout;
-**/
 
 }
