@@ -21,10 +21,9 @@ public:
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
-        if(n >= 400 && n<=430){ref = 0.00067*n-0.267;}
-        else if(n >= 430){ref= 0.0211;}
-      //  if (n >= 400){ref=0.02;}
-        else{ref = 0.0;}
+      //  if(n >= 400 && n<=430){ref = 0.00067*n-0.267;}
+      //  else if(n >= 430){ref= 0.0211;}
+        ref = 0.0;
         getInitialTime();
         readFTSensor();
         zmpComp();
