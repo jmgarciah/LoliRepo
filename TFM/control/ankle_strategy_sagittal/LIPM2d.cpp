@@ -22,7 +22,7 @@ LIPM2d::LIPM2d()
     _K[1] = 5.1035;
     _Ki = 10.0;
     _Kp = -0.5;
-    _Ku = 0.65;
+    _Ku = 1.75;
     _T = 0.03;
 
     cout << "Discrete-time Space State Model description:" << endl;
@@ -85,31 +85,31 @@ float LIPM2d::model(float zmp_real, float ref){
     pre_y = y;
 **/
 
-/** _zmp_ref = ref;
+    _zmp_ref = ref;
 
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
 
-    _u_ref = sin(_zmp_ref/1.03); // L = 1.03 is the pendulum longitude.
+    _u_ref = sin(_zmp_ref/L); // L = 1.03 is the pendulum longitude.
     _zmp_error = _zmp_ref - zmp_real;
 
     _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_zmp_error + _zmp_error)*_T + _Kp*_zmp_error - _Ku*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-    dy = (y - pre_y) / _T; // velocity
+//    dy = (y - pre_y) / _T; // velocity
 
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
 
     pre_y = y;
     pre_zmp_error = _zmp_error;
-**/
+
 
 /**    _zmp_ref = ref;
 
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
 
-    _u_ref = sin(_zmp_ref/1.03); // L = 1.03 is the pendulum longitude.
+    _u_ref = sin(_zmp_ref/L); // L = 1.03 is the pendulum longitude.
     _zmp_error = _zmp_ref - zmp_real;
     _z[1] = _zmp_error - y;
 
@@ -122,7 +122,7 @@ float LIPM2d::model(float zmp_real, float ref){
     _z[0] = _z[1];
 **/
 
-    _zmp_ref = ref;
+/**    _zmp_ref = ref;
 
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
@@ -133,10 +133,14 @@ float LIPM2d::model(float zmp_real, float ref){
 
     _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(_z[0] + _z[1])*_T + _Kp*_z[1] - _Ku*_u_ref - _zmp_error;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
+    dy = (y - pre_y) / _T; // velocity
+
 
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
 
     _z[0] = _z[1];
+    pre_y = y;
+**/
     return 0;
 }
