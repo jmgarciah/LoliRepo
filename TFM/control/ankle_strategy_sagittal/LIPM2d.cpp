@@ -23,7 +23,7 @@ LIPM2d::LIPM2d()
     _Ki = 10.0;
     _Kp = -0.5;
     //_Kd = -0.5;
-    _Ku = 1.6;
+    _Ku = 1.65;
     _T = 0.03;
 
     cout << "Discrete-time Space State Model description:" << endl;
