@@ -29,7 +29,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.025/30)*n - 0.25;}
+        else if (n >= 300 && n <= 330){ref = (0.02/30)*n - 0.2;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
@@ -110,7 +110,7 @@ public:
 
     void setJoints(){
         /** Position control **/
-        angle_x = - ref/0.0172;
+        angle_x = - ref/0.0166;
         posRightLeg->positionMove(4, angle_x); // position in degrees
         posLeftLeg->positionMove(4, angle_x);
 
