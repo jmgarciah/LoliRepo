@@ -28,12 +28,8 @@ public:
         //  if(n >= 400 && n<=430){ref = 0.00067*n-0.267;}
         //  else if(n >= 430){ref= 0.0211;}
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
-        else if (n >= 600 && n <= 630){ref = -(0.01/30)*n + 0.21;}
-        else if (n >= 900 && n <= 930){ref = (0.02/30)*n - 0.6;}
-        else if (n >= 1200 && n <= 1230){ref = -(0.02/30)*n + 0.82;}
-        else if (n >= 1500 && n <= 1530){ref = (0.03/30)*n - 1.5;}
-        else if (n >= 1800 && n <= 1830){ref = -(0.03/30)*n + 1.83;}
+        else if (n >= 300 && n <= 330){ref = (0.05/30)*n - 0.5;}
+	else if (n >= 600 && n <= 630){ref = -(0.05/30)*n + 1.05;}
         else {ref = ref;}
         //ref = 0.0;
         getInitialTime();
@@ -108,7 +104,7 @@ public:
 
         // angle_x = -1.5*asin(_eval_x.y/1.03)*180/PI;
         // angle_y = asin(_eval_x.y/1.03)*180/PI;
-        vel = _eval_x.dy * (1/1.03) * (180/PI); //velocity in degrees per second
+        vel = 0.35*_eval_x.dy * (1/1.03) * (180/PI); //velocity in degrees per second
     }
     void setJoints(){
         /** Position control **/
