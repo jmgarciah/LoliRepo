@@ -67,7 +67,7 @@ public:
         else if (n >= 2400 && n <= 2520){ref = -(0.04/120)*n + 0.84;}
         else {ref = ref;} **/
 
-	// RAMPO REF BACK TO ZERO. LOW INCREMENT. FORWARDS
+/**	// RAMPO REF BACK TO ZERO. LOW INCREMENT. FORWARDS
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.005/30)*n - 0.05;}
         else if (n >= 600 && n <= 630){ref = -(0.005/30)*n + 0.105;}
@@ -81,11 +81,11 @@ public:
         else if (n >= 3000 && n <= 3030){ref = -(0.025/30)*n + 2.525;}
         else if (n >= 3300 && n <= 3330){ref = (0.03/30)*n - 3.3;}
         else if (n >= 3600 && n <= 3630){ref = -(0.03/30)*n + 3.63;}
-        else {ref = ref;}
+        else {ref = ref;}**/
 
-	/** RAMP REFERENCES. BACKWARDS
+	// RAMP REFERENCES. BACKWARDS
 	if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = -0.005/30)*n + 0.05;}
+        else if (n >= 300 && n <= 330){ref = -(0.005/30)*n + 0.05;}
         else if (n >= 600 && n <= 630){ref = (0.005/30)*n - 0.105;}
         else if (n >= 900 && n <= 930){ref = -(0.01/30)*n + 0.3;}
         else if (n >= 1200 && n <= 1230){ref = (0.01/30)*n - 0.41;}
@@ -93,8 +93,13 @@ public:
         else if (n >= 1800 && n <= 1830){ref = (0.015/30)*n - 0.915;}
         else if (n >= 2100 && n <= 2130){ref = -(0.02/30)*n + 1.4;}
         else if (n >= 2400 && n <= 2430){ref = (0.02/30)*n - 1.62;}
+        else if (n >= 2700 && n <= 2730){ref = -(0.025/30)*n + 2.25;}
+        else if (n >= 3000 && n <= 3030){ref = (0.025/30)*n - 2.525;}
+        else if (n >= 3300 && n <= 3330){ref = -(0.03/30)*n + 3.3;}
+        else if (n >= 3600 && n <= 3630){ref = (0.03/30)*n - 3.63;}
+
 	else {ref = ref;}
-**/
+
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -178,14 +183,14 @@ public:
     }
     void printData(){
         cout << "t = " << _dt << endl;
-        cout << "ref = " << _eval_x._zmp_ref << endl;
+/**        cout << "ref = " << _eval_x._zmp_ref << endl;
         cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
         cout << "Azmp = " << _eval_x._zmp_error << endl;
         cout << "x_model = " << _eval_x.y << endl;
         cout << "x1[0] = " << _eval_x._x1[0] << endl;
         cout << "Ud = " << _eval_x._u_ref << endl;
         cout << "u = " << _eval_x._u << endl;
-        cout << "angle_x = " << angle_x << endl;
+        cout << "angle_x = " << angle_x << endl;**/
     }
     void saveToFile()
     {
