@@ -73,10 +73,10 @@ int main(void) {
         mz1 = b1.get(5).asDouble();
         
         /** ZMP Equations : Double Support **/
-        xzmp0 = (-my0 + e*fx0) / fz0;
+        xzmp0 = -(my0 + e*fx0) / fz0;
         yzmp0 = (mx0 + e*fy0) / fz0;
         
-        xzmp1 = (-my1 + e*fx1) / fz1;
+        xzmp1 = -(my1 + e*fx1) / fz1;
         yzmp1 =( mx1 + e*fy1) / fz1;
         
         xzmp = (xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
