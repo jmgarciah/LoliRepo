@@ -21,7 +21,7 @@ public:
     float y; // zmp output signal (to ankle joints)
     float _u_ref; // reference pendulum angle. In static position, the corresponding
               // angle to the reference ZMP u_ref = 0.0
-
+    float _u; //Compensated angle
 private:
     float _A[2][2];
     float _B[2][1];
@@ -33,7 +33,6 @@ private:
     float _zmp_ref; // ZMP reference. Static posture = 0.0
 
     float _z[2]; // model state variable
-    float _u; // model control signal. Compensated angle
     float pre_z; // previous z --> z[k-1]
 
 };

@@ -21,7 +21,7 @@ public:
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
-        if(n >= 150){ref = 0.0;}else{ref = 0.05;}
+        if(n >= 400){ref = 0.0;}else{ref = 0.0;}
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -96,6 +96,7 @@ public:
         cout << "x_model = " << _eval_x.y << endl;
         cout << "x1[0] = " << _eval_x._x1[0] << endl;
         cout << "Ud = " << _eval_x._u_ref << endl;
+        cout << "u = " << _eval_x._u << endl;
         cout << "angle_x = " << angle_x << endl;
     }
     void saveToFile()
@@ -106,6 +107,7 @@ public:
           fprintf(fp,",%.15f", _eval_x.y);
           fprintf(fp,",%.15f", _eval_x._x1[0]);
           fprintf(fp,",%.15f", _eval_x._u_ref);
+          fprintf(fp,",%f", _eval_x._u);
           fprintf(fp,",%f", angle_x);
 
 //        fprintf(fp,",%.15f", _eval_y._r);
