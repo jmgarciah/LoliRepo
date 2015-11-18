@@ -1,0 +1,1 @@
+cmd_/home/teo/jr3pci-linux-0.5/jr3pci-driver.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/teo/jr3pci-linux-0.5/jr3pci-driver.ko /home/teo/jr3pci-linux-0.5/jr3pci-driver.o /home/teo/jr3pci-linux-0.5/jr3pci-driver.mod.o
