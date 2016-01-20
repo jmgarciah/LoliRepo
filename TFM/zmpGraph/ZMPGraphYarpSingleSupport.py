@@ -72,7 +72,7 @@ while 1:
     print "M = [" + repr(Mx) + "," + repr(My) + "," + repr(Mz) +"]"
     #ZMP equations
     if Fz != 0 :
-        x = My / Fz
+        x = -My / Fz
         y = Mx / Fz
     else:
         x=0
