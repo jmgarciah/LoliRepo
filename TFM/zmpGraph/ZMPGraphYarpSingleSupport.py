@@ -105,6 +105,7 @@ while 1:
     Mz = data.get(5).asInt()/10
     print "F = [" + repr(Fx) + "," + repr(Fy) + "," + repr(Fz) +"]"
     print "M = [" + repr(Mx) + "," + repr(My) + "," + repr(Mz) +"]"
+
     #ZMP equations
     if Fz != 0 :
         x = My / Fz
