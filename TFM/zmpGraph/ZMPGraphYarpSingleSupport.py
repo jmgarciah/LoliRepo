@@ -3,45 +3,72 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-def zmpStabilityAreas():
-    #No-stability area vertex
-    p11=[-4,-4]
-    p12=[2,-4]
-    p13=[2,6]
-    p14=[-4,6]
+PI = np.pi
+d = 150
+h = 0
+def RightFoot():
+    # Big semicircle
+    ang = np.linspace(2*PI,PI,180)
+    x0 = d + 70*np.cos(ang)
+    y0 = h + 70*np.sin(ang)
 
-    #Unknown stability area vertex
-    p21=[-2.5,-2]
-    p22=[1,-2]
-    p23=[1,4]
-    p24=[-2.5,4]
+    # Straightline
+    x1 = np.ones(121) * (d-70)
+    y1 = h + np.linspace(1,121,121) -1
 
-    #Stability area vertex
-    p31=[-1.5,-1]
-    p32=[0.5,-1]
-    p33=[0.5,2.5]
-    p34=[-1.5,2.5]
+    # Little circle
+    ang2 = np.linspace(PI,14.25*PI/180,180)
+    x2 = d - 15 + 55*np.cos(ang2)
+    y2 = h + 120 + 55*np.sin(ang2)
 
-    #No-stability area (RED)
-    x1=[p11[0],p12[0],p13[0],p14[0],p11[0]]
-    y1=[p11[1],p12[1],p13[1],p14[1],p11[1]]
+    # Inclined line
+    x3 = np.linspace(d - 15 + 55*np.cos(14.25*PI/180), d + 70*np.cos(2*PI), 100)
+    y3 = np.linspace(h + 120 + 55*np.sin(14.25*PI/180), h + 70*np.sin(2*PI), 100)
 
-    #Unknown stability area (YELLOW)
-    x2=[p21[0],p22[0],p23[0],p24[0],p21[0]]
-    y2=[p21[1],p22[1],p23[1],p24[1],p21[1]]
 
-    #Stability area (GREEN)
-    x3=[p31[0],p32[0],p33[0],p34[0],p31[0]]
-    y3=[p31[1],p32[1],p33[1],p34[1],p31[1]]
+    x_red = np.concatenate([x0,x1,x2,x3])
+    y_red = np.concatenate([y0,y1,y2,y3])
+    plt.plot(x_red,y_red,'k')
 
-    #Plot configuration
-    plt.axis([-10,10,-10,10])
-    plt.plot(x1,y1,'k',x2,y2,'k',x3,y3,'k',linewidth=2.0)
-    plt.fill(x1,y1,'r')
-    plt.fill(x2,y2,'y')
-    plt.fill(x3,y3,'g')
+    x_yellow = np.concatenate([x0,x1,x2,x3])*2/3 + (d-(d*2/3))
+    y_yellow = np.concatenate([y0,y1,y2,y3])*2/3 + (h-(h*2/3))
+    plt.plot(x_yellow,y_yellow,'k')
+
+    x_green = np.concatenate([x0,x1,x2,x3])*1/3 + (d-(d*1/3))
+    y_green = np.concatenate([y0,y1,y2,y3])*1/3 + (h-(h*1/3))
+    plt.plot(x_green,y_green,'k')
+
+    plt.fill(x_red,y_red,'r')
+    plt.fill(x_yellow,y_yellow,'y')
+    plt.fill(x_green,y_green,'g')
+
     return;
 
+
+def LeftFoot():
+    # Big semicircle
+    ang = np.linspace(2*PI,PI,180)
+    x0 = d + 70*np.cos(ang)
+    y0 = h + 70*np.sin(ang)
+
+    # Straightline
+    x1 = np.ones(121) * (d-70)
+    y1 = h + np.linspace(1,121,121) -1
+
+    # Little circle
+    ang2 = np.linspace(PI,14.25*PI/180,180)
+    x2 = d - 15 + 55*np.cos(ang2)
+    y2 = h + 120 + 55*np.sin(ang2)
+
+    # Inclined line
+    x3 = np.linspace(d - 15 + 55*np.cos(14.25*PI/180), d + 70*np.cos(2*PI), 100)
+    y3 = np.linspace(h + 120 + 55*np.sin(14.25*PI/180), h + 70*np.sin(2*PI), 100)
+
+    x_sole = np.concatenate([-x0,-x1,-x2,-x3])
+    y_sole = np.concatenate([y0,y1,y2,y3])
+    plt.plot(x_sole,y_sole,'k')
+
+    return;
 # Initialise YARP
 yarp.Network.init()
 # Create a port
@@ -54,10 +81,18 @@ yarp.Network.connect("/jr3:o", "/gui:i")
 data = yarp.Bottle()
 
 fig = plt.figure()
-#fig.hold(True)
+
 while 1:
+    ax = fig.add_subplot(111)
+    ax.grid()
+    ax.axis('equal')
+    ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
+    ax.set_xlabel('x [mm]')
+    ax.set_ylabel('y [mm]')
+
     # Plotting ZMP Areas
-    zmpStabilityAreas()
+    RightFoot()
+    LeftFoot()
 
     # Reading YARP port
     print "Reading..."
