@@ -112,6 +112,7 @@ while 1:
     else:
         x=0
         y=0
+
     #Printing ZMP point
     zmp = [x,y]
     print "zmp = [" + repr(x) + "," + repr(y) + "]"
