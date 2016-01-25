@@ -118,6 +118,7 @@ while 1:
 
     plt.plot(x,y,'ko')
     fig.show()
+
     #Sample time 1ms
     plt.pause(0.001) #delay in seconds
     fig.clf()
