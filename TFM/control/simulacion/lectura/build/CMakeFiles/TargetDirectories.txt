@@ -1,0 +1,1 @@
+/home/teo/Repositorios/LoliRepo/TFM/control/simulacion/lectura/build/CMakeFiles/yarpy.dir
