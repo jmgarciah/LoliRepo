@@ -100,9 +100,9 @@ while 1:
     Fx = data.get(0).asDouble()/100
     Fy = data.get(1).asDouble()/100
     Fz = data.get(2).asDouble()/100
-    Mx = data.get(3).asInt()/10
-    My = data.get(4).asInt()/10
-    Mz = data.get(5).asInt()/10
+    Mx = data.get(3).asDouble()/10
+    My = data.get(4).asDouble()/10
+    Mz = data.get(5).asDouble()/10
     print "F = [" + repr(Fx) + "," + repr(Fy) + "," + repr(Fz) +"]"
     print "M = [" + repr(Mx) + "," + repr(My) + "," + repr(Mz) +"]"
 
