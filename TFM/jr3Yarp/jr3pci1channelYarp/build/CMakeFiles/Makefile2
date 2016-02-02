@@ -47,10 +47,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/teo/jr3Yarp/jr3pci1channelYarp
+CMAKE_SOURCE_DIR = /home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/teo/jr3Yarp/jr3pci1channelYarp/build
+CMAKE_BINARY_DIR = /home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/jr3pci1channelYarp.dir
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/teo/jr3Yarp/jr3pci1channelYarp/build
 CMakeFiles/jr3pci1channelYarp.dir/all:
 	$(MAKE) -f CMakeFiles/jr3pci1channelYarp.dir/build.make CMakeFiles/jr3pci1channelYarp.dir/depend
 	$(MAKE) -f CMakeFiles/jr3pci1channelYarp.dir/build.make CMakeFiles/jr3pci1channelYarp.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/teo/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles  1
 	@echo "Built target jr3pci1channelYarp"
 .PHONY : CMakeFiles/jr3pci1channelYarp.dir/all
 
@@ -69,9 +69,9 @@ all: CMakeFiles/jr3pci1channelYarp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/jr3pci1channelYarp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/jr3pci1channelYarp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles 0
 .PHONY : CMakeFiles/jr3pci1channelYarp.dir/rule
 
 # Convenience name for target.

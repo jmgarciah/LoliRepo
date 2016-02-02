@@ -3,7 +3,7 @@
 # A cmake file to get started with for new YARP projects.
 # It assumes you want to build an executable from source code in 
 # the current directory.
-# Replace "jr3pci1channelYarp" with whatever your executable should be called.
+# Replace "yarpy" with whatever your executable should be called.
 
 cmake_minimum_required(VERSION 2.8.9)
 
