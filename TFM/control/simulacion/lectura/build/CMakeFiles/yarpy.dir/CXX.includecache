@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/teo/Repositorios/LoliRepo/TFM/control/simulacion/lectura/LIPM2d.cpp
-LIPM2d.h
-/home/teo/Repositorios/LoliRepo/TFM/control/simulacion/lectura/LIPM2d.h
-
 /home/teo/Repositorios/LoliRepo/TFM/control/simulacion/lectura/LIPM2d.h
 iostream
 -
