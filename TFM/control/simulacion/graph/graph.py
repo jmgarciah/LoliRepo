@@ -7,12 +7,15 @@ import matplotlib.pyplot as plt
 yarp.Network.init()
 # Create a port
 p = yarp.Port()
+
 # Open the port
 p.open("/gui:i")
+
 # Connect output and input ports
-yarp.Network.connect("/system:o", "/gui:i")
+yarp.Network.connect("/jr3:o", "/gui:i")
 # Read the data from de port
 data = yarp.Bottle()
+
 
 fig = plt.figure()
 
@@ -25,20 +28,29 @@ t = np.zeros(1)
 n=0
 
 while 1:
-#    ax = fig.add_subplot(111)
-#    ax.grid()
-#    ax.axis('equal')
-#    ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
-#    ax.set_xlabel('x [mm]')
-#    ax.set_ylabel('y [mm]')
+
+    plt.grid()
+    plt.title('System Outputs', fontsize=12, fontweight='bold')
+    plt.xlabel('t [mm]')
+
 
     # Reading YARP port
     print "Reading..."
+
     p.read(data)
-    xzmp = data.get(0).asDouble()*100
-    yzmp = data.get(1).asDouble()*100
-    u = data.get(2).asDouble()*10
-    y = data.get(3).asInt()*10
+    Fx = data.get(0).asDouble()/100
+    Fy = data.get(1).asDouble()/100
+    Fz = data.get(2).asDouble()/100
+    Mx = data.get(3).asDouble()/10
+    My = data.get(4).asDouble()/10
+    Mz = data.get(5).asDouble()/10
+    print "F = [" + repr(Fx) + "," + repr(Fy) + "," + repr(Fz) +"]"
+    print "M = [" + repr(Mx) + "," + repr(My) + "," + repr(Mz) +"]"
+
+    xzmp = data.get(6).asDouble()
+    yzmp = data.get(7).asDouble()
+    u = data.get(8).asDouble()
+    y = data.get(9).asDouble()
 
 
     T=0.001
@@ -54,17 +66,22 @@ while 1:
     Y = np.append(Y,y)
     t = np.append(t, T*n)
 
-    plt.plot(t,XZMP,'b.')
-    plt.plot(t,YZMP,'r.')
-    plt.plot(t,U,'g.')
-    plt.plot(t,Y,'m.')
+    print "t = " + repr(t[n])
+
+    plt.plot(t,XZMP,'b', label='x_zmp')
+    plt.plot(t,YZMP,'r', label='y_zmp')
+    plt.plot(t,U,'g', label='u')
+    plt.plot(t,Y,'m', label='T')
+
+    legend = plt.legend(loc='upper right')
 
     n=n+1
 
     fig.show()
 
     #Sample time 1ms
-    plt.pause(0.001) #delay in seconds
+    plt.pause(0.00001) #delay in seconds
+    fig.savefig('./graph.png')
     fig.clf()
 
 
