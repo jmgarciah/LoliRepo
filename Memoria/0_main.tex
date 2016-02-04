@@ -1,0 +1,84 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Loli Pinel del Valle
+% Junio 2015
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	MAIN
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt,twoside]{book}
+
+\linespread{1.3} %Interlineado
+\setlength{\parindent}{1.5cm}  % Longitud de la sangria
+
+%\usepackage[bottom=2.5cm]{geometry} % Required to change the page size to A4
+%\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
+\usepackage[left=2.5cm,top=2.5cm,right=2cm,bottom=2.5cm]{geometry}
+
+\usepackage[utf8]{inputenc} 
+%\usepackage[spanish]{babel} 
+
+\usepackage[colorlinks=false,linkcolor=black]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{graphicx} % Required for including pictures
+\usepackage[small]{caption}  % Letra caption mas pequeña
+\usepackage{subfigure}
+
+\usepackage{color} 
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+%\usepackage{wrapfig} % Allows in-line images such as the example fish picture
+%\graphicspath{{Pictures/}} % Specifies the directory where pictures are stored
+
+
+\usepackage{listings} %Para poner código
+\usepackage{fancyhdr} % Cabeceras
+
+\pagestyle{fancy}
+%%Encabezados
+\cfoot{}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RO]{\thepage}
+\fancyhead[LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\input{01_portada/portada}
+
+%\renewcommand{\tablename}{Tabla}
+%\renewcommand{\contentsname}{Índice General}
+%\renewcommand{\listfigurename}{Índice de Figuras}
+%\renewcommand{\listtablename}{Índice de Tablas}
+\renewcommand{\thepage}{\roman{page}}
+%\renewcommand{\chaptername}{Capítulo}
+%\renewcommand{\bibname}{Referencias}
+
+\setcounter{page}{0}
+\tableofcontents
+\addcontentsline{toc}{chapter}{\contentsname}
+
+
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+\newpage
+\setlength{\parindent}{1cm} %Sangria
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{0}
+
+\input{02_intro/intro}
+\graphicspath{{03_estado_tecnica/Imagenes/}}
+\input{03_estado_tecnica/estado_tecnica}
+\graphicspath{{04_plataforma/Imagenes/}}
+\input{04_plataforma/plataforma}
+\addcontentsline{toc}{chapter}{Bibliography}
+\input{99_referencias}
+
+\end{document}
+
