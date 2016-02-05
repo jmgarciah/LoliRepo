@@ -1,11 +1,7 @@
 
 \chapter{Platform description}
 \section{Humanoid robot TEO}
-El robot humanoide RH-2, también conocido como TEO (Task Environment Operator), de la Universidad Carlos III de Madrid, es una versión avanzada de los humanoides RH-0 y RH-1. 
-
-El RH-2 tiene una altura de 165cm que supera los 150cm del RH-1 y los 120cm del RH-0. Su peso es de, aproximadamente , 60 kg y se estima que puede soportar objetos de hasta 2kg.
-
-Cuenta con 24 GDL (26 GDL teniendo en cuenta los motores de la cabeza), los cuales son 3 grados más que las anteriores versiones de RH. En la Figura \ref{ref:gdl} se muestran los grados de libertad del robot, además del el tipo de movimiento que realiza cada uno, siendo 6 GDL para cada pierna, 6 GDL para cada brazo, 2 GDL en el torso y 2 GDL en la cabeza.
+Humanoid robot RH-2, also known as TEO (Task Environment Operator), from University Carlos III of Madrid, is and advanced version of humanoid robots RH-0 and RH-1. TEO is 165 cm high overtaking 150 cm of RH-1 and 120 cm of RH-0. It wheights about 60 kg and it can carry about 2 kg of payload. It has 24 DOFs (26 DOFs taking into account head motors), 3 more DOFs than in previous RH versions. In Figure \ref{ref:gdl} one can see the robot DOFs, besides their movements, being 6 DOFs for each leg, 6 DOFs for each arm, 2 DOFs for the torso and 2 DOFs for the head.
 
 \begin{figure}[!hbt]
 \centering
@@ -14,35 +10,36 @@ Cuenta con 24 GDL (26 GDL teniendo en cuenta los motores de la cabeza), los cual
 \label{fig:gdl}
 \end{figure}
 
-El robot consta de 4 microprocesadores, uno encargado de la locomoción, otro encargado de la manipulación, otro encargado de realizar las tareas de visión artificial y por último, un procesador central que gestiona el resto. El procesador encargado de la locomoción, que controla las piernas y el torso, se encargará de procesar la información de los sensores para lograr que el robot mantenga y el equilibrio, y por consiguiente, realize una caminata estable. Por su parte el procesador manipulador se encargará de contolar el movimiento de los brazos y de la cabeza. El procesador encargado de la visión por computador opera utilizando una cámara con sensor infrarrojo ASUS incorporada en la cabeza.
+The robot has 4 microprocessors: locomotion, manipulation, artificial vision tasks and last, the main processor which manages the others. The locomotion processor, that controls the legs and the torso, will be responsible for getting the sensors information and maintain the robot in a balance and upright position, being static or in a walking cycle. The manipulation processor controls the movement of the arms and the head. The processor responsible for the computer vision uses a camera with infrarred sensor ASUS located in the head.
 
-El sistema de comunicaciones sigue el protocolo CAN-bus realizando una división sagital y transversal del humanoide, existiendo 4 líneas de CAN-bus. Una línea CAN se encargará de comunicar el brazo izquierdo, mientras que otra se ocupará del lado derecho. Igualmente, en el tren inferior, una línea can se ocupará de la pierna izquierda y otra de la pierna derecha.\\
+The communication system is based on the CAN-bus protocol. Making a sagittal and transversal division, there are 4 CAN-bus lines: 1 line per each arm and neck, and 1 line per each leg and torso.
 
-A su vez, para realizar la adquisición de datos de los sensores de Fuerza-Par que lleva incorportados en los tobillos -y que serán utilizados para realizar una caminata estable-, se utilizan tarjetas de adquisición de datos PCI que trabajan en tiempo real. Con un sensor en cada tobillo, el robot dispone de dos tarjetas PCI en el procesador del tren inferior. Del mismo modo, para las tareas de manipulación se utiliza un sensor Fuerza-Par en cada muñeca conectados a través de una PCI con el procesador del tren superior.
-
-La dotación de sensorización de fuerzas y momentos es una importante diferencia respecto a los antecesores del robot RH-2. La utilización de estos sensores, permite cerrar el bucle de control -y así, obtener realimentación-, que tan necesario es para realizar una caminata estable.
+For data acquisition, the robot has Force-Torque sensors located at the robot ankles and wrists, used locomotion and manipulation, respectively. These sensors are plugged into real time data acquisition PCI cards. Including F/T sensors is an important difference and advantage respect RH-2 predecessors. They allow to close the control loop and then, to obtain a kind of feedback which is necessary to accomplish tasks successfully.
 
 
 \section{Force/Torque sensors}
-Los sensores Fuerza-Par (F/T) utilizados están basados en sensores extensiométricos dispuestos de tal forma que permiten obtener medidas de fuerza y momentos en los tres ejes del espacio tridimensional.
+Force-Torque (F-T) sensors are based on strain gauge sensors arranged in such a way that allows to obtain force and moment measures in all axes of the 3D space. 
 
-Los sensores de los que dispone el robot son los sensores comerciales JR3 descritos en la Tabla \ref{table:sensores}. Obsérvese la diferencia de fondo de escala de los sensores utilizados en las articulaciones de los tobillos a los de las muñecas. Los sensores de los tobillos tienen que ser capaces de soportar fuerzas y momentos mucho mayores incluyendo las que ejerce el propio cuerpo del robot.
+The sensors used in the platform, are the commercial JR3 F-T sensors described in Table\ref{table:sensores}. Look at the full scales difference between the sensors used in the wrists joints and the ones used in the ankle joints. Ankle sensors must be able to support greater forces and moments including the ones exerted by the own robot.
 
 \begin{table}[!hbt]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Articulación & Modelo & $F_{x,y}$ & $F_z$ & $M_{x,y,z}$\\
+Joint & Model & $F_{x,y}$ & $F_z$ & $M_{x,y,z}$\\
 \hline
-Muñecas & 50M31A & 100N & 200N & 5 Nm\\ 
+Wrist & 50M31A & 100N & 200N & 5 Nm\\ 
 \hline
-Tobillos & 85M35A & 250N & 500N & 212Nm\\
+Ankle & 85M35A & 250N & 500N & 212Nm\\
 \hline
 \end{tabular}
-\caption{Modelos y características de sensores F/T del robot. \textit{Fuente: JR3 Inc.}}
+\caption{F-T sensor models and characteristics. [JR3 Inc.]}
 \label{table:sensores}
 \end{table}
 
-Según el fabricante, los dos primeros dígitos del modelo indican el diámetro del sensor, la letra que les sigue la serie, y los dos siguiente dígitos el espesor del mismo. De ahí, los sensores de los tobillos tendrán un diámetro de 85mm, un espesor de 35mm y es de la serie M. 
+According to the manufacturer, the two first digits of the model show the sensor diameter, followed by the serie, and the next two digits, the thickness. As mentioned before, the ankle sensors are bigger and they support greater forces and moments. The sensors used in this Master Thesis are the ones mentioned in Table \ref{table:sensores} for ankle joints.
 
-Los sensores M incluyen electrónica interna para filtrar el ruido, salida digital para la utilización de una tarjeta de adquisición de datos PCI del mismo fabricante y opción de salida analógica. La exactitud nominal de todos los sensores de esta serie es del 1\% de fondo de escala, y una resolución de 1/4000 del fondo de escala.
+Serie M sensors include inner electronics in order to filter noise, digital output to use a data acquisition PCI card from the same manufacturer and an analogical output option. The nominal precission of all sensors of serie M is 1\% of full scale, and a 1/4000 full scale resolution.
+
+\section{Data Acquisition}
+The PCI cards used for data acquisition are PCI 1592D from JR3 Inc, which has 4 ports (named as in Figure ???). The sensors are plugged through a 6 or 8 pinouts (RJ-11 and RJ-45, respectively). In the case of RJ-45, two pinouts are not used. The PCI card uses these cables to receive high speed data and provide power supply to the sensors. About the PCI supply, it is provided by the PCI slot form the computer where it is installed.
