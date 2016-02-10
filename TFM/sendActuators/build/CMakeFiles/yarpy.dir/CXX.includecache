@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/teo/workspace/sendActuators/main.cpp
+/home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.cpp
+TEO.h
+/home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.h
+
+/home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.h
 stdio.h
 -
 stdlib.h
@@ -15,6 +19,14 @@ yarp/os/all.h
 -
 yarp/dev/all.h
 -
+
+/home/teo/Repositorios/LoliRepo/TFM/sendActuators/main.cpp
+stdio.h
+-
+stdlib.h
+-
+TEO.h
+/home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.h
 
 /usr/local/include/yarp/conf/api.h
 yarp/conf/api.h
@@ -180,10 +192,18 @@ yarp/os/Property.h
 yarp/dev/DeviceDriver.h
 -
 
+/usr/local/include/yarp/dev/FrameGrabberControl2.h
+yarp/os/ConstString.h
+-
+yarp/dev/FrameGrabberInterfaces.h
+-
+
 /usr/local/include/yarp/dev/FrameGrabberInterfaces.h
 yarp/dev/DeviceDriver.h
 -
 yarp/sig/Image.h
+-
+yarp/dev/FrameGrabberControl2.h
 -
 
 /usr/local/include/yarp/dev/GPUInterface.h
@@ -226,6 +246,16 @@ yarp/os/Log.h
 yarp/dev/IControlMode.h
 -
 yarp/dev/api.h
+-
+
+/usr/local/include/yarp/dev/IDepthSensor.h
+yarp/dev/DeviceDriver.h
+-
+yarp/sig/Matrix.h
+-
+yarp/sig/Image.h
+-
+yarp/os/Stamp.h
 -
 
 /usr/local/include/yarp/dev/IEncoders.h
@@ -290,6 +320,26 @@ yarp/dev/IPositionControl2.h
 
 /usr/local/include/yarp/dev/IPositionDirectImpl.h
 yarp/dev/IPositionDirect.h
+-
+
+/usr/local/include/yarp/dev/IRGBDSensor.h
+yarp/dev/DeviceDriver.h
+-
+yarp/sig/Matrix.h
+-
+yarp/sig/Image.h
+-
+yarp/os/Stamp.h
+-
+yarp/dev/FrameGrabberInterfaces.h
+-
+yarp/dev/IDepthSensor.h
+-
+
+/usr/local/include/yarp/dev/IRangefinder2D.h
+yarp/dev/DeviceDriver.h
+-
+yarp/sig/Vector.h
 -
 
 /usr/local/include/yarp/dev/IRemoteVariables.h
@@ -399,6 +449,8 @@ yarp/os/Network.h
 -
 yarp/os/Semaphore.h
 -
+yarp/os/LogStream.h
+-
 
 /usr/local/include/yarp/dev/ServerFrameGrabber.h
 stdio.h
@@ -473,6 +525,8 @@ yarp/os/Vocab.h
 -
 yarp/os/Log.h
 -
+yarp/os/Value.h
+-
 
 /usr/local/include/yarp/dev/TestMotor.h
 stdio.h
@@ -519,13 +573,21 @@ yarp/dev/Drivers.h
 -
 yarp/dev/FrameGrabberInterfaces.h
 -
+yarp/dev/FrameGrabberControl2.h
+-
 yarp/dev/GazeControl.h
 -
 yarp/dev/GenericSensorInterfaces.h
 -
 yarp/dev/GPUInterface.h
 -
+yarp/dev/IDepthSensor.h
+-
 yarp/dev/IKinectDeviceDriver.h
+-
+yarp/dev/IRangefinder2D.h
+-
+yarp/dev/IRGBDSensor.h
 -
 yarp/dev/PolyDriver.h
 -
@@ -561,13 +623,15 @@ yarp/os/Portable.h
 -
 
 /usr/local/include/yarp/os/Bottle.h
-yarp/os/ConstString.h
--
 yarp/os/Portable.h
 -
-yarp/os/Value.h
+yarp/os/Searchable.h
 -
-yarp/conf/numeric.h
+yarp/os/ConstString.h
+-
+yarp/os/Property.h
+-
+yarp/os/Value.h
 -
 
 /usr/local/include/yarp/os/BufferedPort.h
@@ -708,20 +772,6 @@ yarp/os/Portable.h
 
 /usr/local/include/yarp/os/MessageStack.h
 yarp/os/Portable.h
--
-
-/usr/local/include/yarp/os/Module.h
-yarp/os/IConfig.h
--
-yarp/os/Bottle.h
--
-yarp/os/Port.h
--
-yarp/os/Time.h
--
-yarp/os/BufferedPort.h
--
-yarp/os/Property.h
 -
 
 /usr/local/include/yarp/os/Mutex.h
@@ -1163,8 +1213,6 @@ yarp/os/Value.h
 -
 yarp/os/Vocab.h
 -
-yarp/os/Module.h
--
 yarp/os/RFModule.h
 -
 yarp/os/DummyConnector.h
@@ -1242,6 +1290,8 @@ yarp/os/ConstString.h
 yarp/os/ManagedBytes.h
 -
 yarp/sig/api.h
+-
+yarp/os/Log.h
 -
 
 /usr/local/include/yarp/sig/api.h

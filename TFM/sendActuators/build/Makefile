@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/teo/workspace/sendActuators
+CMAKE_SOURCE_DIR = /home/teo/Repositorios/LoliRepo/TFM/sendActuators
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/teo/workspace/sendActuators/build
+CMAKE_BINARY_DIR = /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -73,9 +73,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/workspace/sendActuators/build/CMakeFiles /home/teo/workspace/sendActuators/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/CMakeFiles /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/workspace/sendActuators/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -115,6 +115,30 @@ yarpy/fast:
 	$(MAKE) -f CMakeFiles/yarpy.dir/build.make CMakeFiles/yarpy.dir/build
 .PHONY : yarpy/fast
 
+TEO.o: TEO.cpp.o
+.PHONY : TEO.o
+
+# target to build an object file
+TEO.cpp.o:
+	$(MAKE) -f CMakeFiles/yarpy.dir/build.make CMakeFiles/yarpy.dir/TEO.cpp.o
+.PHONY : TEO.cpp.o
+
+TEO.i: TEO.cpp.i
+.PHONY : TEO.i
+
+# target to preprocess a source file
+TEO.cpp.i:
+	$(MAKE) -f CMakeFiles/yarpy.dir/build.make CMakeFiles/yarpy.dir/TEO.cpp.i
+.PHONY : TEO.cpp.i
+
+TEO.s: TEO.cpp.s
+.PHONY : TEO.s
+
+# target to generate assembly for a file
+TEO.cpp.s:
+	$(MAKE) -f CMakeFiles/yarpy.dir/build.make CMakeFiles/yarpy.dir/TEO.cpp.s
+.PHONY : TEO.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -148,6 +172,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... yarpy"
+	@echo "... TEO.o"
+	@echo "... TEO.i"
+	@echo "... TEO.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

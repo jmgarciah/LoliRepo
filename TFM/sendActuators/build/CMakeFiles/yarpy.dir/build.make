@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/teo/workspace/sendActuators
+CMAKE_SOURCE_DIR = /home/teo/Repositorios/LoliRepo/TFM/sendActuators
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/teo/workspace/sendActuators/build
+CMAKE_BINARY_DIR = /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/yarpy.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/yarpy.dir/flags.make
 
 CMakeFiles/yarpy.dir/main.cpp.o: CMakeFiles/yarpy.dir/flags.make
 CMakeFiles/yarpy.dir/main.cpp.o: ../main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/teo/workspace/sendActuators/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/yarpy.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/yarpy.dir/main.cpp.o -c /home/teo/workspace/sendActuators/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/yarpy.dir/main.cpp.o -c /home/teo/Repositorios/LoliRepo/TFM/sendActuators/main.cpp
 
 CMakeFiles/yarpy.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/yarpy.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/teo/workspace/sendActuators/main.cpp > CMakeFiles/yarpy.dir/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/teo/Repositorios/LoliRepo/TFM/sendActuators/main.cpp > CMakeFiles/yarpy.dir/main.cpp.i
 
 CMakeFiles/yarpy.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yarpy.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/teo/workspace/sendActuators/main.cpp -o CMakeFiles/yarpy.dir/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/teo/Repositorios/LoliRepo/TFM/sendActuators/main.cpp -o CMakeFiles/yarpy.dir/main.cpp.s
 
 CMakeFiles/yarpy.dir/main.cpp.o.requires:
 .PHONY : CMakeFiles/yarpy.dir/main.cpp.o.requires
@@ -72,14 +72,39 @@ CMakeFiles/yarpy.dir/main.cpp.o.provides: CMakeFiles/yarpy.dir/main.cpp.o.requir
 
 CMakeFiles/yarpy.dir/main.cpp.o.provides.build: CMakeFiles/yarpy.dir/main.cpp.o
 
+CMakeFiles/yarpy.dir/TEO.cpp.o: CMakeFiles/yarpy.dir/flags.make
+CMakeFiles/yarpy.dir/TEO.cpp.o: ../TEO.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/yarpy.dir/TEO.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/yarpy.dir/TEO.cpp.o -c /home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.cpp
+
+CMakeFiles/yarpy.dir/TEO.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/yarpy.dir/TEO.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.cpp > CMakeFiles/yarpy.dir/TEO.cpp.i
+
+CMakeFiles/yarpy.dir/TEO.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yarpy.dir/TEO.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/teo/Repositorios/LoliRepo/TFM/sendActuators/TEO.cpp -o CMakeFiles/yarpy.dir/TEO.cpp.s
+
+CMakeFiles/yarpy.dir/TEO.cpp.o.requires:
+.PHONY : CMakeFiles/yarpy.dir/TEO.cpp.o.requires
+
+CMakeFiles/yarpy.dir/TEO.cpp.o.provides: CMakeFiles/yarpy.dir/TEO.cpp.o.requires
+	$(MAKE) -f CMakeFiles/yarpy.dir/build.make CMakeFiles/yarpy.dir/TEO.cpp.o.provides.build
+.PHONY : CMakeFiles/yarpy.dir/TEO.cpp.o.provides
+
+CMakeFiles/yarpy.dir/TEO.cpp.o.provides.build: CMakeFiles/yarpy.dir/TEO.cpp.o
+
 # Object files for target yarpy
 yarpy_OBJECTS = \
-"CMakeFiles/yarpy.dir/main.cpp.o"
+"CMakeFiles/yarpy.dir/main.cpp.o" \
+"CMakeFiles/yarpy.dir/TEO.cpp.o"
 
 # External object files for target yarpy
 yarpy_EXTERNAL_OBJECTS =
 
 yarpy: CMakeFiles/yarpy.dir/main.cpp.o
+yarpy: CMakeFiles/yarpy.dir/TEO.cpp.o
 yarpy: CMakeFiles/yarpy.dir/build.make
 yarpy: /usr/local/lib/libYARP_OS.so.2.3.64.13
 yarpy: /usr/local/lib/libYARP_sig.so.2.3.64.13
@@ -98,6 +123,7 @@ CMakeFiles/yarpy.dir/build: yarpy
 .PHONY : CMakeFiles/yarpy.dir/build
 
 CMakeFiles/yarpy.dir/requires: CMakeFiles/yarpy.dir/main.cpp.o.requires
+CMakeFiles/yarpy.dir/requires: CMakeFiles/yarpy.dir/TEO.cpp.o.requires
 .PHONY : CMakeFiles/yarpy.dir/requires
 
 CMakeFiles/yarpy.dir/clean:
@@ -105,6 +131,6 @@ CMakeFiles/yarpy.dir/clean:
 .PHONY : CMakeFiles/yarpy.dir/clean
 
 CMakeFiles/yarpy.dir/depend:
-	cd /home/teo/workspace/sendActuators/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/teo/workspace/sendActuators /home/teo/workspace/sendActuators /home/teo/workspace/sendActuators/build /home/teo/workspace/sendActuators/build /home/teo/workspace/sendActuators/build/CMakeFiles/yarpy.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/teo/Repositorios/LoliRepo/TFM/sendActuators /home/teo/Repositorios/LoliRepo/TFM/sendActuators /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build /home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/CMakeFiles/yarpy.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/yarpy.dir/depend
 

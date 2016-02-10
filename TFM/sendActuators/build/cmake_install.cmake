@@ -1,4 +1,4 @@
-# Install script for directory: /home/teo/workspace/sendActuators
+# Install script for directory: /home/teo/Repositorios/LoliRepo/TFM/sendActuators
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ else()
   set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 endif()
 
-file(WRITE "/home/teo/workspace/sendActuators/build/${CMAKE_INSTALL_MANIFEST}" "")
+file(WRITE "/home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/${CMAKE_INSTALL_MANIFEST}" "")
 foreach(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  file(APPEND "/home/teo/workspace/sendActuators/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  file(APPEND "/home/teo/Repositorios/LoliRepo/TFM/sendActuators/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 endforeach()

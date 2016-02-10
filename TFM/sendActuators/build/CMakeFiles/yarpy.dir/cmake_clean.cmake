@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/yarpy.dir/main.cpp.o"
+  "CMakeFiles/yarpy.dir/TEO.cpp.o"
   "yarpy.pdb"
   "yarpy"
 )
