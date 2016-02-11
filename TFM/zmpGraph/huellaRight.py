@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 PI = np.pi
-d = 150
+d = 146-17.52
 h = 0
 def RightFoot():
     # Big semicircle
