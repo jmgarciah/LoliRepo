@@ -103,7 +103,6 @@ while 1:
     y = data.get(1).asDouble() * 1000 #in milimeters
 
     #Printing ZMP point
-    zmp = [x,y]
     print "zmp = [" + repr(x) + "," + repr(y) + "]"
 
     plt.plot(x,y,'ko')
