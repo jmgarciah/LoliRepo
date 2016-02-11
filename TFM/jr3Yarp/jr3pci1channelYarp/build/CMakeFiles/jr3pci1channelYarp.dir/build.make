@@ -81,14 +81,14 @@ jr3pci1channelYarp_EXTERNAL_OBJECTS =
 
 jr3pci1channelYarp: CMakeFiles/jr3pci1channelYarp.dir/main.cpp.o
 jr3pci1channelYarp: CMakeFiles/jr3pci1channelYarp.dir/build.make
-jr3pci1channelYarp: /usr/local/lib/libYARP_OS.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_sig.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_math.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_dev.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_init.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_name.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_sig.so.2.3.64.8
-jr3pci1channelYarp: /usr/local/lib/libYARP_OS.so.2.3.64.8
+jr3pci1channelYarp: /usr/local/lib/libYARP_OS.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_sig.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_math.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_dev.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_init.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_name.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_sig.so.2.3.64.13
+jr3pci1channelYarp: /usr/local/lib/libYARP_OS.so.2.3.64.13
 jr3pci1channelYarp: CMakeFiles/jr3pci1channelYarp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable jr3pci1channelYarp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/jr3pci1channelYarp.dir/link.txt --verbose=$(VERBOSE)

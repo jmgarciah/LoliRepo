@@ -8,11 +8,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS
-  "YARP_NO_DEPRECATED_WARNINGS"
-  )
-
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   )
