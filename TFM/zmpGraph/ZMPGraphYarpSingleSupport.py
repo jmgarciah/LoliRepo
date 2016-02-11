@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 PI = np.pi
-d = 150
+d = 146-17.52
 h = 0
 def RightFoot():
     # Big semicircle
@@ -85,7 +85,9 @@ fig = plt.figure()
 while 1:
     ax = fig.add_subplot(111)
     ax.grid()
-    ax.axis('equal')
+    #ax.axis('equal')
+    plt.xlim(-1000,1000)
+    plt.ylim(-1000,1000)
     ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
     ax.set_xlabel('x [mm]')
     ax.set_ylabel('y [mm]')
@@ -97,22 +99,8 @@ while 1:
     # Reading YARP port
     print "Reading..."
     p.read(data)
-    Fx = data.get(0).asDouble()/100
-    Fy = data.get(1).asDouble()/100
-    Fz = data.get(2).asDouble()/100
-    Mx = data.get(3).asDouble()/10
-    My = data.get(4).asDouble()/10
-    Mz = data.get(5).asDouble()/10
-    print "F = [" + repr(Fx) + "," + repr(Fy) + "," + repr(Fz) +"]"
-    print "M = [" + repr(Mx) + "," + repr(My) + "," + repr(Mz) +"]"
-
-    #ZMP equations
-    if Fz != 0 :
-        x = -My / Fz
-        y = Mx / Fz
-    else:
-        x=0
-        y=0
+    x = data.get(0).asDouble() * 1000 #in milimeters
+    y = data.get(1).asDouble() * 1000 #in milimeters
 
     #Printing ZMP point
     zmp = [x,y]
