@@ -1,7 +1,7 @@
-m  = 80; %System mass
+m  = 62.416; %System mass
 g = 9.81; %Gravity constant
-l = 1; %Pendulum longitude
-k = 1; %Stiffness
+l = (92+330+299.897+123.005)/1000; %Pendulum longitude
+k = 0.1; %Stiffness
 T = 0.001; %Sample Time
 
 a = (k - m*g*l) / (m*l^2);
