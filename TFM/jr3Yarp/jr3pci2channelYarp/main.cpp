@@ -19,26 +19,28 @@
 
 #include "jr3pci-ioctl.h"
 
-//using namespace yarp::os
-
 int main(void) {
 
     yarp::os::Network yarp;
-    yarp::os::Port port0;
-    yarp::os::Port port1;
-    
-    port0.open("/jr3_0:o");
-    port1.open("/jr3_1:o");
+    yarp::os::Port port;
+
+    port.open("/jr3:o");
 
     six_axis_array fm0, fm1;
     force_array fs0, fs1;
     int ret, fd;
-    int i;
+    int f00,f01,f02,m00,m01,m02; // F-T from the sensor 0
+    int f10,f11,f12,m10,m11,m12; // F-T from the sensor 1
+    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0
+    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1
+    float xzmp0, yzmp0; // ZMP sensor 0
+    float xzmp1, yzmp1; // ZMP sensor 1
+    float xzmp, yzmp; // Global ZMP
 
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
         perror("Can't open device. No way to read force!");
     }
-	
+
     ret=ioctl(fd,IOCTL0_JR3_GET_FULL_SCALES,&fs0);
     printf("Full scales of Sensor 0 are %d %d %d %d %d %d\n",fs0.f[0],fs0.f[1],fs0.f[2],fs0.m[0],fs0.m[1],fs0.m[2]);
     ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs1);
@@ -47,87 +49,92 @@ int main(void) {
     ret=ioctl(fd,IOCTL1_JR3_ZEROOFFS);
 
 
-while (1) {
-    ret=ioctl(fd,IOCTL0_JR3_FILTER0,&fm0);
-    ret=ioctl(fd,IOCTL1_JR3_FILTER0,&fm1);
+    while (1) {
+        ret=ioctl(fd,IOCTL0_JR3_FILTER0,&fm0);
+        ret=ioctl(fd,IOCTL1_JR3_FILTER0,&fm1);
 
-    if (ret!=-1) {
-        yarp::os::Bottle b0, b1;
+        if (ret!=-1) {
+            yarp::os::Bottle b;
 
-        // -------- SENSOR 0 ------------ //
-        printf("Sensor 0 : [ ");
-        for (i=0;i<3;i++) {
-            int f0 = 10*fm0.f[i]*fs0.f[i]/16384;
-            printf("%d ", f0);
-            b0.addInt(f0);
-        }
+            printf("Reading device ...\n");
 
-        for (i=0;i<3;i++) {
-            int m0 = fm0.m[i]*fs0.m[i]/16384;
-            printf("%d ",m0);
-            b0.addInt(m0);
-        }
-        printf("]\n");
+            // -------- SENSOR 0 ------------ //
+            printf("Sensor 0 : [ ");
 
-        // -------- SENSOR 1 ------------ //
-        printf("Sensor 1 : [ ");
-        for (i=0;i<3;i++){
-            int f1 = 10*fm1.f[i]*fs1.f[i]/16384;
-            printf("%d ",f1);
-            b1.addInt(f1);
-        }
-        for (i=0;i<3;i++){
-            int m1 = fm1.m[i]*fs1.m[i]/16384;
-            printf("%d ",m1);
-            b1.addInt(m1);
-        }
-        printf("]\n");
+            f00 = 100*fm0.f[0]*fs0.f[0]/16384;
+            f01 = 100*fm0.f[1]*fs0.f[1]/16384;
+            f02 = 100*fm0.f[2]*fs0.f[2]/16384;
+            m00 = 10*fm0.m[0]*fs0.m[0]/16384;
+            m01 = 10*fm0.m[1]*fs0.m[1]/16384;
+            m02 = 10*fm0.m[2]*fs0.m[2]/16384;
 
-        port0.write(b0);
-        port1.write(b1);
-        printf("--\n");
+            printf("Sensor 0 data :");
+            printf("[%d,%d,%d,%d,%d,%d]\n",f00,f01,f02,m00,m01,m02);
+            // Other sensor data
+            //printf("%d\n",(short)fs0.v[1]/16384);
+            //printf("%d\n",(short)fs0.v[2]/16384);
 
-        //printf("%d\n",(short)fs.v[1]/16384);
-        //printf("%d\n",(short)fs.v[2]/16384);
-    } else perror("");
+            fx0 = (float) f00/100;
+            fy0 = (float) f01/100;
+            fz0 = (float) f02/100;
+            mx0 = (float) m00/100;
+            my0 = (float) m01/100;
+            mz0 = (float) m02/100;
 
-    usleep(100000);
-}
+            printf("F0 = [%f, %f, %f] N\n", fx0,fy0,fz0);
+            printf("M0 = [%f, %f, %f] N·m\n", mx0,my0,mz0);
+
+            // -------- SENSOR 1 ------------ //
+            f10 = 100*fm1.f[0]*fs1.f[0]/16384;
+            f11 = 100*fm1.f[1]*fs1.f[1]/16384;
+            f12 = 100*fm1.f[2]*fs1.f[2]/16384;
+            m10 = 10*fm1.m[0]*fs1.m[0]/16384;
+            m11 = 10*fm1.m[1]*fs1.m[1]/16384;
+            m12 = 10*fm1.m[2]*fs1.m[2]/16384;
+
+            printf("Sensor 1 data :");
+            printf("[%d,%d,%d,%d,%d,%d]\n",f10,f11,f12,m10,m11,m12);
+            // Other sensor data
+            //printf("%d\n",(short)fs1.v[1]/16384);
+            //printf("%d\n",(short)fs1.v[2]/16384);
+
+            fx1 = (float) f10/100;
+            fy1 = (float) f11/100;
+            fz1 = (float) f12/100;
+            mx1 = (float) m10/100;
+            my1 = (float) m11/100;
+            mz1 = (float) m12/100;
+
+            printf("F1 = [%f, %f, %f] N\n", fx1,fy1,fz1);
+            printf("M1 = [%f, %f, %f] N·m\n", mx1,my1,mz1);
+
+            /** ZMP Equations : Double Support **/
+            xzmp0 = -my0 / fz0;
+            yzmp0 = mx0 / fz0;
+
+            xzmp1 = -my1 /fz1;
+            yzmp1 = mx1 /fz1;
+
+            xzmp = -(xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
+            yzmp = (yzmp0 * fz0 + yzmp1 * fz1) / (fz0 + fz1);
+
+            printf("ZMP = [ %f ,%f]\n", xzmp, yzmp);
+
+            /** SEND DATA **/
+            if ((fz0 == 0.0) || (fz1 == 0.0)) {
+                printf ("Warning: No zmp data to send\n");
+            } else {
+                b.addDouble(xzmp);
+                b.addDouble(yzmp);
+                port.write(b);
+                printf("Data sent\n");
+
+            }
+        } else perror("");
+
+        //Sample time = 1ms
+        usleep(100000); // delay in microseconds
+    }
     close(fd);
 }
 
-
-//int main(void){
-
-//    yarp::os::Network yarp;
-//    yarp::os::Port port0, port1;
-
-//    port0.open("/jr3_0:o");
-//    port1.open("/jr3_1:o");
-//    int i=0;
-//    int j=0;
-//    int k=0;
-//    while(true){
-//        yarp::os::Bottle b0,b1;
-
-//        b0.addInt(i);
-//        b0.addInt(j);
-//        b0.addInt(k);
-//        b0.addInt(3*i-j);
-//        b0.addInt(5*i-2*j+k);
-//        b0.addInt(k-1);
-//        b1.addInt(2*i);
-//        b1.addInt(2*j);
-//        b1.addInt(2*k);
-//        b1.addInt(3*i);
-//        b1.addInt(3*j);
-//        b1.addInt(3*k);
-
-//        port0.write(b0);
-//        port1.write(b1);
-
-//        std::cout << "i="<<i<<";j="<<j<<std::endl;
-//        i++;j++;k++;
-//        usleep(10000);
-//    }
-//}
