@@ -3,134 +3,104 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-def zmpStabilityAreasLeftFoot():
-    #No-stability area vertex
-    p11=[-5,-3]
-    p12=[5,-3]
-    p13=[5,3]
-    p14=[-5,3]
+PI = np.pi
+d = 146-17.52
+h = 0
+def RightFoot():
+    # Big semicircle
+    ang = np.linspace(2*PI,PI,180)
+    x0 = d + 70*np.cos(ang)
+    y0 = h + 70*np.sin(ang)
 
-    #Unknown stability area vertex
-    p21=[-4,-2]
-    p22=[4,-2]
-    p23=[4,2]
-    p24=[-4,2]
+    # Straightline
+    x1 = np.ones(121) * (d-70)
+    y1 = h + np.linspace(1,121,121) -1
 
-    #Stability area vertex
-    p31=[-2,-1]
-    p32=[2,-1]
-    p33=[2,1]
-    p34=[-2,1]
+    # Little circle
+    ang2 = np.linspace(PI,14.25*PI/180,180)
+    x2 = d - 15 + 55*np.cos(ang2)
+    y2 = h + 120 + 55*np.sin(ang2)
 
-    #No-stability area (RED)
-    x1=[p11[0],p12[0],p13[0],p14[0],p11[0]]
-    y1=[p11[1],p12[1],p13[1],p14[1],p11[1]]
+    # Inclined line
+    x3 = np.linspace(d - 15 + 55*np.cos(14.25*PI/180), d + 70*np.cos(2*PI), 100)
+    y3 = np.linspace(h + 120 + 55*np.sin(14.25*PI/180), h + 70*np.sin(2*PI), 100)
 
-    #Unknown stability area (YELLOW)
-    x2=[p21[0],p22[0],p23[0],p24[0],p21[0]]
-    y2=[p21[1],p22[1],p23[1],p24[1],p21[1]]
+    x_sole = np.concatenate([x0,x1,x2,x3])
+    y_sole = np.concatenate([y0,y1,y2,y3])
+    plt.plot(x_sole,y_sole,'k')
 
-    #Stability area (GREEN)
-    x3=[p31[0],p32[0],p33[0],p34[0],p31[0]]
-    y3=[p31[1],p32[1],p33[1],p34[1],p31[1]]
-
-    #Plot configuration
-    plt.axis([-10,10,-10,10])
-    plt.plot(x1,y1,'k',x2,y2,'k',x3,y3,'k',linewidth=2.0)
-    plt.fill(x1,y1,'r')
-    plt.fill(x2,y2,'y')
-    plt.fill(x3,y3,'g')
     return;
 
+def LeftFoot():
+    # Big semicircle
+    ang = np.linspace(2*PI,PI,180)
+    x0 = d + 70*np.cos(ang)
+    y0 = h + 70*np.sin(ang)
+
+    # Straightline
+    x1 = np.ones(121) * (d-70)
+    y1 = h + np.linspace(1,121,121) -1
+
+    # Little circle
+    ang2 = np.linspace(PI,14.25*PI/180,180)
+    x2 = d - 15 + 55*np.cos(ang2)
+    y2 = h + 120 + 55*np.sin(ang2)
+
+    # Inclined line
+    x3 = np.linspace(d - 15 + 55*np.cos(14.25*PI/180), d + 70*np.cos(2*PI), 100)
+    y3 = np.linspace(h + 120 + 55*np.sin(14.25*PI/180), h + 70*np.sin(2*PI), 100)
+
+    x_sole = np.concatenate([-x0,-x1,-x2,-x3])
+    y_sole = np.concatenate([y0,y1,y2,y3])
+    plt.plot(x_sole,y_sole,'k')
+
+    return;
 
 # Initialise YARP
 yarp.Network.init()
 # Create a port
-p0 = yarp.Port()
-p1 = yarp.Port()
+p = yarp.Port()
 # Open the port
-p0.open("/gui0:i")
-p1.open("/gui1:i")
+p.open("/gui:i")
 # Connect output and input ports
-yarp.Network.connect("/jr3_0:o", "/gui0:i")
-yarp.Network.connect("/jr3_1:o", "/gui1:i")
+yarp.Network.connect("/jr3:o", "/gui:i")
 # Read the data from de port
-data0 = yarp.Bottle()
-data1 = yarp.Bottle()
+data = yarp.Bottle()
+
 
 fig = plt.figure()
 #fig.hold(True)
 
 while 1:
-    #plt.hold(True)
+    ax = fig.add_subplot(111)
+    ax.grid()
+    #ax.axis('equal')
+    plt.xlim(-1000,1000)
+    plt.ylim(-1000,1000)
+    ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
+    ax.set_xlabel('x [mm]')
+    ax.set_ylabel('y [mm]')
+
     # Plotting ZMP Areas
-    zmpStabilityAreasLeftFoot()
+    RightFoot()
+    LeftFoot()
 
     # Reading YARP port
     print "Reading..."
-    p0.read(data0)
-    p1.read(data1)
+    p.read(data)
 
-    Fx0 = data0.get(0).asDouble()/100
-    Fy0 = data0.get(1).asDouble()/100
-    Fz0 = data0.get(2).asDouble()/100
-    Mx0 = data0.get(3).asDouble()/10
-    My0 = data0.get(4).asDouble()/10
-    Mz0 = data0.get(5).asDouble()/10
-    Fx1 = data1.get(0).asDouble()/100
-    Fy1 = data1.get(1).asDouble()/100
-    Fz1 = data1.get(2).asDouble()/100
-    Mx1 = data1.get(3).asDouble()/10
-    My1 = data1.get(4).asDouble()/10
-    Mz1 = data1.get(5).asDouble()/10
-	
-    print "F0 = [" + repr(Fx0) + "," + repr(Fy0) + "," + repr(Fz0) +"]"
-    print "M0 = [" + repr(Mx0) + "," + repr(My0) + "," + repr(Mz0) +"]"
-    print "F1 = [" + repr(Fx1) + "," + repr(Fy1) + "," + repr(Fz1) +"]"
-    print "M1 = [" + repr(Mx1) + "," + repr(My1) + "," + repr(Mz1) +"]"
-
-    #ZMP equations
-    #Right foot
-    if Fz0 != 0 :
-        x0 = -My0 / Fz0
-        y0 = Mx0 / Fz0
-    else:
-        x0 = 0
-        y0 = 0
-
-    #Left foot
-    if Fz1 != 0 :
-        x1 = -My1 / Fz1
-        y1 = Mx1 / Fz1
-    else:
-        x1 = 0
-        y1 = 0
-
-    if (Fz0 + Fz1) == 0 :
-        x=0
-        y=0
-    else:
-        x = (x0 * Fz0 + x1 * Fz1) / (Fz0 + Fz1)
-        y = (y0 * Fz0 + y1 * Fz1) / (Fz0 + Fz1)
-
-#    x_ = (-My0 - My1) / (Fz0 + Fz1)
-#    y_ = (Mx0 + Mx1) / (Fz0 + Fz1)
-
-#    ex = x - x_
-#    ey = y - y_
+    x = data.get(0).asDouble() * 1000 # in mm
+    y = data.get(1).asDouble() * 1000 # in mm
 
     #Printing ZMP point
-    zmp = [x,y]
-
     print "zmp = [" + repr(x) + "," + repr(y) + "]"
-#    print "Error en x = " + repr(ex)
-#    print "Error en y = " + repr(ey)
 
     plt.plot(x,y,'ko')
     fig.show()
-    plt.pause(0.001)
+    #Sample time 1ms
+    plt.pause(0.001) #delay in seconds
     fig.clf()
 
-p0.close()
-p1.close()
+p.close()
+
 
