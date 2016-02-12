@@ -18,10 +18,10 @@ int main(void) {
     six_axis_array fm0, fm1;
     force_array fs0, fs1;
     int ret, fd;
-    int f00,f01,f02,m00,m01,m02; // F-T from the sensor 0
-    int f10,f11,f12,m10,m11,m12; // F-T from the sensor 1
-    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0
-    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1
+    int f00,f01,f02,m00,m01,m02; // F-T from the sensor 0 in Newton
+    int f10,f11,f12,m10,m11,m12; // F-T from the sensor 1 in Newton
+    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0 in dN*m (0.1N*m)
+    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1 in dN*m (0.1N*m)
     float xzmp0, yzmp0; // ZMP sensor 0
     float xzmp1, yzmp1; // ZMP sensor 1
     float xzmp, yzmp; // Global ZMP
@@ -64,9 +64,9 @@ int main(void) {
             fx0 = (float) f00/100;
             fy0 = (float) f01/100;
             fz0 = (float) f02/100;
-            mx0 = (float) m00/10;
-            my0 = (float) m01/10;
-            mz0 = (float) m02/10;
+            mx0 = (float) m00/100;
+            my0 = (float) m01/100;
+            mz0 = (float) m02/100;
 
             printf("F0 = [%f, %f, %f] N\n", fx0,fy0,fz0);
             printf("M0 = [%f, %f, %f] N·m\n", mx0,my0,mz0);
@@ -88,9 +88,9 @@ int main(void) {
             fx1 = (float) f10/100;
             fy1 = (float) f11/100;
             fz1 = (float) f12/100;
-            mx1 = (float) m10/10;
-            my1 = (float) m11/10;
-            mz1 = (float) m12/10;
+            mx1 = (float) m10/100;
+            my1 = (float) m11/100;
+            mz1 = (float) m12/100;
 
             printf("F1 = [%f, %f, %f] N\n", fx1,fy1,fz1);
             printf("M1 = [%f, %f, %f] N·m\n", mx1,my1,mz1);
