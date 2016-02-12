@@ -8,32 +8,25 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[11pt,a4paper,twoside]{book}
-\usepackage[left=2.5cm,top=2.5cm,right=2cm,bottom=2.5cm]{geometry}
 \usepackage[pdftex]{hyperref}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-%\usepackage[spanish]{babel}
 \usepackage{graphicx}
-\usepackage[small]{caption}  % Letra caption mas pequeña
+\usepackage[small]{caption}
+%\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
 \usepackage{subfigure}
-\usepackage{color} 
-\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
-%\usepackage{wrapfig} % Allows in-line images such as the example fish picture
-\usepackage{fancyhdr} % Cabeceras
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
 \usepackage{invuc3mlib}
 \usepackage{url}
-%\usepackage{apacite}
+\usepackage{apacite}
 \usepackage[nottoc,notlof,notlot]{tocbibind}%was commented out.
-\usepackage{palatino}
-\usepackage[Lenny]{fncychap}
-\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
-%\usepackage{colortbl}
-%sssss\usepackage{indentfirst}
-%\usepackage{hhline}
-%\usepackage{mathtools}
+\usepackage{palatino} %math font
+%\usepackage[Lenny]{fncychap}
+\usepackage{colortbl}
+\usepackage{indentfirst}
+\usepackage{hhline}
+\usepackage{mathtools}
 \usepackage{amsmath}
-\usepackage{listings} %Para poner código
-
 \hypersetup{  
     pdftitle={Master Thesis - Author},
     pdfsubject={Master Thesis - Author},
@@ -54,15 +47,12 @@
 \newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}%
 \cleardoublepage}}
 
-
-
 \begin{document}
-%\input{01_portada/portada}
-\title{\textbf{Title}}
-	\author{Author}
+	\title{\textbf{Balance control of humanoid robot TEO using Force/Torque sensors}}
+	\author{María Dolores Pinel del Valle}
 	 
-	\tutor{Prof. One}
-  \stutor{Prof. Two}
+	\tutor{Santiago Martínez de la Casa Díaz}
+  \stutor{Juan Miguel García Haro}
 
         \primerjurado{Dr./Dra.}
         \segundojurado{Dr./Dra.}
@@ -109,31 +99,17 @@ This thesis develops ...
 %\renewcommand{\chaptername}{Capítulo}
 %\renewcommand{\bibname}{Referencias}
 
-%\setcounter{page}{0}
-%\tableofcontents
-%\addcontentsline{toc}{chapter}{\contentsname}
-
-
-%\listoffigures
-%\addcontentsline{toc}{chapter}{\listfigurename}
-
-%\addcontentsline{toc}{chapter}{\listtablename}
-%\listoftables
-
-%\newpage
-%\setlength{\parindent}{1cm} %Sangria
-%\renewcommand{\thepage}{\arabic{page}}
-%\setcounter{page}{0}
 
 \input{02_intro/intro}
 \graphicspath{{03_estado_tecnica/Imagenes/}}
 \input{03_estado_tecnica/estado_tecnica}
 \graphicspath{{04_plataforma/Imagenes/}}
 \input{04_plataforma/plataforma}
-\addcontentsline{toc}{chapter}{Bibliography}
-\input{99_referencias}
+\input{05_desarrollo/desarrollo}
+%\addcontentsline{toc}{chapter}{Bibliography}
+%\input{99_referencias}
 
-%\bibliographystyle{apacite}
+\bibliographystyle{apacite}
 \bibliography{library}
 
 \end{document}
