@@ -62,7 +62,7 @@ Let us consider the locomotion mechanism in the single-support phase, with the w
 \begin{figure}[!hbt]
 \centering
 \includegraphics[scale=0.4]{pie.png}
-\caption{Forces acting on the foot of the bipedal mecanism \cite{Vuk_2004}.}
+\caption{Forces acting on the foot of the bipedal mecanism \protect\cite{Vuk2004} }
 \label{fig:pie}
 \end{figure}
 
@@ -73,7 +73,7 @@ However, due to a unidirectional nature of the connection between the foot and t
 \begin{figure}[!hbt]
 \centering
 \includegraphics[scale=0.4]{pieYOZ.png}
-\caption{Compensación $M_{Ax}$ \cite{Vuk_2004}}
+\caption{Compensación $M_{Ax}$ \protect\cite{Vuk2004} }
 \label{fig:pieYOZ}
 \end{figure} 
 
@@ -113,7 +113,7 @@ This equation is a basis for computing the position of the ground reaction force
 
 
 \subsection{Relation between COG and ZMP}
-When a humanoid robot is in the single-support phase during a walking cycle, its dynamics can be represented by a single inverted pendulum where the supporting foot is the point where all body mass is concentrated (COG) and a mass less telescopic leg \cite{Kaj_2001}. The pendulum can increase or decrease its length, thus simulating the functioning of the ankle joint.
+When a humanoid robot is in the single-support phase during a walking cycle, its dynamics can be represented by a single inverted pendulum where the supporting foot is the point where all body mass is concentrated (COG) and a mass less telescopic leg \cite{Kaj2001}. The pendulum can increase or decrease its length, thus simulating the functioning of the ankle joint.
 
 Now, let us consider that the inverted pendulum instead of only one contact point considered above, has a contact polygon as the surface in contact with the ground (Fig. \ref{fig:3DLIPM}).
 
@@ -231,7 +231,7 @@ x_{ZMP}=x-\frac{z_c}{g}\ddot{x}
 y_{ZMP}=y-\frac{z_c}{g}\ddot{y}
 \end{equation}
 
-These equations can only be applied to compute ZMP in single-support phase. In the case of the double-support phase, it is necessary to calculate the weighted average of the sensor measurements form both feet as recommended in \cite{Kaj_2005}. Therefore, the resulting equations for ZMP in double-support phase are:
+These equations can only be applied to compute ZMP in single-support phase. In the case of the double-support phase, it is necessary to calculate the weighted average of the sensor measurements form both feet as recommended in \cite{Kaj2005}. Therefore, the resulting equations for ZMP in double-support phase are:
 
 \begin{equation}
 x_{ZMP} = -\frac{F_{y}^{R}\cdot x^{R}+F_{y}^{L}\cdot x^{L}}{F_{z}^{R}+F_{z}^{L}}
@@ -247,7 +247,7 @@ As mentioned before, ZMP is a point in the sole which depends on the forces and 
 In the balanced area (safe region), the control action will not actuate. In the nearly critical region, the control action will actuate as a secondary solution. This may be the case of a walking task. As humans do, the robot may use its arms in order to reduce the zero-moment point position closer to the safe region. Finally, in the critical region, the stabilizer will actually disconnect the ongoing task and actuate on the full body. Even if this region is still stable, the balance may be easily lost. 
 
 
-\begin{figure} [!hbt]
+\begin{figure}[!hbt]
 \centering
 \includegraphics[scale=0.3]{zonas}
 \caption{ZMP stability regions in single-support.}
@@ -257,4 +257,4 @@ In the balanced area (safe region), the control action will not actuate. In the 
 
 
 \section{Biped modeling}
-Humanoid robots have a very complex dynamics because of their complex mechanical configuration and they require a high computational cost. Figure ??? represents a simplified mechanical configuration of a typical humanoid robot. As one can see, the high number of DOFs due to the precise knowledge of robot dynamics including, mass, location of the centre of mass and moments of inertia of each link, make stable biped locomotion very complex. Thus, different simplified models of the mechanics have been developed. These methods use limited knowledge of the dynamics and the humanoid is usually represented by a planar inverted pendulum with the base representing the ankle joint and, in case of 3D locomotion, the Three-Dimensional Inverted Pendulum Mode (3D-LIPM) \citep{Kaj_2001}.
+Humanoid robots have a very complex dynamics because of their complex mechanical configuration and they require a high computational cost. Figure ??? represents a simplified mechanical configuration of a typical humanoid robot. As one can see, the high number of DOFs due to the precise knowledge of robot dynamics including, mass, location of the centre of mass and moments of inertia of each link, make stable biped locomotion very complex. Thus, different simplified models of the mechanics have been developed. These methods use limited knowledge of the dynamics and the humanoid is usually represented by a planar inverted pendulum with the base representing the ankle joint and, in case of 3D locomotion, the Three-Dimensional Inverted Pendulum Mode (3D-LIPM) \cite{Kaj2001}.
