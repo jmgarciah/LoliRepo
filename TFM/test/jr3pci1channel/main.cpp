@@ -18,8 +18,8 @@ int main(void) {
     six_axis_array fm;
     force_array fs;
     int ret, fd;
-    int f0,f1,f2,m0,m1,m2; // F-T from the sensor
-    float fx, fy, fz, mx, my, mz; // Scaled F-T
+    int f0,f1,f2,m0,m1,m2; // F-T from the sensor in Newton
+    float fx, fy, fz, mx, my, mz; // Scaled F-T in dN*m (0.1N*m)
     float xzmp, yzmp;
 
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
@@ -53,9 +53,9 @@ int main(void) {
             fx = (float) f0/100;
             fy = (float) f1/100;
             fz = (float) f2/100;
-            mx = (float) m0/10;
-            my = (float) m1/10;
-            mz = (float) m2/10;
+            mx = (float) m0/100;
+            my = (float) m1/100;
+            mz = (float) m2/100;
 
             printf("F = [%f, %f, %f] N\n", fx,fy,fz);
             printf("M = [%f, %f, %f] N·m\n", mx,my,mz);
