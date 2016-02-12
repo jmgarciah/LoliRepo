@@ -24,7 +24,7 @@ The sensors used in the platform, are the commercial JR3 F-T sensors described i
 
 \begin{table}[!hbt]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
+\begin{tabular}{|cl|c|c|c|c|}
 \hline
 Joint & Model & $F_{x,y}$ & $F_z$ & $M_{x,y,z}$\\
 \hline
@@ -41,5 +41,11 @@ According to the manufacturer, the two first digits of the model show the sensor
 
 Serie M sensors include inner electronics in order to filter noise, digital output to use a data acquisition PCI card from the same manufacturer and an analogical output option. The nominal precission of all sensors of serie M is 1\% of full scale, and a 1/4000 full scale resolution.
 
+The sensors used in this work, provide the option of acquiring data in International System Units or Imperial System Units, according to Figure \textcolor{red}{FIGURA}.
+
 \section{Data Acquisition}
-The PCI cards used for data acquisition are PCI 1592D from JR3 Inc, which has 4 ports (named as in Figure ???). The sensors are plugged through a 6 or 8 pinouts (RJ-11 and RJ-45, respectively). In the case of RJ-45, two pinouts are not used. The PCI card uses these cables to receive high speed data and provide power supply to the sensors. About the PCI supply, it is provided by the PCI slot form the computer where it is installed.
+The PCI cards used for data acquisition are PCI 1592D from JR3 Inc, which has 4 ports (named as in Figure ???). The sensors are plugged through a 6 or 8 pinout cables (RJ-11 and RJ-45, respectively). In the case of RJ-45, two pinouts are not used. The PCI card uses these cables to receive high speed data and provide power supply to the sensors. About the PCI supply, it is provided by the PCI slot form the computer where it is installed.
+
+In order to access to received data from the sensors, it is necessary to access to card memory, specifying the memory address for each available data. These addresses can be found at [ANEXO. DATOS DEL FABRICANTE].
+
+It is important to take into account that the forces and torques obtained from the sensors and processed by the card, are in the International System Units. Forces are given in Newton [N] and torques are given in tenths of a newton per meter [dN·m].
