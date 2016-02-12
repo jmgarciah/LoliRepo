@@ -172,7 +172,7 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 YARP_DIR:PATH=/usr/local/lib/YARP
 
 //Do not warn when using YARP deprecated declarations
-YARP_NO_DEPRECATED_WARNINGS:BOOL=ON
+YARP_NO_DEPRECATED_WARNINGS:BOOL=OFF
 
 //Value Computed by CMake
 yarpy_BINARY_DIR:STATIC=/home/teo/Repositorios/LoliRepo/TFM/control/simulacion/lectura/build

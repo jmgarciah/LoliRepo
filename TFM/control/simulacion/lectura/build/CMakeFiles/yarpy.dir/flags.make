@@ -4,5 +4,5 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS = -I/home/teo/Repositorios/LoliRepo/TFM/control/simulacion/lectura -I/usr/local/include   
 
-CXX_DEFINES = -DYARP_NO_DEPRECATED_WARNINGS
+CXX_DEFINES = 
 

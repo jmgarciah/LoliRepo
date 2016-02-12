@@ -20,11 +20,11 @@ public:
     ~LIPM2d();
 
     float model(float px, float py);
-    void sendData(yarp::os::Port port, yarp::os::Bottle bottle);
+   // void sendData(yarp::os::Port port, yarp::os::Bottle bottle);
 
     float _u; //control signal
-    float _x1;
-    float _x2;
+    float _x1[2]; // xzmp
+    float _x2[2]; // yzmp
     float _y; //torque output
 
 private:
