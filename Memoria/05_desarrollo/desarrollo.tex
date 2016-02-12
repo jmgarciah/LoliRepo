@@ -1,0 +1,54 @@
+\chapter{Control Architecture}
+\section{Simple Inverted Pendulum Mode}
+The simple inverted pendulum is the most basic model used to simplify humanoids' body. The basis of the pendulum are a mass $m$ linked to a pivot point $0$ by means of a massless link of longitude $l$ as in Figure ???.
+
+The mass $m$ represents the total mass of the modelled system, a humanoid robot in this case, located at its Centre of Mass (CoM), and the longitude $l$ is the distance between the pivot point to the CoM. If gravitational force ($F_g$) is considered the only force acting in the system, the movement of the inverted pendulum is:
+\begin{equation}
+\sum{\Gamma_0} = ml^2 \ddot{\theta} - mgl\sin\theta
+\label{eq:pendulo}
+\end{equation}
+
+It is assumed that angles are small enough and the $\sin\theta = 1$. Then, equation \ref{eq:pendulo} changes to:
+\begin{equation}
+\sum{\Gamma_0} = ml^2 \ddot{\theta} - mgl\theta
+\label{eq:pendulo2}
+\end{equation}
+
+Also, the relation between the .................... gives:
+\begin{equation}
+\Gamma = k(u-\theta)
+\label{eq:pendulo3}
+\end{equation}
+
+The transfer functions of equations \ref{eq:pendulo2} and \ref{eq:pendulo3} are:
+\begin{equation}
+\Gamma(s) = mls^2\theta(s) - mgl\theta(s)
+\end{equation}
+
+\begin{equation}
+\Gamma(s) = k(U(s)-\theta(s))
+\end{equation}
+
+And the transfer function that provides $\Gamma(s)$ as output getting $U(s)$ as input is:
+\begin{equation}
+\frac{\Gamma(s)}{U(s)} = -k \frac{s^2+(\beta - \alpha)}{s^2 + \alpha}
+\label{eq:TFpar}
+\end{equation}
+where:
+\begin{equation}
+\alpha = \frac{k-mgl}{ml^2}
+\end{equation}
+\begin{equation}
+\beta = \frac{k}{ml^2}
+\end{equation}
+
+From the relation between COG and ZMP described in chapter ????, in a general case we have:
+\begin{equation}
+\Gamma(s) = -P_{ZMP}(s) \cdot F_z
+\label{eq:TFzmp}
+\end{equation}
+
+Then, from equations \ref{eq:TFpar} and \ref{eq:TFzmp} is is obtained the transfer function between the Torque and ZMP:
+\begin{equation}
+\frac{P_{ZMP}(s)}{U(s)} = -k \frac{s^2+(\beta - \alpha)}{s^2 + \alpha}
+\end{equation} 
