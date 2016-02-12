@@ -29,10 +29,10 @@ int main(void) {
     six_axis_array fm0, fm1;
     force_array fs0, fs1;
     int ret, fd;
-    int f00,f01,f02,m00,m01,m02; // F-T from the sensor 0
-    int f10,f11,f12,m10,m11,m12; // F-T from the sensor 1
-    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0
-    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1
+    int f00,f01,f02,m00,m01,m02; // F-T from the sensor 0 in Newton
+    int f10,f11,f12,m10,m11,m12; // F-T from the sensor 1 in Newton
+    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0 in dN*m (0.1N*m)
+    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1 in dN*m (0.1N*m)
     float xzmp0, yzmp0; // ZMP sensor 0
     float xzmp1, yzmp1; // ZMP sensor 1
     float xzmp, yzmp; // Global ZMP
