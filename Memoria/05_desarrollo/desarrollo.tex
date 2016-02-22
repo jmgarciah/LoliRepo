@@ -14,7 +14,7 @@ It is assumed that angles are small enough and the $\sin\theta = 1$. Then, equat
 \label{eq:pendulo2}
 \end{equation}
 
-Also, the relation between the .................... gives:
+Also, the relation between the .................... and stiffness $k$ gives:
 \begin{equation}
 \Gamma = k(u-\theta)
 \label{eq:pendulo3}
@@ -51,4 +51,88 @@ From the relation between COG and ZMP described in chapter ????, in a general ca
 Then, from equations \ref{eq:TFpar} and \ref{eq:TFzmp} is is obtained the transfer function between the Torque and ZMP:
 \begin{equation}
 \frac{P_{ZMP}(s)}{U(s)} = -k \frac{s^2+(\beta - \alpha)}{s^2 + \alpha}
-\end{equation} 
+\end{equation}
+
+From transfer function equation, we can obtain the space state model equations:
+\begin{equation}
+\begin{bmatrix}
+\dot{x_1} \\
+\dot{x_2}
+\end{bmatrix} 
+= 
+\begin{bmatrix}
+0 & 1 \\
+-\alpha & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix}
++
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+u
+\end{equation}
+\begin{equation}
+y = \begin{bmatrix}
+k\beta & 0 
+\end{bmatrix}
++ \begin{bmatrix}
+-k
+\end{bmatrix}
+u
+\end{equation}
+
+where $\dot{x_1} $ and $\dot{x_2}$ are the $x_{ZMP}$ and $y_{ZMP}$ respectively.
+
+
+\section{Feedback in state space. The Linear Quadratic Regulator}
+
+The quadratic optimal control method is one of the control methods applied in state space systems and it provides a systematic way of computing the state feedback control gain matrix [Referencia OGATA].
+Given the state space system equation
+\begin{equation}
+\dot{x} = Ax+Bu ,
+\label{eq:sseq}
+\end{equation}
+the LQR determines the matrix $K$ of the optima control vector
+\begin{equation}
+u(t) = -Kx(t)
+\label{eq:control}
+\end{equation}
+so as to minimize the performance index
+\begin{equation}
+J = \int_{0}{\infty}(x^{T}Qx+u^{T}Ru) dt
+\end{equation}
+
+where $Q$ is a positive-definite (or positive-semidefinite) Hermitian or real symmetric matrix and $R$ is a positive-definite Hermitian or real symmetric matrix. Note that the matrices $Q$ and $R$ determine the relative importance of the error and the expenditure of the energy of the control signals.
+The linear control law given by equation \ref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $K = [K_1 K_2]$ are determined so as to minimize the performance index, then $u(t) = -Kx$ is optimal for any initial state $x(0)$. The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure ??? [DIAGRAMA DE BLOQUES. MIRAR TESIS DMITRY]
+
+In order to obtain the optimum $K$ matrix
+\begin{equation}
+K = R^{-1}B^{T}P \quad (continuous case)
+\end{equation}
+\begin{equation}
+K = (R + B^{T}PB)^{-1}B^{T}PA \quad (discrete case)
+\end{equation}
+
+
+where $P$ is a positive-definite Hermitian or real symmetric matrix, it is necessary to compute the algebraic Ricatti Equation 
+\begin{equation}
+P \rightarrow A^{T}P+PA-PBR^{-1}B^{T}P+Q = 0 \quad (continuous case)
+\end{equation}
+\begin{equation}
+P \rightarrow A^{T}PA+P-A^{T}PB(R+B^{T}PB)^{-1}B^{T}PA+Q = 0 \quad (discrete case)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
