@@ -103,30 +103,39 @@ u(t) = -Kx(t)
 \end{equation}
 so as to minimize the performance index
 \begin{equation}
-J = \int_{0}{\infty}(x^{T}Qx+u^{T}Ru) dt
+J = \int_{0}^{\infty}(x^{T}Qx+u^{T}Ru) dt
 \end{equation}
 
 where $Q$ is a positive-definite (or positive-semidefinite) Hermitian or real symmetric matrix and $R$ is a positive-definite Hermitian or real symmetric matrix. Note that the matrices $Q$ and $R$ determine the relative importance of the error and the expenditure of the energy of the control signals.
-The linear control law given by equation \ref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $K = [K_1 K_2]$ are determined so as to minimize the performance index, then $u(t) = -Kx$ is optimal for any initial state $x(0)$. The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure ??? [DIAGRAMA DE BLOQUES. MIRAR TESIS DMITRY]
+The linear control law given by equation \ref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $K = [K_1 \quad K_2]$ are determined so as to minimize the performance index, then $u(t) = -Kx$  is optimal for any initial state $x(0)$. The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure ??? [DIAGRAMA DE BLOQUES. MIRAR TESIS DMITRY]. The controller maintain desired ZMP positions ($x_{ZMP}$, $y_{ZMP}$) of the single pendulum close to zero. Thus, the reference input of the control system in Figure [REF] is zero. Note that the ZMP positions $x_{ZMP}$ and $y_{ZMP}$ are $x_1$ and $x_2$, respectively, and the torque $\tau$ is represented by output $y$ in the diagram.
 
-In order to obtain the optimum $K$ matrix
+The optimum $K$ matrix is obtained from equations \ref{eq:Kcont} and \ref{eq:Kdisc}.
 \begin{equation}
-K = R^{-1}B^{T}P \quad (continuous case)
+K = R^{-1}B^{T}P \quad (continuous \quad case)
+\label{eq:Kcont}
 \end{equation}
 \begin{equation}
-K = (R + B^{T}PB)^{-1}B^{T}PA \quad (discrete case)
+K = (R + B^{T}PB)^{-1}B^{T}PA \quad (discrete \quad case)
+\label{eq:Kdisc}
 \end{equation}
 
-
-where $P$ is a positive-definite Hermitian or real symmetric matrix, it is necessary to compute the algebraic Ricatti Equation 
+where $P$ is a positive-definite Hermitian or real symmetric matrix and it is necessary to compute the algebraic Ricatti Equation
 \begin{equation}
-P \rightarrow A^{T}P+PA-PBR^{-1}B^{T}P+Q = 0 \quad (continuous case)
+P \rightarrow A^{T}P+PA-PBR^{-1}B^{T}P+Q = 0 \quad (continuous \quad case)
 \end{equation}
 \begin{equation}
-P \rightarrow A^{T}PA+P-A^{T}PB(R+B^{T}PB)^{-1}B^{T}PA+Q = 0 \quad (discrete case)
+P \rightarrow A^{T}PA+P-A^{T}PB(R+B^{T}PB)^{-1}B^{T}PA+Q = 0 \quad (discrete \quad case)
 \end{equation}
 
 
+In order to obtain the controller design for further simulations and experiments, the following mechanical parameters of the inverted pendulum (corresponding to Rh-2 humanoid robot) were taken: $m = 62.416 kg$, $l=0.8449 m$
+
+Valor de stiffness???
+
+For the optimum response of the control system, we took $Q = C^{T}C = \begin{bmatrix}
+5.037 \cdot 10^{-8} & 0\\
+0 & 0
+\end{bmatrix}$ and $R = [1] $. After the LQR controller was designed, the control gains matrix $K = [23.1777 \quad 6.8027]$ was obtained
 
 
 
