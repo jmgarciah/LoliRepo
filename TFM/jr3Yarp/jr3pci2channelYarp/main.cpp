@@ -115,7 +115,7 @@ int main(void) {
             xzmp1 = -my1 /fz1;
             yzmp1 = mx1 /fz1;
 
-            xzmp = -(xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
+            xzmp = (xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
             yzmp = (yzmp0 * fz0 + yzmp1 * fz1) / (fz0 + fz1);
 
             printf("ZMP = [ %f ,%f]\n", xzmp, yzmp);
