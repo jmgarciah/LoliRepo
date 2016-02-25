@@ -89,8 +89,8 @@ while 1:
     plt.xlim(-1000,1000)
     plt.ylim(-1000,1000)
     ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
-    ax.set_xlabel('x [mm]')
-    ax.set_ylabel('y [mm]')
+    ax.set_xlabel('y [mm]')  # changed because of robot axes
+    ax.set_ylabel('x [mm]')  # changed because of robot axes
 
     # Plotting ZMP Areas
     RightFoot()
@@ -105,7 +105,7 @@ while 1:
     #Printing ZMP point
     print "zmp = [" + repr(x) + "," + repr(y) + "]"
 
-    plt.plot(x,y,'ko')
+    plt.plot(y,x,'ko') # axes are changed because of robot axes
     fig.show()
 
     #Sample time 1ms
