@@ -45,41 +45,42 @@ LIPM2d::LIPM2d()
     cout << "\nSample Time : " << _T << " s" << endl;
 
     // Inicializacion variables
-    _r = 0;
+    _r = 0.0;
     _u = 0.0;
-    _y = 0.0;
-    _x1[0] = 1.0;
-    _x2[0] = 1.0;
-    _x1[1] = 1.0;
-    _x2[1] = 1.0;
+    _par = 0.0;
+    _x_model[0] = 0.0;
+    _y_model[0] = 0.0;
+    _x_model[1] = 0.0;
+    _y_model[1] = 0.0;
 
 }
 
 LIPM2d::~LIPM2d(){
 }
 
-float LIPM2d::model(float px, float py){
-    /**
-     * Linear inverted pendulum model in discrete state space
-     * x[k+1] = Ax[k] + Bu[k]
-     * y[k] = Cx[k] + Du[k]
-     **/
-    /** Evaluacion modelo con zmp calculado **/
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-    _u = _r-(K[0]*_x1[0]+K[1]*_x2[0]);
-    _y = C[0]*_x1[0] + C[1]*_x2[0] + D*_u;
-    _x1[1] = A[0][0]*_x1[0] + A[0][1]*_x2[0] + B[0][0]*_u;
-    _x2[1] = A[1][0]*_x1[0] + A[1][1]*_x2[0] + B[1][0]*_u;
+float LIPM2d::model(float x_real, float y_real){
+//    /**
+//     * Linear inverted pendulum model in discrete state space
+//     * x[k+1] = Ax[k] + Bu[k]
+//     * y[k] = Cx[k] + Du[k]
+//     **/
+//    /** Evaluacion modelo con zmp calculado **/
+//    _x1[0] = _x1[1];
+//    _x2[0] = _x2[1];
+//    _u = _r-(K[0]*_x1[0]+K[1]*_x2[0]);
+//    _y = C[0]*_x1[0] + C[1]*_x2[0] + D*_u;
+//    _x1[1] = A[0][0]*_x1[0] + A[0][1]*_x2[0] + B[0][0]*_u;
+//    _x2[1] = A[1][0]*_x1[0] + A[1][1]*_x2[0] + B[1][0]*_u;
 
-    cout << "x1[0] = " << _x1[0] << endl;
-    cout << "x2[0] = " << _x2[0] << endl;
-    cout << "x1[1] = " << _x1[1] << endl;
-    cout << "x2[1] = " << _x2[1] << endl;
-    cout << "u = " << _u << endl;
-    cout << "y = " << _y << endl;
+//    cout << "x1[0] = " << _x1[0] << endl;
+//    cout << "x2[0] = " << _x2[0] << endl;
+//    cout << "x1[1] = " << _x1[1] << endl;
+//    cout << "x2[1] = " << _x2[1] << endl;
+//    cout << "u = " << _u << endl;
+//    cout << "y = " << _y << endl;
 
-    /** Evaluacion modelo con datos zmp reales **/
+
+//    /** Evaluacion modelo con datos zmp reales **/
 //    _x1 = px;
 //    _x2 = py;
 //    _u = _r-(K[0]*_x1+K[1]*_x2);
@@ -89,6 +90,26 @@ float LIPM2d::model(float px, float py){
 //    cout << "x2 = " << _x2 << endl;
 //    cout << "u = " << _u << endl;
 //    cout << "y = " << _y << endl;
+
+
+    /** Evaluacion modelo con offset zmp **/
+    _x_model[0] = _x_model[1];
+    _y_model[0] = _y_model[1];
+    _x_error = x_real - _x_model[0];
+    _y_error = y_real - _y_model[0];
+    _u = _r-(K[0]*_x_error + K[1]*_x_error);
+    _par = C[0]*_x_error + C[1]*_x_error + D*_u;
+
+    _x_model[1] = A[0][0]*_x_model[0] + A[0][1]*_y_model[0] + B[0][0]*_u;
+    _y_model[1] = A[1][0]*_x_model[0] + A[1][1]*_y_model[0] + B[1][0]*_u;
+
+    cout << "x_model[0] = " << _x_model[0] << endl;
+    cout << "x_model[0] = " << _x_model[0] << endl;
+    cout << "y_model[1] = " << _y_model[1] << endl;
+    cout << "y_model[1] = " << _y_model[1] << endl;
+    cout << "u = " << _u << endl;
+    cout << "par = " << _par << endl;
+
     return 0;
 }
 

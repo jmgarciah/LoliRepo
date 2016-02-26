@@ -21,11 +21,12 @@ public:
 
     float model(float px, float py);
    // void sendData(yarp::os::Port port, yarp::os::Bottle bottle);
-
+    float _x_model[2];
+    float _y_model[2];
+    float _x_error;
+    float _y_error;
     float _u; //control signal
-    float _x1[2]; // xzmp
-    float _x2[2]; // yzmp
-    float _y; //torque output
+    float _par; //torque output
 
 private:
     float A[2][2];
@@ -34,7 +35,7 @@ private:
     float D;
     float K[2];
     float _T; //sample time
-    int _r; //reference signal
+    float _r; //reference signal
 
 };
 
