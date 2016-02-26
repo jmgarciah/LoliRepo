@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 PI = np.pi
-d = 146-17.52
+d = 107.5
 h = 0
 def RightFoot():
     # Big semicircle
@@ -86,8 +86,8 @@ while 1:
     ax = fig.add_subplot(111)
     ax.grid()
     #ax.axis('equal')
-    plt.xlim(300,-300)
-    plt.ylim(-300,300)
+    plt.xlim(200,-200)
+    plt.ylim(-200,200)
     ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
     ax.set_xlabel('y [mm]')  # changed because of robot axes
     ax.set_ylabel('x [mm]')  # changed because of robot axes
@@ -106,6 +106,20 @@ while 1:
     print "zmp = [" + repr(x) + "," + repr(y) + "]"
 
     plt.plot(y,x,'ko') # axes are changed because of robot axes
+    o = 3
+    plt.plot(y+o,x+o,'ko')
+    plt.plot(y,x+o,'ko')
+    plt.plot(y+o,x,'ko')
+    plt.plot(y-o,x-o,'ko')
+    plt.plot(y,x-o,'ko')
+    plt.plot(y-o,x,'ko')
+    o1=5
+    plt.plot(y+o1,x+o1,'ko')
+    plt.plot(y,x+o1,'ko')
+    plt.plot(y+o1,x,'ko')
+    plt.plot(y-o1,x-o1,'ko')
+    plt.plot(y,x-o1,'ko')
+    plt.plot(y-o1,x,'ko')
     fig.show()
 
     #Sample time 1ms
