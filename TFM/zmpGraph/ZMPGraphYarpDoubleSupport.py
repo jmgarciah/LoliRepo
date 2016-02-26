@@ -77,7 +77,7 @@ while 1:
     #ax.axis('equal')
     plt.xlim(300,-300)
     plt.ylim(-300,300)
-    ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
+    ax.set_title('ZMP REPRESENTATION IN DOUBLE SUPPORT', fontsize=12, fontweight='bold')
     ax.set_xlabel('y [mm]') # changed because of robot axes
     ax.set_ylabel('x [mm]') # changed because of robot axes
 
