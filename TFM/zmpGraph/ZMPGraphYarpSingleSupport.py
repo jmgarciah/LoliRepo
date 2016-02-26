@@ -86,8 +86,8 @@ while 1:
     ax = fig.add_subplot(111)
     ax.grid()
     #ax.axis('equal')
-    plt.xlim(-1000,1000)
-    plt.ylim(-1000,1000)
+    plt.xlim(300,-300)
+    plt.ylim(-300,300)
     ax.set_title('ZMP REPRESENTATION IN SINGLE SUPPORT', fontsize=12, fontweight='bold')
     ax.set_xlabel('y [mm]')  # changed because of robot axes
     ax.set_ylabel('x [mm]')  # changed because of robot axes
