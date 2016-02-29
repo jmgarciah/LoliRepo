@@ -1,0 +1,18 @@
+DETALLES DE EXPERIMENTOS
+
+exp1_2S : 
+experimento de control con simulacion para doble apoyo. 
+Modelo: sin considerar offset zmp real y tomando zmp real = al que calcula el modelo
+
+exp2_2S : 
+experimento de control con simulacion para doble apoyo. 
+Modelo: sin considerar offset zmp real y tomando zmp real = al que calcula el modelo
+
+exp3_2S:
+experimento de control con simulacion para doble apoyo. 
+Modelo: sin considerar offset zmp real y calculando el zmp con el modelo para compararlo con el real.
+
+exp4_2S:
+experimento de control con simulacion para doble apoyo.
+Modelo: considerarando el offset del ZMP real.
+La señal de control se mantiene porque al no cambiar el ZMP real (no se mueven los tobillos), siempre existe error entre el zmp real y el calculado.
