@@ -19,27 +19,27 @@ public:
     LIPM2d();
     ~LIPM2d();
 
-    float model(float px, float py);
-   // void sendData(yarp::os::Port port, yarp::os::Bottle bottle);
-    float _x_model[2];
-    float _y_model[2];
-    float _x_error;
-    float _y_error;
-    float _u; //control signal
-    float _par; //torque output
+    float model(float x_real);
+
+
+    float _r; // reference model signal
+    float y; // zmp output signal (to ankle joints)
+    float _x1[2]; // state variable
 
 private:
-    float A[2][2];
-    float B[2][1];
-    float C[2];
-    float D;
-    float K[2];
+    float _A[2][2];
+    float _B[2][1];
+    float _C[2];
+    float _D;
+    float _K[2]; // feedback LQR gain
+    float _Ki; // integral gain
     float _T; //sample time
-    float _r; //reference signal
+    float _xref; // X_ZMP reference
+    float _x2[2]; // state variable
+    float _z[2]; // state variable
+    float _u; // model control signal
+
 
 };
-
-
-
 
 #endif /* LIPM2D_H_ */
