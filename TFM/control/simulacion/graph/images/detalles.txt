@@ -16,3 +16,32 @@ exp4_2S:
 experimento de control con simulacion para doble apoyo.
 Modelo: considerarando el offset del ZMP real.
 La señal de control se mantiene porque al no cambiar el ZMP real (no se mueven los tobillos), siempre existe error entre el zmp real y el calculado.
+
+exp5_2S: NO VALE (modelo con errores)
+exp6_2S: NO VALE (modelo con errores)
+
+exp7_2S: experimento de control para doble apoyo.
+Modelo: considerarando el offset del ZMP real.
+Las variables x_model e y_model van incrementando su valor a lo largo del tiempo, y como el error cada vez es mayor, la u también aumenta.
+
+exp8_2S, exp9_2S, exp10_2S: Igual que el anterior. En algunos empujando el robot hacia delante y en otros, hacia detrás.
+
+exp11_2S, exp_12_2S:  sin mover el robot, las variables calculadas por el modelo siguen creciendo en el tiempo y la señal de control también.
+
+exp13_2S: sólo simulación. con zmp real fijadoa a 0.002 y 0.004. Se observa que la x e y calculadas por el modelo siguen aumentando con el tiempo. 
+El modelo utilizado es el que aparece en el paper del Armar4 incluida la Fz en la ganancia. El valor de C es positivo y D, negativo.
+
+exp14_2S: sólo simulación. con zmp real fijadoa a 0.002 y 0.004. Se observa que la x e y calculadas por el modelo siguen aumentando con el tiempo.
+El modelo utilizado es el que aparece en el paper Kim2004. El valor de C es negativo y D, positivo. Los resultados son exactamente los mismos que en el anterior!!!
+
+exp15_2S : experimento control con modelo nuevo con acción integral (Ki = 0
+01). Los valores de salida del modelo son muy muy pequeños (del orden de 10^-6). 
+
+exp16_2S : experimento control con modelo nuevo con acción integral (Ki = 0
+1). Los valores de salida del modelo son muy muy pequeños (del orden de 10^-6) igual que antes aunque ha aumentado 10 veces la ganancia integral.
+
+exp17_2S: experimento simulación donde solo se ve como varía la salida del modelo.
+
+exp18_2S: experimento simulación. Se cambia el T a 0.01 para calcular el LQR y K = [22.8283, 6.7]. Ki = 1000; Dice Santi que T mejor 0.005
+
+exp19_2S: experimento simulacion. Con la misma K de antes y Ki = 5000.
