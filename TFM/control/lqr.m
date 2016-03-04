@@ -2,7 +2,7 @@ m  = 62.416; %System mass
 g = 9.81; %Gravity constant
 l = (92+330+299.897+123.005)/1000; %Pendulum longitude
 k = 0.1; %Stiffness
-T = 0.001; %Sample Time
+T = 0.005; %Sample Time
 
 a = (k - m*g*l) / (m*l^2);
 b = k / (m*l^2);
@@ -10,8 +10,8 @@ b = k / (m*l^2);
 % Space state matrices
 A = [0 1; -a 0]; 
 B = [0; 1];
-C = [k*b 0];
-D = -k;
+C = [-(k/(m*g))*b 0];
+D = k/(m*g);
 
 
 %% CONTINUOUS TO DISCRETE SPACE STATE EQUATIONS 
@@ -51,6 +51,6 @@ R = eye(size(H,2)); %R=1
 % sys_cl = ss(Ac,Bc,Cc,Dc,T);
 % 
 % t = 0:T:100;
-% r = 0*ones(size(t));
+% r = 1*ones(size(t));
 % [y,t,x] = lsim(sys_cl,r,t);
 % plot(t,y,'b',t,r,'r');
