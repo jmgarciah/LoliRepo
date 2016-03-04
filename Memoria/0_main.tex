@@ -18,7 +18,9 @@
 \usepackage{fancyhdr}
 \usepackage{invuc3mlib}
 \usepackage{url}
-\usepackage{apacite}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\addbibresource{library.bib} 
+%\usepackage{apacite}
 \usepackage[nottoc,notlof,notlot]{tocbibind}%was commented out.
 \usepackage{palatino} %math font
 %\usepackage[Lenny]{fncychap}
@@ -105,12 +107,14 @@ This thesis develops ...
 \input{03_estado_tecnica/estado_tecnica}
 \graphicspath{{04_plataforma/Imagenes/}}
 \input{04_plataforma/plataforma}
+\graphicspath{{05_desarrollo/Imagenes/}}
 \input{05_desarrollo/desarrollo}
 %\addcontentsline{toc}{chapter}{Bibliography}
 %\input{99_referencias}
 
-\bibliographystyle{apalike}
-\bibliography{library}
+%\bibliographystyle{apalike}
+%\bibliography{library}
+\printbibliography
 
 \end{document}
 
