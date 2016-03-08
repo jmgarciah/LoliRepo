@@ -7,3 +7,7 @@
 *.gz
 *.toc
 *.lot
+*.bbl
+*.bcf
+*.blg
+*.xml
