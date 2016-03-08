@@ -20,18 +20,21 @@
 % title({'Experimento simulacion'; 'K=[23.17, 6.80]'});
 %%
 hold on;
-n = VarName1;
-x_ref = VarName2;
-x_real = VarName3;
-x1 = VarName4;
-x_out = VarName5;
+data = csvread('../lectura/data.csv');
+n = data(:,1);
+x_ref = data(:,2);
+x_real = data(:,3);
+x1 = data(:,4);
+x_out = data(:,5);
+angle = data(:,6);
 
 plot(n,x_ref,'b');
 plot(n,x_real,'g');
 %plot(n,x1,'y');
 plot(n,x_out,'r');
+%plot(n,angle,'y');
 legend('x_{ref}','x_{real}','x_{out}');
-%title({'Experimento control'; '[K Ki]=[23.17, 6.80, 0.1]'});
+title({'Experimento control'; '[K Kp Ki Kd]=[23.18, 6.8, -5000, 10, 10]'});
 %legend('x_{ref}','x_{out}');
-title({'Experimento simulacion '; '[K Ki]=[22.8283, 6.7, 5000]'});
+%title({'Experimento simulacion '; '[K Ki]=[22.8283, 6.7, 5000]'});
 
