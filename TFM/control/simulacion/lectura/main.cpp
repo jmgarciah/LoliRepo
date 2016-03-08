@@ -45,6 +45,8 @@ int main(void) {
     float xzmp = 0.0;
     float yzmp = 0.0;
 
+    float angle = 0.0;
+
     fp = fopen("../data.csv","w+");
 
     signal (SIGINT, (__sighandler_t) controlC );
@@ -205,12 +207,13 @@ int main(void) {
 //            if ((xzmp != xzmp) || (yzmp != yzmp)){
 //                printf ("Warning: No zmp data\n");
 //            } else {
-        xzmp = 0.1;
+        xzmp = -0.1;
                 printf ("%d\n", n);
 
                 /** EVALUACION MODELO **/
                 modelo.model(xzmp);
 
+                angle = acos(modelo.y/1.03);
                // posRightLeg->positionMove(4, modelo.y);
                // posLeftLeg->positionMove(4, modelo.y);
 
@@ -219,6 +222,7 @@ int main(void) {
                 fprintf(fp,",%.15f", xzmp);
                 fprintf(fp,",%.15f", modelo._x1[0]);
                 fprintf(fp,",%.15f", modelo.y);
+                fprintf(fp,",%f", angle);
            // }
 
             n++;

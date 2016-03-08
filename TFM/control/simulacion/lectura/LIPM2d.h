@@ -36,8 +36,13 @@ private:
     float _T; //sample time
     float _xref; // X_ZMP reference
     float _x2[2]; // state variable
-    float _z[2]; // state variable
+    float _z[3]; // state variable
     float _u; // model control signal
+
+    float _Kp, _Kd;
+    float _integral, _derivative;
+    float _error, _prev_error;
+    float _pid;
 
 
 };
