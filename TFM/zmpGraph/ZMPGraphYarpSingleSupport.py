@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 PI = np.pi
-d = 107.5
+d = 70+37.5
 h = 0
 def RightFoot():
     # Big semicircle
