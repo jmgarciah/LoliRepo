@@ -52,7 +52,12 @@ exp24: experimento de simulacion con L = 1.03 entonces K da 18.89 y 6.14. Para Q
 
 exp25: experimento de simulacion con L igual que anterior y Q(1,1) = 100. Apenas se aprecia mucha diferencia en la rapidez a pesar de aumentar Q.
 
+exp26: experimento de control con L=0.84. Se deja el robot quieto. El angle está mal (en radianes)
 
+exp 27: experimento de control con L=0.84. Se empuja el robot un poco. El angle está mal (en radianes)
+
+exp 28: experimento de control con L =1.03 y K [18.89 6.14]. Para Q = C'*C.
+Se pintan los límites de la suela y el ángulo bien. 
 
 
 
