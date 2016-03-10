@@ -52,12 +52,34 @@ exp24: experimento de simulacion con L = 1.03 entonces K da 18.89 y 6.14. Para Q
 
 exp25: experimento de simulacion con L igual que anterior y Q(1,1) = 100. Apenas se aprecia mucha diferencia en la rapidez a pesar de aumentar Q.
 
+**********
+09-03-2016
 exp26: experimento de control con L=0.84. Se deja el robot quieto. El angle está mal (en radianes)
 
-exp 27: experimento de control con L=0.84. Se empuja el robot un poco. El angle está mal (en radianes)
+exp27: experimento de control con L=0.84. Se empuja el robot un poco. El angle está mal (en radianes)
 
-exp 28: experimento de control con L =1.03 y K [18.89 6.14]. Para Q = C'*C.
-Se pintan los límites de la suela y el ángulo bien. 
+exp28: experimento de control con L =1.03 y K [18.89 6.14]. Para Q = C'*C.
+Se pintan los límites de la suela y el ángulo bien. Ángulos muy grandes porque no son reales.
+
+exp29: exexperimento de control con el ángulo que se manda al motor bien puesto. El robot está quieto y comienza a balancearse sólo, Hay mucha diferencia entre la x real y la que calcula el modelo
+
+exp30: experimento de control. Se disminuye la ganancia Kp a -1000 y ahora la x calculada por el modelo es demasiado pequeña y entonces el angulo que se manda, muy pequeño también
+
+exp31: igual que en el caso anterior pero con Kp=-2000. No es suficiente
+
+exp 32: experimento de control. Igual que en el caso anterior pero con Kp=-3000. La salida del modelo se aproxima bastante al zmp real. 
+VIDEO: StabilityControlDoubleSupport00 (grabacion movil Raul)
+
+exp33: experimento de control igual que el anterior.
+VIDEO: StabilityControlDoubleSupport01 (grabación camara buena)
+
+***********
+10-03-2016.   Hasta aquí todos los experimentos Double support en el eje X
+Ahora experimentos sólo en eje Y en Double Support.
+
+exp34, 35, 36: experimento de control. Al empujar al robot, sólo se le puede empujar muy poquito, porque enseguida deja de tener un pie apoyado. Mucha vibración.
+
+exp37: para subsanar el que se le empuje fuerte y deje de estar en doble apoyo, se mueve tambien el hip axial. El control se mejora.
 
 
 
