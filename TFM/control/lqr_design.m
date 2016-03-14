@@ -46,7 +46,7 @@ poles = eig(A);
 
 %% DISCRETE LQR DESIGN
 Q = C'*C;
-Q(1,1) = 1000;
+%Q(1,1) = 1000;
 R = 1;
 
 [K] = dlqr(sys_d.a, sys_d.b, Q, R);
