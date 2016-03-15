@@ -4,14 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/teo/jr3Yarp/jr3pci1channelYarp/main.cpp" "/home/teo/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles/jr3pci1channelYarp.dir/main.cpp.o"
+  "/home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/main.cpp" "/home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/build/CMakeFiles/jr3pci1channelYarp.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
-
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS
-  "YARP_NO_DEPRECATED_WARNINGS"
-  )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES

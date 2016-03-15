@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/teo/jr3Yarp/jr3pci1channelYarp/jr3pci-ioctl.h
+/home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/jr3pci-ioctl.h
 linux/ioctl.h
 -
 linux/types.h
 -
 
-/home/teo/jr3Yarp/jr3pci1channelYarp/main.cpp
+/home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/main.cpp
 sys/types.h
 -
 sys/stat.h
@@ -28,7 +28,7 @@ sys/ioctl.h
 yarp/os/all.h
 -
 jr3pci-ioctl.h
-/home/teo/jr3Yarp/jr3pci1channelYarp/jr3pci-ioctl.h
+/home/teo/Repositorios/LoliRepo/TFM/jr3Yarp/jr3pci1channelYarp/jr3pci-ioctl.h
 
 /usr/local/include/yarp/conf/api.h
 yarp/conf/api.h

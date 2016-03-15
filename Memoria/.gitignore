@@ -1,0 +1,13 @@
+# Latex Files #
+###################
+*.aux
+*.log
+*.lof
+*.out
+*.gz
+*.toc
+*.lot
+*.bbl
+*.bcf
+*.blg
+*.xml
