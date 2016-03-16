@@ -10,7 +10,7 @@
 # Cmake files #
 ###############
 CMakeLists.txt.user
-/build*/
+build*
 
 # Packages #
 ############
