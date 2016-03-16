@@ -19,8 +19,6 @@
 #define PI  3.141592
 
 using namespace std;
-//using namespace yarp::os;
-//using namespace yarp::dev;
 
 static FILE *fp;
 
