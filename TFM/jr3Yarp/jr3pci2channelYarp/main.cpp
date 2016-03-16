@@ -69,17 +69,17 @@ int main(void) {
             m0[2] = 10*fm0.m[2]*fs0.m[2]/16384;
 
             printf("Sensor 0 data :");
-            printf("[%d,%d,%d,%d,%d,%d]\n",f00,f01,f02,m00,m01,m02);
+            printf("[%d,%d,%d,%d,%d,%d]\n",f0[0],f0[1],f0[2],m0[0],m0[1],m0[2]);
             // Other sensor data
             //printf("%d\n",(short)fs0.v[1]/16384);
             //printf("%d\n",(short)fs0.v[2]/16384);
 
-            fx0 = (float) f00/100;
-            fy0 = (float) f01/100;
-            fz0 = (float) f02/100;
-            mx0 = (float) m00/100;
-            my0 = (float) m01/100;
-            mz0 = (float) m02/100;
+            fx0 = (float) f0[0]/100;
+            fy0 = (float) f0[1]/100;
+            fz0 = (float) f0[2]/100;
+            mx0 = (float) m0[0]/100;
+            my0 = (float) m0[1]/100;
+            mz0 = (float) m0[2]/100;
 
             printf("F0 = [%f, %f, %f] N\n", fx0,fy0,fz0);
             printf("M0 = [%f, %f, %f] N·m\n", mx0,my0,mz0);
@@ -93,17 +93,17 @@ int main(void) {
             m1[2] = 10*fm1.m[2]*fs1.m[2]/16384;
 
             printf("Sensor 1 data :");
-            printf("[%d,%d,%d,%d,%d,%d]\n",f10,f11,f12,m10,m11,m12);
+            printf("[%d,%d,%d,%d,%d,%d]\n",f1[0],f1[1],f1[2],m1[0],m1[1],m1[2]);
             // Other sensor data
             //printf("%d\n",(short)fs1.v[1]/16384);
             //printf("%d\n",(short)fs1.v[2]/16384);
 
-            fx1 = (float) f10/100;
-            fy1 = (float) f11/100;
-            fz1 = (float) f12/100;
-            mx1 = (float) m10/100;
-            my1 = (float) m11/100;
-            mz1 = (float) m12/100;
+            fx1 = (float) f1[0]/100;
+            fy1 = (float) f1[1]/100;
+            fz1 = (float) f1[2]/100;
+            mx1 = (float) m1[0]/100;
+            my1 = (float) m1[1]/100;
+            mz1 = (float) m1[2]/100;
 
             printf("F1 = [%f, %f, %f] N\n", fx1,fy1,fz1);
             printf("M1 = [%f, %f, %f] N·m\n", mx1,my1,mz1);
