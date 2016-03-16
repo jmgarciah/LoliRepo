@@ -66,7 +66,7 @@ int main(void) {
     port1.open("/jr3ch1:i");
     yarp::os::Network::connect("/jr3ch0:o","/jr3ch0:i");
     yarp::os::Network::connect("/jr3ch1:o","/jr3ch1:i");
-
+ printf("Jr3Yarp connection stablished\n");
     /** SET CONFIG **/
     yarp::os::Property optionsLeftLeg;
     optionsLeftLeg.put("device","remote_controlboard");
@@ -153,14 +153,14 @@ int main(void) {
         port0.read(b0);
         port1.read(b1);
 
-        fz0 = b0.get(0).asDouble();
+        fz0 = b0.get(2).asDouble();
         mx0 = b0.get(3).asDouble();
         my0 = b0.get(4).asDouble();
 
-        fz1 = b1.get(0).asDouble();
+        fz1 = b1.get(2).asDouble();
         mx1 = b1.get(3).asDouble();
         my1 = b1.get(4).asDouble();
-
+	printf("data received\n");
             /** ZMP Equations : Double Support **/
             xzmp0 = -my0 / fz0;
             yzmp0 = mx0 / fz0;
