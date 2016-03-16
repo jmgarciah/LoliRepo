@@ -24,30 +24,29 @@ using namespace std;
 
 static FILE *fp;
 
+yarp::os::Port port0;
+yarp::os::Port port1;
+
 void controlC (void){
     fclose(fp);
+    port0.close();
+    port1.close();
     exit(-1);
 }
 
 int main(void) {
-
     yarp::os::Network yarp;
-    yarp::os::Port port;
 
-    six_axis_array fm0, fm1;
-    force_array fs0, fs1;
-    int ret, fd;
-    LIPM2d eval_x;
-    LIPM2d eval_y;
+    float fz0, mx0, my0; // F-T from sensor 0 in dN*m (0.1N*m)
+    float fz1, mx1, my1; // F-T from sensor 1 in dN*m (0.1N*m)
 
-    int f00,f01,f02,m00,m01,m02; // F-T from the sensor 0 in Newton
-    int f10,f11,f12,m10,m11,m12; // F-T from the sensor 1 in Newton
-    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0. Moments in dN*m (0.1N*m)
-    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1. Moments in dN*m (0.1N*m)
     float xzmp0, yzmp0; // ZMP sensor 0
     float xzmp1, yzmp1; // ZMP sensor 1
     float xzmp = 0.0;
     float yzmp = 0.0;
+
+    LIPM2d eval_x;
+    LIPM2d eval_y;
 
     float angle_x = 0.0;
     float angle_y = 0.0;
@@ -64,20 +63,11 @@ int main(void) {
     }
     printf("Network ok\n");
 
-    /** Open device **/
-    printf("Opening device ...\n");
-    if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
-        perror("Can't open device. No way to read force!");
-        // exit(1);
-    }
-
-    printf("Getting full scales...\n");
-    ret=ioctl(fd,IOCTL0_JR3_GET_FULL_SCALES,&fs0);
-    printf("Full scales of Sensor 0 are %d %d %d %d %d %d\n",fs0.f[0],fs0.f[1],fs0.f[2],fs0.m[0],fs0.m[1],fs0.m[2]);
-    ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs1);
-    printf("Full scales of Sensor 1 are: %d %d %d %d %d %d\n", fs1.f[0],fs1.f[1],fs1.f[2],fs1.m[0],fs1.m[1],fs1.m[2]);
-    ret=ioctl(fd,IOCTL0_JR3_ZEROOFFS);
-    ret=ioctl(fd,IOCTL1_JR3_ZEROOFFS);
+    /** Opening YARP ports**/
+    port0.open("/jr3ch0:i");
+    port1.open("/jr3ch1:i");
+    yarp::os::Network::connect("/jr3ch0:o","/jr3ch0:i");
+    yarp::os::Network::connect("/jr3ch1:o","/jr3ch1:i");
 
     /** SET CONFIG **/
     yarp::os::Property optionsLeftLeg;
@@ -159,41 +149,19 @@ int main(void) {
 
     int n = 1;
     while (ok) {
-        yarp::os::Bottle bottle;
+        yarp::os::Bottle b0;
+        yarp::os::Bottle b1;
 
-        ret=ioctl(fd,IOCTL0_JR3_FILTER0,&fm0);
-        ret=ioctl(fd,IOCTL1_JR3_FILTER0,&fm1);
+        port0.read(b0);
+        port1.read(b1);
 
-        if (ret!=-1) {
+        fz0 = b0.get(0).asDouble();
+        mx0 = b0.get(3).asDouble();
+        my0 = b0.get(4).asDouble();
 
-            // -------- SENSOR 0 ------------ //
-
-            f00 = 100*fm0.f[0]*fs0.f[0]/16384;
-            f01 = 100*fm0.f[1]*fs0.f[1]/16384;
-            f02 = 100*fm0.f[2]*fs0.f[2]/16384;
-            m00 = 10*fm0.m[0]*fs0.m[0]/16384;
-            m01 = 10*fm0.m[1]*fs0.m[1]/16384;
-            m02 = 10*fm0.m[2]*fs0.m[2]/16384;
-            fx0 = (float) f00/100;
-            fy0 = (float) f01/100;
-            fz0 = (float) f02/100;
-            mx0 = (float) m00/100;
-            my0 = (float) m01/100;
-            mz0 = (float) m02/100;
-
-            // -------- SENSOR 1 ------------ //
-            f10 = 100*fm1.f[0]*fs1.f[0]/16384;
-            f11 = 100*fm1.f[1]*fs1.f[1]/16384;
-            f12 = 100*fm1.f[2]*fs1.f[2]/16384;
-            m10 = 10*fm1.m[0]*fs1.m[0]/16384;
-            m11 = 10*fm1.m[1]*fs1.m[1]/16384;
-            m12 = 10*fm1.m[2]*fs1.m[2]/16384;
-            fx1 = (float) f10/100;
-            fy1 = (float) f11/100;
-            fz1 = (float) f12/100;
-            mx1 = (float) m10/100;
-            my1 = (float) m11/100;
-            mz1 = (float) m12/100;
+        fz1 = b1.get(0).asDouble();
+        mx1 = b1.get(3).asDouble();
+        my1 = b1.get(4).asDouble();
 
             /** ZMP Equations : Double Support **/
             xzmp0 = -my0 / fz0;
@@ -226,9 +194,9 @@ int main(void) {
              //   posLeftLeg->positionMove(4, -angle_x);
 
                 posRightLeg->positionMove(5, -angle_y); // axial ankle Right Leg
-                //posRightLeg->positionMove(1, -angle_y); // axial hip Right Leg
+                posRightLeg->positionMove(1, -angle_y); // axial hip Right Leg
                 posLeftLeg->positionMove(5, angle_y); // axial ankle Left Leg
-                //posLeftLeg->positionMove(1, angle_y); // axial hip Left Leg
+                posLeftLeg->positionMove(1, angle_y); // axial hip Left Leg
 
                 fprintf(fp,"\n%d", n);
 //                fprintf(fp,",%.15f", eval_x._r);
@@ -243,13 +211,12 @@ int main(void) {
 
             n++;
 
-        } else perror("");
-
         //Sample time = 1ms
         usleep(100000); // delay in microseconds
         //sleep(1);
     }
 
-    close(fd);
+//    port0.close();
+//    port1.close();
 }
 
