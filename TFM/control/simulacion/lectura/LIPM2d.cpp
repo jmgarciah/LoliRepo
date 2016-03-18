@@ -61,7 +61,7 @@ LIPM2d::LIPM2d()
     _z[2] = 0.0;
     y = 0.0;
     _pref = 0.0;
-
+	cout<<"Constructor OK"<<endl;
 }
 
 LIPM2d::~LIPM2d(){

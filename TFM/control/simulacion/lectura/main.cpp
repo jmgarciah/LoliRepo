@@ -11,7 +11,7 @@
 #include <cmath>
 
 #define PI  3.141592
-static float T = 0.05; // Sample time [s]
+static float T = 0.01; // Sample time [s]
 
 #include "ratethread.h"
 
@@ -32,7 +32,7 @@ int main(void) {
 
     fp = fopen("../data.csv","w+");
 
-    signal (SIGINT, (__sighandler_t) controlC );
+ //   signal (SIGINT, (__sighandler_t) controlC );
 
     /** Check yarp network**/
     printf("Checking network...\n");
@@ -45,10 +45,10 @@ int main(void) {
     /** Opening YARP ports**/
     port0.open("/jr3ch0:i");
     port1.open("/jr3ch1:i");
-    yarp::os::Time::delay(1);
+    yarp::os::Time::delay(0.5);
     yarp.connect("/jr3ch0:o","/jr3ch0:i");
+    yarp::os::Time::delay(0.5);
     yarp.connect("/jr3ch1:o","/jr3ch1:i");
-    yarp::os::Time::delay(1);
 
     /** SET CONFIG **/
     yarp::os::Property optionsLeftLeg;
@@ -95,8 +95,40 @@ int main(void) {
     printf("Set position mode Left Leg\n");
     posRightLeg->setPositionMode();
 
+    /** SET LEFT LEG TO 0 **/
+    posLeftLeg->positionMove(0,0);
+    posLeftLeg->positionMove(1,0);
+    posLeftLeg->positionMove(2,0);
+    posLeftLeg->positionMove(3,0);
+    posLeftLeg->positionMove(4,0);
+    posLeftLeg->positionMove(5,0);
+    printf("Left Leg :(0 0 0 0 0 0)\n");
+    /** SET RIGHT LEG TO 0 **/
+    posRightLeg->positionMove(0,0);
+    posRightLeg->positionMove(1,0);
+    posRightLeg->positionMove(2,0);
+    posRightLeg->positionMove(3,0);
+    posRightLeg->positionMove(4,0);
+    posRightLeg->positionMove(5,0);
+    printf("Right Leg :(0 0 0 0 0 0)\n");
+
+    int a;
+    cin >> a; 
+    
+    if(a==1){
+    
     /** LOOP THREAD**/
     MyRateThread myRateThread;
     myRateThread.start();
+
+    char c;
+    do {
+        c=getchar();
+    } while(c != '\n');
+    myRateThread.stop();
+    port0.close();
+    port1.close();
+    yarp::os::Time::delay(0.5); 
+    }   
 
 }
