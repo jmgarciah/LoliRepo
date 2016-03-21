@@ -107,6 +107,7 @@ x_2
 1
 \end{bmatrix}
 u
+\label{eq:state_space}
 \end{equation}
 \begin{equation}
 y = \begin{bmatrix}
@@ -116,6 +117,7 @@ y = \begin{bmatrix}
 k_1
 \end{bmatrix}
 u
+\label{eq:state_space_out}
 \end{equation}
 
 where $ x_1 $ and $ x_2 $ are state variables and $y$ is the output of the system, then the $x_{ZMP}$
@@ -140,14 +142,22 @@ J = \int_{0}^{\infty}(x^{T}Qx+u^{T}Ru) dt
 \end{equation}
 
 where $Q$ is a positive-definite (or positive-semidefinite) Hermitian or real symmetric matrix and $R$ is a positive-definite Hermitian or real symmetric matrix. Note that the matrices $Q$ and $R$ determine the relative importance of the error and the expenditure of the energy of the control signals.
-The linear control law given by equation \ref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $K = [K_1 \quad K_2]$ are determined so as to minimize the performance index, then $u(t) = -Kx$  is optimal for any initial state $x(0)$. The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure ??? [DIAGRAMA DE BLOQUES. MIRAR TESIS DMITRY]. The controller maintain desired ZMP positions ($x_{ZMP}$, $y_{ZMP}$) of the single pendulum close to zero. Thus, the reference input of the control system in Figure [REF] is zero. Note that the ZMP positions $x_{ZMP}$ and $y_{ZMP}$ are $x_1$ and $x_2$, respectively, and the torque $\tau$ is represented by output $y$ in the diagram.
+The linear control law given by equation \ref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $K = [K_1 \quad K_2]$ are determined so as to minimize the performance index, then $u(t) = -Kx$  is optimal for any initial state $x(0)$. The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure \ref{fig:block_diagram}. The controller maintain desired ($x_{ZMP}$) position of the single pendulum close to zero. Thus, the reference input of the control system in Figure [REF] is not zero.?????
+\begin{figure}[!hbt]
+\centering
+\includegraphics[scale=0.4]{diagrama.pdf}
+\caption{Block diagram}
+\label{fig:block_diagram}
+\end{figure}
+
+The state space representation \ref{eq:state_space}, \ref{eq:state_space_out} is a controllable canonical form that is important for the LQR controller design. It is desired to keep the actual ZMP, measured and computed by force-torque sensors located in the feet of the humanoid robot, close to its stable reference position as was discussed in previous sections. As the system is a type 0 plant, it is necessary to insert an integrator in order to design a ZMP servo control system (type 1) and remove the steady state error. Therefore, we feed the output signal $y$ (which indicates the real ZMP) back to the input and an integrator in the feedforward path as is shown in Figure \ref{fig:diagrama_int}.
 
 \begin{figure}[!hbt]
 \centering
-\includegraphics[scale=0.6]{diagrama3.png}
-\caption{Block diagram}
+\includegraphics[scale=0.4]{diagrama_int.pdf}
+\caption{ZMP LQR control system.}
+\label{fig:diagrama_int}
 \end{figure}
-
 
 The optimum $K$ matrix is obtained from equations \ref{eq:Kcont} and \ref{eq:Kdisc}.
 \begin{equation}
@@ -170,7 +180,7 @@ P \rightarrow A^{T}PA+P-A^{T}PB(R+B^{T}PB)^{-1}B^{T}PA+Q = 0 \quad (discrete \qu
 
 In order to obtain the controller design for further simulations and experiments, the following mechanical parameters of the inverted pendulum (corresponding to Rh-2 humanoid robot) were taken: $m = 62.416 kg$, $l=0.8449 m$
 
-Valor de stiffness???
+\textcolor{red}{Valor de stiffness???}
 
 For the optimum response of the control system, it is suggested to take $Q = C^{T}C = \begin{bmatrix}
 5.037 \cdot 10^{-8} & 0\\
@@ -178,7 +188,9 @@ For the optimum response of the control system, it is suggested to take $Q = C^{
 \end{bmatrix}$ and $R = 1 $. But for a faster response of the control, we take $Q = C^{T}C = \begin{bmatrix}
 1000 & 0\\
 0 & 0
-\end{bmatrix}$.  After the LQR controller was designed, the control gains matrix $K = [23.1777 \quad 6.8027]$ was obtained
+\end{bmatrix}$.  After the LQR controller was designed, the control gains matrix $K = [23.1777 \quad 6.8027]$ was obtained.
+
+
 
 
 
