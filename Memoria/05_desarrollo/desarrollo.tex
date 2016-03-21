@@ -159,6 +159,54 @@ The state space representation \ref{eq:state_space}, \ref{eq:state_space_out} is
 \label{fig:diagrama_int}
 \end{figure}
 
+Thus, referring equations \ref{eq:state_space} and \ref{eq:state_space_out} and Figure \ref{fig:diagrama_int} and considering the actual ZMP position as the output of the system and $r$ as the reference input signal we obtain the equations for the closed loop system as follows:
+\begin{equation}
+\cdot x = \textbf{A}\textbf{x} + \textbf{B}u
+\end{equation}
+
+\begin{equation}
+y = \textbf{C}\textbf{x} + \textbf{D}u
+\end{equation}
+
+\begin{equation}
+u = - \textbf{K}\textbf{x} + K_i z
+\end{equation}
+
+\begin{equation}
+\dot{z} = r - y = r - (\textbf{C}\textbf{x} + \textbf{D}u)
+\end{equation}
+
+For the type 1 servo system, the state error equation is given by:
+\begin{equation}
+\begin{bmatrix}
+\dot{\textbf{x}}\\
+\dot{z}
+\end{bmatrix} = 
+\begin{bmatrix}
+\textbf{A} & \textbf{0}\\
+\textbf{-C} & 0
+\end{bmatrix}
+\begin{bmatrix}
+\textbf{x}\\
+z
+\end{bmatrix} + 
+\begin{bmatrix}
+\textbf{B}\\
+0
+\end{bmatrix}
+u
+\end{equation}
+and the control signal $u$ is given by:
+\begin{equation}
+u = \begin{bmatrix}
+-\textbf{K} & K_i
+\end{bmatrix}
+\begin{bmatrix}
+\textbf{x}\\
+z
+\end{bmatrix}
+\end{equation}
+
 The optimum $K$ matrix is obtained from equations \ref{eq:Kcont} and \ref{eq:Kdisc}.
 \begin{equation}
 K = R^{-1}B^{T}P \quad (continuous \quad case)
@@ -178,17 +226,15 @@ P \rightarrow A^{T}PA+P-A^{T}PB(R+B^{T}PB)^{-1}B^{T}PA+Q = 0 \quad (discrete \qu
 \end{equation}
 
 
-In order to obtain the controller design for further simulations and experiments, the following mechanical parameters of the inverted pendulum (corresponding to Rh-2 humanoid robot) were taken: $m = 62.416 kg$, $l=0.8449 m$
-
-\textcolor{red}{Valor de stiffness???}
-
-For the optimum response of the control system, it is suggested to take $Q = C^{T}C = \begin{bmatrix}
+In order to obtain the controller design for further simulations and experiments, the following mechanical parameters of the inverted pendulum (corresponding to Rh-2 humanoid robot) were taken: $m = 62.416 kg$, $l=0.8449 m, k=0.1$. \textcolor{red}{Valor y unidades de stiffness???}. For the optimum response of the control system, it is suggested to take $Q = C^{T}C = \begin{bmatrix}
 5.037 \cdot 10^{-8} & 0\\
 0 & 0
-\end{bmatrix}$ and $R = 1 $. But for a faster response of the control, we take $Q = C^{T}C = \begin{bmatrix}
-1000 & 0\\
-0 & 0
-\end{bmatrix}$.  After the LQR controller was designed, the control gains matrix $K = [23.1777 \quad 6.8027]$ was obtained.
+\end{bmatrix}$ and $R = 1 $. 
+%%% AÑADIR SOLO SI SE PRUEBA QUE ES MAS RAPIDO %%%%
+%But for a faster response of the control, we take $Q = C^{T}C = \begin{bmatrix}
+%1000 & 0\\
+%0 & 0
+%\end{bmatrix}$.  After the LQR controller was designed, the control gains matrix $K = [23.1777 \quad 6.8027]$ was obtained.
 
 
 
