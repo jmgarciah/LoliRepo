@@ -1,6 +1,25 @@
 \chapter{Control Architecture}
+\section{Introduction}
+Vukobratovic \cite{Vuk1970} was one of the first researchers involved in the stability of bipedal robots, followed by \cite{Kaj2001} and \cite{Kim2004}. In all their studies, the biped robot was usually represented by a planar inverted pendulum with the base representing the foot and the ankle joint. And in the latest control strategies, researchers divide robot balance control into the hip strategy and the ankle strategy \textcolor{red}{REFERENCIA Y EXTENDER MÁS}. The basis of both stategies are close to the ZMP areas explained in previous sections. When the robot is in a stable posture and a disturbance is applied, depending the magnitude or the application point of that distrubance, the robot will react different. If the change of the ZMP position remains in a stable area, the control will react by the motion of the ankle joints to recover the robot balance. Nevertheless, if the ZMP position reaches an uncertain-stability area, it will be also necessary to move the hip joints to recover balance. Even a gait will be necessary if the loss of stability is unavoidable. 
+
+A humanoid is an electromechanical system, so it should have all type of errors: structure flexion, small blacklash between motion parts, etc. Also it will operate in a co-existing environment with humans, so the disturbances are unexpected at any time. Therefore, the Stabilizer is an essential element to provide stable human-like walking of a humanoid robot. The Stabilizer should perform two basic operations:
+1. When the humanoid robot walks, it should correct the robot’s walking trajectory in order to provide the secure position at any time of its motion.
+2. When the humanoid robot has stopped, it should control its posture.
+
+Thus, the Stabilizer can be decoupled into ZMP and Attitude controllers. This Master Thesis will deal with the issue of maintaining an upright posture while the robot is in a static position, without following a motion pattern.
 
 
 \input{05_control_architecture/00_inv_pendulum_model}
 \input{05_control_architecture/01_LQRdesign}
 \input{05_control_architecture/02_stabilizer}
+
+
+\section{Control strategy}
+As previously mentioned, the human body can be divided in three basic planes: sagital, transversal and frontal. Frontal and sagital planes are useful to simplify the controller and it can be decoupled into two 2D linear pendulums instead of one 3D pendulum.
+
+In the frontal control, the pendulum will rotate around the X axis. Sagital joint ankles and sagital hip will move.
+In the sagital control, the pendulum will rotate around the Y axis. Frontal joint ankles will move.
+ 
+
+
+The phenomenon of locomotion can be understood more easily if we study the motion of a human in three basic planes: sagittal, transversal and frontal (Fig. 5.1). It is important to mention that the most important motions occur in the sagittal plane because it coincides with the main walking direction. Motions in transversal and frontal planes are not so radical. The joints responsible for motion in these two plains (for the most part in the frontal plane) help significantly in the stabilization of the locomotion cycle.
