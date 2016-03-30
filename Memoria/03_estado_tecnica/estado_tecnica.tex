@@ -1,9 +1,22 @@
 \chapter{Literature review}
-The control of humanoid robots which are supposed to interact with the surrounding environment including human presence is a complex task which has to be divided, e.g., controlling locomotion separately from manipulation. A principal aspect in locomotion is stability or balance control, which avoids the humanoid to fall over during a walk pretending to imitate the human walking.
+The performance of the artificial bipedal locomotion is a very complex problem and human beings have the ideal bipedal locomotion. Therefore the best way to produce such a type of motion for a walking machine is to copy human motion.
 
-This chapter will provide a brief introduction about humanoid stability control, the bases of biped walking and essential concepts such as \textit{Zero-Moment Point (ZMP)} and its extensions. 
+Human walking is an automated motion, carried out spontaneously. This locomotion process is a repetitive execution until some perturbations are detected. In humans, the muscular system modifies forces acting during the walking in order to maintain equilibrium. The study of the human wakling and the muscles involved in, brings very complex relationships and it requires some simplifications in anthropomorphic legged mechanisms in order to reduce complexity form the mechanical and control points of view.
 
-\section{Biped locomotion}
+The analysis of the human walking is fairly recent. McGeer [McGeer 90] built a passive walker around 1990 and showed that his two-legged walker could reproduce stable gait without any controls. However, the most progress was revealed in the active bipedal locomotion [Hirai 98], [Kaneko 2002], [Park 2005]. This type of the locomotion is developed and implemented as artificial human-like bipedal motion based on the previous planning of each step and the real-time automatic control of its execution. 
+
+The basic characteristic of bipedal locomotion is the permanent change of the situation when the mechanism is supported by one foot (single support phase) and when both feet are in contact with the ground (the double support phase). The second situation is statically stable and there are no additional moments affecting the robot. The first situation is statically unstable because when one foot is on the ground, the other is transferred from the back to the front position producing lateral accelerations affecting the mechanism. Thus, the locomotion mechanism changes its structure during a single walking cycle from an open to a closed kinematics chain. Each of these two cases present different dynamical situations and should be taken into account in artificial gait synthesis and control.
+
+As locomotion is a complex task, generally the study of the human body is based in three basic planes: sagital, transversal and frontal (Figure \ref{fig:axes}). It is important to mention that the most important motions related to locomotion occur in the sagital plane because it coincides with the main walking direction. However, the combination of joints of sagital and frontal planes, give the stabilization of the locomotion cycle.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.45]{axes.png}
+\caption{Axes division of human body.}
+\label{fig:axes}
+\end{figure}
+
+\section{Bipedal locomotion}
 Robot walking, as humans, is performed in a three phase cycle (Fig. \ref{fig:caminata}). The cycle is divided in two, left and right steps. At the begining, the humanoid is in a stable position with both feet on the ground (Fig. \ref{fig:caminata} (a)) and all the body weight is transferred form one foot to the other. Then the step generation starts when the right foot leaves the ground in the swinging phase (Figura \ref{fig:caminata} (b), (c) y (d)). After the right foot touches the ground, the next (right) step with the same basic phases is started, and the whole cycle ends. The single-support phase is the complex one in terms of balance, because all the weight remains in only one support foot.
 
 Swinging phase has also three sub-phases: acceleration, swinging and deceleration (Fig. \ref{fig:caminata} (b), (c) y (d), respectively). The acceleration phase takes its name due to the acceleration of the lifting leg that stops being supported in the ground and gives the impulse to the step. Once the support leg is overtaken, the lifting leg starts the swinging pahse in order to reach the ground with the consequent deceleration.
