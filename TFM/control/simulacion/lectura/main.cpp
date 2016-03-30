@@ -11,7 +11,7 @@
 #include <cmath>
 
 #define PI  3.141592
-static float T = 0.01; // Sample time [s]
+static float T = 0.03; // Sample time [s]
 
 #include "ratethread.h"
 
@@ -112,11 +112,8 @@ int main(void) {
     posRightLeg->positionMove(5,0);
     printf("Right Leg :(0 0 0 0 0 0)\n");
 
-    int a;
-    cin >> a; 
-    
-    if(a==1){
-    
+   
+    yarp::os::Time::delay(10); 
     /** LOOP THREAD**/
     MyRateThread myRateThread;
     myRateThread.start();
@@ -129,6 +126,6 @@ int main(void) {
     port0.close();
     port1.close();
     yarp::os::Time::delay(0.5); 
-    }   
+    
 
 }
