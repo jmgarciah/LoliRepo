@@ -1,12 +1,14 @@
 \chapter{Literature review}
+
+The performance of the artificial bipedal locomotion is a very complex problem. Human beings 
 The control of humanoid robots which are supposed to interact with the surrounding environment including human presence is a complex task which has to be divided, e.g., controlling locomotion separately from manipulation. A principal aspect in locomotion is stability or balance control, which avoids the humanoid to fall over during a walk pretending to imitate the human walking.
 
-This chapter will provide a brief introduction about humanoid stability control, the bases of biped walking and essential concepts such as \textit{Zero-Moment Point (ZMP)} and its extensions. 
+This chapter will provide a brief introduction about humanoid locomotion, the bases of biped walking and essential concepts such as \textit{Zero-Moment Point (ZMP)} and its extensions. 
 
-\section{Biped locomotion}
-Robot walking, as humans, is performed in a three phase cycle (Fig. \ref{fig:caminata}). The cycle is divided in two, left and right steps. At the begining, the humanoid is in a stable position with both feet on the ground (Fig. \ref{fig:caminata} (a)) and all the body weight is transferred form one foot to the other. Then the step generation starts when the right foot leaves the ground in the swinging phase (Figura \ref{fig:caminata} (b), (c) y (d)). After the right foot touches the ground, the next (right) step with the same basic phases is started, and the whole cycle ends. The single-support phase is the complex one in terms of balance, because all the weight remains in only one support foot.
+\section{Bipedal locomotion}
+Robot walking, as humans, is performed in a three phase cycle (Figure \ref{fig:caminata}). The cycle is divided in two, left and right steps. At the begining, the humanoid is in a stable position with both feet on the ground (Figure \ref{fig:caminata} (a)) and all the body weight is transferred form one foot to the other. Then the step generation starts when the right foot leaves the ground in the swinging phase (Figure \ref{fig:caminata} (b), (c) y (d)). After the right foot touches the ground, the next (right) step with the same basic phases is started, and the whole cycle ends. The single-support phase is the complex one in terms of balance, because all the weight remains in only one support foot.
 
-Swinging phase has also three sub-phases: acceleration, swinging and deceleration (Fig. \ref{fig:caminata} (b), (c) y (d), respectively). The acceleration phase takes its name due to the acceleration of the lifting leg that stops being supported in the ground and gives the impulse to the step. Once the support leg is overtaken, the lifting leg starts the swinging pahse in order to reach the ground with the consequent deceleration.
+Swinging phase has also three sub-phases: acceleration, swinging and deceleration (Figure \ref{fig:caminata} (b), (c) y (d), respectively). The acceleration phase takes its name due to the acceleration of the lifting leg that stops being supported in the ground and gives the impulse to the step. Once the support leg is overtaken, the lifting leg starts the swinging phase in order to reach the ground with the consequent deceleration.
 
 \begin{figure}[!hbt]
 \centering
@@ -15,7 +17,7 @@ Swinging phase has also three sub-phases: acceleration, swinging and deceleratio
 \label{fig:caminata}
 \end{figure}
 
-As in the case of the leg, the same occurs with the foot, what adds complexity to control the walking cycle. During a gait, a human foot has four different phases as one can see in Fig. \ref{fig:caminata_pie}. In (a) it is shown how the body weight is supported when the heel is touching the ground. In (b), the foot remains totally plane. In (c), the heel lifts and the weight goes to the front part of the foot. Finally, in (d) the foot is not in contact with the ground and it starts to swing.
+As in the case of the leg, the same occurs with the foot, what adds complexity to control the walking cycle. During a gait, a human foot has four different phases as one can see in Figure \ref{fig:caminata_pie}. In (a) it is shown how the body weight is supported when the heel is touching the ground. In (b), the foot remains totally plane. In (c), the heel lifts and the weight goes to the front part of the foot. Finally, in (d) the foot is not in contact with the ground and it starts to swing.
 
 
 \begin{figure}[!hbt]
