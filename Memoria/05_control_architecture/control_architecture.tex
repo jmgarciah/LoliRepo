@@ -3,8 +3,10 @@
 Vukobratovic \cite{Vuk1970} was one of the first researchers involved in the stability of bipedal robots, followed by \cite{Kaj2001} and \cite{Kim2004}. In all their studies, the biped robot was usually represented by a planar inverted pendulum with the base representing the foot and the ankle joint. And in the latest control strategies, researchers divide robot balance control into the hip strategy and the ankle strategy \textcolor{red}{REFERENCIA Y EXTENDER MÁS}. The basis of both stategies are close to the ZMP areas explained in previous sections. When the robot is in a stable posture and a disturbance is applied, depending the magnitude or the application point of that distrubance, the robot will react different. If the change of the ZMP position remains in a stable area, the control will react by the motion of the ankle joints to recover the robot balance. Nevertheless, if the ZMP position reaches an uncertain-stability area, it will be also necessary to move the hip joints to recover balance. Even a gait will be necessary if the loss of stability is unavoidable. 
 
 A humanoid is an electromechanical system, so it should have all type of errors: structure flexion, small blacklash between motion parts, etc. Also it will operate in a co-existing environment with humans, so the disturbances are unexpected at any time. Therefore, the Stabilizer is an essential element to provide stable human-like walking of a humanoid robot. The Stabilizer should perform two basic operations:
-1. When the humanoid robot walks, it should correct the robot’s walking trajectory in order to provide the secure position at any time of its motion.
-2. When the humanoid robot has stopped, it should control its posture.
+\begin{itemize}
+\item[1.] When the humanoid robot walks, it should correct the robot’s walking trajectory in order to provide the secure position at any time of its motion.
+\item[2.] When the humanoid robot has stopped, it should control its posture.
+\end{itemize}
 
 Thus, the Stabilizer can be decoupled into ZMP and Attitude controllers. This Master Thesis will deal with the issue of maintaining an upright posture while the robot is in a static position, without following a motion pattern.
 
@@ -15,11 +17,14 @@ Thus, the Stabilizer can be decoupled into ZMP and Attitude controllers. This Ma
 
 
 \section{Control strategy}
-As previously mentioned, the human body can be divided in three basic planes: sagital, transversal and frontal. Frontal and sagital planes are useful to simplify the controller and it can be decoupled into two 2D linear pendulums instead of one 3D pendulum.
+As previously mentioned, the human body can be divided in three basic planes: sagital, transversal and frontal. Frontal and sagital planes are useful to simplify the controller and it can be decoupled into two 2D linear pendulums instead of one 3D pendulum. In the sagital plane, the pendulum will rotate around the Y axis and the motion of the joints to maintain stability will be around their Y axes. In the other plane, the frontal one, the pendulum will rotate around the X axis.  Then the joints will rotate around their X axes.
 
-In the frontal control, the pendulum will rotate around the X axis. Sagital joint ankles and sagital hip will move.
-In the sagital control, the pendulum will rotate around the Y axis. Frontal joint ankles will move.
- 
+When the humanoid robot is in a stable posture, perturbantions may appear and they can be classified according the direction of action of that perturbations (remember the ZMP areas previously mentioned). All of them can be decomposed in anteroposterior disturbances (sagittal plane) and mediolateral disturbances (frontal plane). Studies of quiet stance have suggested separate postural strategies for balance in both planes depending on the stance position [Day, et al. 1993; Winter, et al. 1996]. There are three main mechanisms that can be applied to regain balance in such planes depending on the level of the disturbance.
 
+The first is the ankle strategy. For low intensity disturbances, the body can be considered as a stiff pendulum, and balance adjustmensts are mainly make in the ankle joint, with the body balancing like an inverted pendulum (Nashner, 1985). This strategy is applied in the sagital plane or anteroposterior disturbances.
 
-The phenomenon of locomotion can be understood more easily if we study the motion of a human in three basic planes: sagittal, transversal and frontal (Fig. 5.1). It is important to mention that the most important motions occur in the sagittal plane because it coincides with the main walking direction. Motions in transversal and frontal planes are not so radical. The joints responsible for motion in these two plains (for the most part in the frontal plane) help significantly in the stabilization of the locomotion cycle.
+In the hip strategy, the resulting motion is mainly applied to the hip joints (Horak, et al. 1990). It can be applied independently or in combination of the ankle strategy. The hip joint movement is triggered when the external disturbance increases and the ankle strategy is not enough to keep balance. The hip strategy, same as ankle one, acts in the anteroposterior direction.
+
+The last one is the step strategy. When these postural corrections become insufficient, the base of support must be adjusted. (Carr, et al. 1987; Horak, et al. 1990) This action will be seen as protective stepping reactions. The modification of the support base leads new balance stability limits.
+
+In the mediolateral direction or frontal plane, the disturbances are compensated by the lateral movement of the hip joint in the case of upright stance. Double support in frontal plane, means there are two support points and a pendulum can not be considered. Both legs and the trunk of the robot make a parallelogram with the ground. Then, to maintain stability, the angles of the parallelogram must keep on their relationship and the motion is applied to ankle and hip joints. But if disturbances appear during walking, the compensation changes to the ankle strategy.
