@@ -49,3 +49,10 @@ The PCI cards used for data acquisition are PCI 1592D from JR3 Inc, which has 4 
 In order to access to received data from the sensors, it is necessary to access to card memory, specifying the memory address for each available data. These addresses can be found at [ANEXO. DATOS DEL FABRICANTE].
 
 It is important to take into account that the forces and torques obtained from the sensors and processed by the card, are in the International System Units. Forces are given in Newton [N] and torques are given in tenths of a newton per meter [dN·m].
+
+\subsection{Acquisition program}
+The data acquisition of forces and moments form the sensors is done by user programs by means of the data aquisition card. 
+
+The \textit{jr3pci2channelYarp} program (See ANEXOS) reads data from 2 Force/Torque Sensors with a rate of $40 \mu s$.
+
+The sequence of the program is the following: reads data from sensors, scales the data to SI units, clusters the data into a YARP Bottle object and sends it through YARP ports.
