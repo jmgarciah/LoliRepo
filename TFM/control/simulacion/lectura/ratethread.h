@@ -50,11 +50,11 @@ public:
         port0.read(b0);
         port1.read(b1);
 
-        _fz0 = b0.get(0).asDouble();
+        _fz0 = b0.get(2).asDouble();
         _mx0 = b0.get(3).asDouble();
         _my0 = b0.get(4).asDouble();
 
-        _fz1 = b1.get(0).asDouble();
+        _fz1 = b1.get(2).asDouble();
         _mx1 = b1.get(3).asDouble();
         _my1 = b1.get(4).asDouble();
     }
