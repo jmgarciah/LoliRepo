@@ -15,15 +15,16 @@ yarp::dev::IPositionControl *posLeftLeg;
 class MyRateThread : public yarp::os::RateThread
 {
 public:
-    MyRateThread() : yarp::os::RateThread(T*1000.0){
+    MyRateThread() : yarp::os::RateThread(10){
         n = 1;
     }
     void run(){
+        printf("Running\n");
         getInitialTime();
         readFTSensor();
         zmpComp();
         evaluateModel();
-//        setJoints();
+        setJoints();
         printData();
         saveToFile();
         n++;
@@ -49,11 +50,11 @@ public:
         port0.read(b0);
         port1.read(b1);
 
-        _fz0 = b0.get(0).asDouble();
+        _fz0 = b0.get(2).asDouble();
         _mx0 = b0.get(3).asDouble();
         _my0 = b0.get(4).asDouble();
 
-        _fz1 = b1.get(0).asDouble();
+        _fz1 = b1.get(2).asDouble();
         _mx1 = b1.get(3).asDouble();
         _my1 = b1.get(4).asDouble();
     }
@@ -90,8 +91,8 @@ public:
         //   posLeftLeg->positionMove(4, -angle_x);
     }
     void setJoints(){
-//        posRightLeg->positionMove(4, angle_x);
-//        posLeftLeg->positionMove(4, angle_x);
+        posRightLeg->positionMove(4, angle_x);
+        posLeftLeg->positionMove(4, angle_x);
 //        posRightLeg->positionMove(5, -angle_y); // axial ankle Right Leg
 //        posRightLeg->positionMove(1, -angle_y); // axial hip Right Leg
 //        posLeftLeg->positionMove(5, angle_y); // axial ankle Left Leg
