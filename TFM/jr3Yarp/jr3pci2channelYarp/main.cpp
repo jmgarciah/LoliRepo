@@ -20,11 +20,13 @@
 #include "jr3pci-ioctl.h"
 
 int main(void) {
-
+    
     yarp::os::Network yarp;
     yarp::os::Port port0;
     yarp::os::Port port1;
-
+    double init;
+    double end;
+    double t;
     port0.open("/jr3ch0:o");
     port1.open("/jr3ch1:o");
 
@@ -46,9 +48,10 @@ int main(void) {
     printf("Full scales of Sensor 1 are: %d %d %d %d %d %d\n", fs1.f[0],fs1.f[1],fs1.f[2],fs1.m[0],fs1.m[1],fs1.m[2]);
     ret=ioctl(fd,IOCTL0_JR3_ZEROOFFS);
     ret=ioctl(fd,IOCTL1_JR3_ZEROOFFS);
-
+    
 
     while (1) {
+        init = yarp::os::Time::now();
         ret=ioctl(fd,IOCTL0_JR3_FILTER0,&fm0);
         ret=ioctl(fd,IOCTL1_JR3_FILTER0,&fm1);
 
@@ -56,10 +59,9 @@ int main(void) {
             yarp::os::Bottle b0;
             yarp::os::Bottle b1;
 
-            printf("Reading device ...\n");
+            //printf("Reading device ...\n");
 
             // -------- SENSOR 0 ------------ //
-            printf("Sensor 0 : [ ");
 
             f0[0] = 100*fm0.f[0]*fs0.f[0]/16384;
             f0[1]= 100*fm0.f[1]*fs0.f[1]/16384;
@@ -127,10 +129,14 @@ int main(void) {
             port0.write(b0);
             port1.write(b1);
 
-        } else perror("");
+        } else perror("Could not read device\n");
 
         //Sample time = 1ms
-        usleep(100000); // delay in microseconds
+//        usleep(100000); // delay in microseconds
+
+        end = yarp::os::Time::now();
+        t = end - init;
+        printf("t=%f\n",t);
     }
     close(fd);
 }

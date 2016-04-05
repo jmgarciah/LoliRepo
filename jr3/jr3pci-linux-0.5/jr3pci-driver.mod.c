@@ -4,37 +4,36 @@
 
 MODULE_INFO(vermagic, VERMAGIC_STRING);
 
-__visible struct module __this_module
+struct module __this_module
 __attribute__((section(".gnu.linkonce.this_module"))) = {
-	.name = KBUILD_MODNAME,
-	.init = init_module,
+ .name = KBUILD_MODNAME,
+ .init = init_module,
 #ifdef CONFIG_MODULE_UNLOAD
-	.exit = cleanup_module,
+ .exit = cleanup_module,
 #endif
-	.arch = MODULE_ARCH_INIT,
+ .arch = MODULE_ARCH_INIT,
 };
 
 static const struct modversion_info ____versions[]
 __used
 __attribute__((section("__versions"))) = {
-	{ 0x1e94b2a0, __VMLINUX_SYMBOL_STR(module_layout) },
-	{ 0x7c61340c, __VMLINUX_SYMBOL_STR(__release_region) },
-	{ 0xedc03953, __VMLINUX_SYMBOL_STR(iounmap) },
-	{ 0x6bc3fbc0, __VMLINUX_SYMBOL_STR(__unregister_chrdev) },
-	{ 0x8133032b, __VMLINUX_SYMBOL_STR(__register_chrdev) },
-	{ 0x42c8de35, __VMLINUX_SYMBOL_STR(ioremap_nocache) },
-	{ 0x1fedf0f4, __VMLINUX_SYMBOL_STR(__request_region) },
-	{ 0xa8a6f639, __VMLINUX_SYMBOL_STR(__check_region) },
-	{ 0x69a358a6, __VMLINUX_SYMBOL_STR(iomem_resource) },
-	{ 0x6a2abddc, __VMLINUX_SYMBOL_STR(pci_enable_device) },
-	{ 0xc6204ac5, __VMLINUX_SYMBOL_STR(pci_get_device) },
-	{ 0x4c4fef19, __VMLINUX_SYMBOL_STR(kernel_stack) },
-	{ 0x4f6b400b, __VMLINUX_SYMBOL_STR(_copy_from_user) },
-	{ 0x4f8b5ddb, __VMLINUX_SYMBOL_STR(_copy_to_user) },
-	{ 0xdb7305a1, __VMLINUX_SYMBOL_STR(__stack_chk_fail) },
-	{ 0x91715312, __VMLINUX_SYMBOL_STR(sprintf) },
-	{ 0x27e1a049, __VMLINUX_SYMBOL_STR(printk) },
-	{ 0xbdfb6dbb, __VMLINUX_SYMBOL_STR(__fentry__) },
+	{ 0xae141548, "module_layout" },
+	{ 0xf2a644fb, "copy_from_user" },
+	{ 0x2da418b5, "copy_to_user" },
+	{ 0xe8b8056d, "__register_chrdev" },
+	{ 0x3af98f9e, "ioremap_nocache" },
+	{ 0xadf42bd5, "__request_region" },
+	{ 0xb8aa2342, "__check_region" },
+	{ 0x2b3acc9, "pci_enable_device" },
+	{ 0xace06376, "pci_get_device" },
+	{ 0xf0fdf6cb, "__stack_chk_fail" },
+	{ 0x3c2c5af5, "sprintf" },
+	{ 0xb6ed1e53, "strncpy" },
+	{ 0x6bc3fbc0, "__unregister_chrdev" },
+	{ 0x9bce482f, "__release_region" },
+	{ 0x788fe103, "iomem_resource" },
+	{ 0xedc03953, "iounmap" },
+	{ 0xb72397d5, "printk" },
 };
 
 static const char __module_depends[]
@@ -42,5 +41,3 @@ __used
 __attribute__((section(".modinfo"))) =
 "depends=";
 
-
-MODULE_INFO(srcversion, "415D79463E512F36F9D3E25");
