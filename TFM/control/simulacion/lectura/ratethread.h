@@ -11,15 +11,19 @@ yarp::os::Port port0;
 yarp::os::Port port1;
 yarp::dev::IPositionControl *posRightLeg;
 yarp::dev::IPositionControl *posLeftLeg;
+float ref = 0.0;
+
 
 class MyRateThread : public yarp::os::RateThread
 {
 public:
-    MyRateThread() : yarp::os::RateThread(10){
+    MyRateThread() : yarp::os::RateThread(TS*1000.0){
         n = 1;
+
     }
     void run(){
         printf("Running\n");
+        _dt = n*TS;
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -30,14 +34,10 @@ public:
         n++;
         getCurrentTime();
         double t = curr_time - init_loop;  
-        printf("t=%f\n",t);
+        printf("LoopTime = %f\n",t);
 }
     void getInitialTime()
     {
-        if (n==1)
-        {
-            init_time = yarp::os::Time::now();
-        }
         init_loop = yarp::os::Time::now();
     }
     void getCurrentTime(){
@@ -71,24 +71,21 @@ public:
         _yzmp = (_yzmp0 * _fz0 + _yzmp1 * _fz1) / (_fz0 + _fz1);
         if ((_xzmp != _xzmp) || (_yzmp != _yzmp)){
             printf ("Warning: No zmp data\n");
-        } else {
-            cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
         }
-
     }
-
 
     void evaluateModel(){
         /** EVALUACION MODELO **/
-          _eval_x.model(_xzmp);
+        if (n == 200){
+            ref = 0.1;
+        }
+          _eval_x.model(_xzmp,ref);
        // _eval_y.model(_yzmp);
 
-            angle_x = 90-(acos(_eval_x.y/1.03)*180/PI);
+            angle_x = -90+(acos(_eval_x.y/1.03)*180/PI);
         // angle_y = 90-(acos(_eval_y.y/1.03)*180/PI);
         //   printf("angle_x = %f\n", angle_x);
         //   printf("angle_y = %f\n", angle_y);
-        //   posRightLeg->positionMove(4, -angle_x);
-        //   posLeftLeg->positionMove(4, -angle_x);
     }
     void setJoints(){
         posRightLeg->positionMove(4, angle_x);
@@ -99,6 +96,7 @@ public:
 //        posLeftLeg->positionMove(1, angle_y); // axial hip Left Leg
     }
     void printData(){
+        cout << "t = " << _dt << endl;
         cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
         cout << "Ref = " << _eval_x._r << endl;
         cout << "x_model = " << _eval_x.y << endl;
@@ -106,7 +104,8 @@ public:
     }
     void saveToFile()
     {
-        fprintf(fp,"\n%d", n);
+          fprintf(fp,"\n%d", n);
+          fprintf(fp,",%.4f",_dt);
           fprintf(fp,",%.15f",_eval_x._r);
           fprintf(fp,",%.15f", _xzmp);
           fprintf(fp,",%.15f", _eval_x.y);
@@ -121,7 +120,7 @@ public:
 private:
     int n;
     LIPM2d _eval_x;
-    LIPM2d _eval_y;
+    //LIPM2d _eval_y;
     float _fz0, _mx0, _my0; // F-T from sensor 0 in dN*m (0.1N*m)
     float _fz1, _mx1, _my1; // F-T from sensor 1 in dN*m (0.1N*m)
 
@@ -133,7 +132,7 @@ private:
     float angle_x;
     float angle_y;
 
-    double init_time, init_loop, curr_time;
+    double init_time, init_loop, curr_time, _dt;
 };
 
 #endif //_ratethread_H_

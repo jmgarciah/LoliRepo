@@ -11,7 +11,7 @@
 #include <cmath>
 
 #define PI  3.141592
-static float T = 0.03; // Sample time [s]
+#define TS 0.03
 
 #include "ratethread.h"
 
@@ -113,7 +113,7 @@ int main(void) {
     printf("Right Leg :(0 0 0 0 0 0)\n");
 
    
-    yarp::os::Time::delay(10); 
+    yarp::os::Time::delay(10);
     /** LOOP THREAD**/
     MyRateThread myRateThread;
     myRateThread.start();

@@ -9,7 +9,7 @@
 #define LIPM2D_H_
 
 #include <iostream>
-
+#include <yarp/os/all.h>
 
 
 using namespace std;
@@ -19,7 +19,7 @@ public:
     LIPM2d();
     ~LIPM2d();
 
-    float model(float p_real);
+    float model(float p_real, float reference);
 
     float _r; // reference model signal
     float y; // zmp output signal (to ankle joints)

@@ -21,13 +21,13 @@ LIPM2d::LIPM2d()
     _C[0] = -0.0000002435;
     _C[1] = 0.0;
     _D = 0.00016332;
-    _K[0] = 18.0901;
-    _K[1] = 5.8810;
+    _K[0] = 1.80901;
+    _K[1] = 0.58810;
 //    _K[0] = 23.18;
 //    _K[1] = 6.8;
-    _Ki = 0.10;
-    _Kd = 0.10;
-    _Kp = -10.0;
+    _Ki = 100.0;
+    _Kd = 0.1;
+    _Kp = -3000.0;
     _T = 0.03;
 
     cout << "Discrete-time Space State Model description:" << endl;
@@ -60,18 +60,18 @@ LIPM2d::LIPM2d()
     _z[1] = 0.0;
     _z[2] = 0.0;
     y = 0.0;
-    _pref = 0.0;
+    _pref = 0.0; // ZMP reference
 	cout<<"Constructor OK"<<endl;
 }
 
 LIPM2d::~LIPM2d(){
 }
 
-float LIPM2d::model(float p_real){
+float LIPM2d::model(float p_real, float reference){
 
-
+    _r = reference;
      /** STATE FEEDBACK WITH PID ACTIONS **/
-    _r = _pref - p_real; //model reference
+    //_r = _pref - p_real; //model reference
 
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
