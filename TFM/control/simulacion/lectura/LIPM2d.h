@@ -20,7 +20,10 @@ public:
     ~LIPM2d();
 
     float model(float p_real, float reference);
+    float model2(float reference);
 
+    float _x1[2]; // state variable
+    float _x2[2]; // model state variable
     float _r; // reference model signal
     float y; // zmp output signal (to ankle joints)
 
@@ -33,10 +36,10 @@ private:
     float _Kp, _Ki, _Kd; // P, I, D gains
     float _T; // sample time
     float _pref; // ZMP reference
-    float _x1[2]; // state variable
-    float _x2[2]; // model state variable
+
     float _z[3]; // model state variable
     float _u; // model control signal
+     float Uref;
 };
 
 #endif /* LIPM2D_H_ */

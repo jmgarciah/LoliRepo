@@ -22,13 +22,18 @@ public:
 
     }
     void run(){
-        printf("Running\n");
+        printf("----------\n Running\n");
         _dt = n*TS;
         getInitialTime();
-        readFTSensor();
-        zmpComp();
+        //readFTSensor();
+        //zmpComp();
+        //_xzmp = 0.1;
+        if (n == 150){
+            ref = 0.2;
+        }
+        //ref = 0.1;
         evaluateModel();
-        setJoints();
+        //setJoints();
         printData();
         saveToFile();
         n++;
@@ -76,13 +81,11 @@ public:
 
     void evaluateModel(){
         /** EVALUACION MODELO **/
-        if (n == 200){
-            ref = 0.1;
-        }
-          _eval_x.model(_xzmp,ref);
+        //  _eval_x.model(_xzmp,ref);
+          _eval_x.model2(ref);
        // _eval_y.model(_yzmp);
 
-            angle_x = -90+(acos(_eval_x.y/1.03)*180/PI);
+         //   angle_x = -90+(acos(_eval_x.y/1.03)*180/PI);
         // angle_y = 90-(acos(_eval_y.y/1.03)*180/PI);
         //   printf("angle_x = %f\n", angle_x);
         //   printf("angle_y = %f\n", angle_y);
@@ -98,18 +101,22 @@ public:
     void printData(){
         cout << "t = " << _dt << endl;
         cout << "ZMP = [" << _xzmp << ", " << _yzmp << "]" << endl;
-        cout << "Ref = " << _eval_x._r << endl;
+        cout << "Ref = " << ref << endl;
+        //cout << "Azmp = " << _eval_x._r << endl;
         cout << "x_model = " << _eval_x.y << endl;
-        cout << "angle_x = " << angle_x << endl;
+        //cout << "angle_x = " << angle_x << endl;
     }
     void saveToFile()
     {
           fprintf(fp,"\n%d", n);
           fprintf(fp,",%.4f",_dt);
-          fprintf(fp,",%.15f",_eval_x._r);
-          fprintf(fp,",%.15f", _xzmp);
+          //fprintf(fp,",%.15f",_eval_x._r);
+          fprintf(fp,",%.15f",ref);
+          //fprintf(fp,",%.15f", _xzmp);
           fprintf(fp,",%.15f", _eval_x.y);
-          fprintf(fp,",%f", angle_x);
+          fprintf(fp,",%.15f", _eval_x._x1[0]);
+          //fprintf(fp,",%f", angle_x);
+
 //        fprintf(fp,",%.15f", _eval_y._r);
 //        fprintf(fp,",%.15f", _yzmp);
 //        fprintf(fp,",%.15f", _eval_y.y);
