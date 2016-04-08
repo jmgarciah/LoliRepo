@@ -21,7 +21,7 @@ public:
 
     float model(float p_real, float reference);
     float model2(float reference);
-
+    float model3(float reference);
     float _x1[2]; // state variable
     float _x2[2]; // model state variable
     float _r; // reference model signal
@@ -40,6 +40,7 @@ private:
     float _z[3]; // model state variable
     float _u; // model control signal
      float Uref;
+     float pre_z;
 };
 
 #endif /* LIPM2D_H_ */

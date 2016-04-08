@@ -28,8 +28,8 @@ public:
         //readFTSensor();
         //zmpComp();
         //_xzmp = 0.1;
-        if (n == 150){
-            ref = 0.2;
+        if (n == 100){
+            ref = 0.1;
         }
         //ref = 0.1;
         evaluateModel();
@@ -82,7 +82,7 @@ public:
     void evaluateModel(){
         /** EVALUACION MODELO **/
         //  _eval_x.model(_xzmp,ref);
-          _eval_x.model2(ref);
+          _eval_x.model3(ref);
        // _eval_y.model(_yzmp);
 
          //   angle_x = -90+(acos(_eval_x.y/1.03)*180/PI);
@@ -104,6 +104,7 @@ public:
         cout << "Ref = " << ref << endl;
         //cout << "Azmp = " << _eval_x._r << endl;
         cout << "x_model = " << _eval_x.y << endl;
+        cout << "x1[0] = " << _eval_x._x1[0] << endl;
         //cout << "angle_x = " << angle_x << endl;
     }
     void saveToFile()

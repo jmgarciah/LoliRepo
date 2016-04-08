@@ -52,8 +52,8 @@ LIPM2d::LIPM2d()
     // Inicializacion variables
     _r = 0.0;
     _u = 0.0;
-    _x1[0] = 5*3.14/180;
-    _x1[1] = 5*3.14/180;
+    _x1[0] = 0.0;
+    _x1[1] = 0.0;
     _x2[0] = 0.0;
     _x2[1] = 0.0;
     _z[0] = 0.0;
@@ -92,7 +92,7 @@ float LIPM2d::model2(float reference){
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
 
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] - 5200 * Uref;
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] - 5500 * Uref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
@@ -103,4 +103,21 @@ float LIPM2d::model2(float reference){
     return 0;
 }
 
+float LIPM2d::model3(float reference){
+     /** STATE FEEDBACK WITH PID ACTIONS **/
+    _r = reference;
 
+    _x1[0] = _x1[1];
+    _x2[0] = _x2[1];
+    _z[0] = _z[1];
+
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + 100*(pre_z + _z[0])*_T - 3000*_z[0];
+    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
+    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
+    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
+    _z[1] = _r - y;
+    pre_z = _z[0];
+
+
+    return 0;
+}

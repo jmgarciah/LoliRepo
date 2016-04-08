@@ -10,7 +10,7 @@ plot(t,u_ref,'b')
 plot(t,theta_out,'r')
 plot(t,x1,'g')
 
-title('Kp = -5200')
+title('o')
 ylabel('t')
 xlabel('t [s]');
 legend('Uref','y{out}','x1')
