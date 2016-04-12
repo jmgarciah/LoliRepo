@@ -5,6 +5,7 @@
  *      Author: teo
  */
 #define g		9.81 // Gravity in m/s²
+#include <cmath>
 #include "LIPM2d.h"
 
 
@@ -14,15 +15,15 @@ LIPM2d::LIPM2d()
 {
     _A[0][0] = 1.004;
     _A[0][1] = 0.03004;
-    _A[1][0] = 0.2843;
+    _A[1][0] = 0.2395;
     _A[1][1] = 1.004;
     _B[0][0] = 0.0004503;
     _B[1][0] = 0.03004;
-    _C[0] = -0.0000002435;
+    _C[0] = -2.192;
     _C[1] = 0.0;
-    _D = 0.00016332;
-    _K[0] = 18.0901;
-    _K[1] = 5.8810;
+    _D = 0.49;
+    _K[0] = 10.08;
+    _K[1] = 4.418;
 //    _K[0] = 23.18;
 //    _K[1] = 6.8;
     _Ki = 100.0;
@@ -53,15 +54,17 @@ LIPM2d::LIPM2d()
     _r = 0.0;
     _u = 0.0;
     _x1[0] = 0.0;
-    _x1[1] = 0.0;
+    _x1[1] = 0.0*3.1415/180;
     _x2[0] = 0.0;
     _x2[1] = 0.0;
     _z[0] = 0.0;
     _z[1] = 0.0;
     _z[2] = 0.0;
+    Ud[0] = 0.0;
+    Ud[1] = 0.0;
     y = 0.0;
     _pref = 0.0; // ZMP reference
-	cout<<"Constructor OK"<<endl;
+    cout<<"Constructor OK"<<endl;
 }
 
 LIPM2d::~LIPM2d(){
@@ -75,7 +78,7 @@ float LIPM2d::model(float p_real, float reference){
     _x2[0] = _x2[1];
     _z[0] = _z[1];
 
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Kp*(_r-y) + _Ki*_z[0] + _Kd*_z[2];
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Kp*(_r-y) + 100*_Ki*_z[0] + _Kd*_z[2];
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
@@ -86,7 +89,7 @@ float LIPM2d::model(float p_real, float reference){
 }
 
 float LIPM2d::model2(float reference){
-
+    // IT WORKS BUT MODEL NOT COMPLETE //
     Uref = reference;
 
     _x1[0] = _x1[1];
@@ -104,7 +107,8 @@ float LIPM2d::model2(float reference){
 }
 
 float LIPM2d::model3(float reference){
-     /** STATE FEEDBACK WITH PID ACTIONS **/
+    // DO Nuntitled.figOT WORK // ALWAYS ERROR IN STEADY STATE
+     /** STATE FEEDBACK WITH PI ACTIONS **/
     _r = reference;
 
     _x1[0] = _x1[1];
@@ -118,6 +122,28 @@ float LIPM2d::model3(float reference){
     _z[1] = _r - y;
     pre_z = _z[0];
 
+    return 0;
+}
+
+
+float LIPM2d::model4(float reference){
+    // COMPLETE MODEL WITH UD //
+     /** STATE FEEDBACK WITH INTEGRAL ACTION **/
+    _r = reference;
+
+    _x1[0] = _x1[1];
+    _x2[0] = _x2[1];
+    _z[0] = _z[1];
+    Ud[0] = Ud[1];
+
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + 10.0*(pre_z + _z[0])*_T + 1.0*Ud[0] - 0.5*_z[0];
+    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
+    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
+    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
+    _z[1] = _r - y;
+    Ud[1] = (3.1415/2) - acos(y/1.03);
+
+    pre_z = _z[0];
 
     return 0;
 }
