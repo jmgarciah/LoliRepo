@@ -28,7 +28,7 @@ public:
     float _x2[2]; // model state variable
     float _r; // reference model signal
     float y; // zmp output signal (to ankle joints)
-    float Ud[2]; // comanded angle
+    float Ud; // comanded angle
 
 private:
     float _A[2][2];

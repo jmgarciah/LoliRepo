@@ -28,9 +28,27 @@ public:
         //readFTSensor();
         //zmpComp();
         //_xzmp = 0.1;
-        if (n == 200){
+        if (n == 100){
             ref = 0.2;
         }
+        if (n == 200){
+            ref = 0.1;
+        };
+        if (n == 300){
+            ref = 0.15;
+        };
+        if (n == 400){
+            ref = -0.05;
+        };
+        if (n == 500){
+            ref = 0.0;
+        };
+        if (n == 600){
+            ref = -0.18;
+        };
+        if (n == 600){
+            ref = 0.3;
+        };
         //ref = 0.1;
         evaluateModel();
         //setJoints();
@@ -105,7 +123,7 @@ public:
         //cout << "Azmp = " << _eval_x._r << endl;
         cout << "x_model = " << _eval_x.y << endl;
         cout << "x1[0] = " << _eval_x._x1[0] << endl;
-        cout << "Ud[0] = " << _eval_x.Ud[0] << endl;
+        cout << "Ud[0] = " << _eval_x.Ud << endl;
         //cout << "angle_x = " << angle_x << endl;
     }
     void saveToFile()
@@ -117,7 +135,7 @@ public:
           //fprintf(fp,",%.15f", _xzmp);
           fprintf(fp,",%.15f", _eval_x.y);
           fprintf(fp,",%.15f", _eval_x._x1[0]);
-          fprintf(fp,",%.15f", _eval_x.Ud[0]);
+          fprintf(fp,",%.15f", _eval_x.Ud);
           //fprintf(fp,",%f", angle_x);
 
 //        fprintf(fp,",%.15f", _eval_y._r);
