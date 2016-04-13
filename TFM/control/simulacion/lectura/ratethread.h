@@ -28,27 +28,9 @@ public:
         //readFTSensor();
         //zmpComp();
         //_xzmp = 0.1;
-        if (n == 100){
-            ref = 0.2;
+        if (_dt > 2.0 && _dt < 4.0){
+            ref = 0.05*_dt-0.1;
         }
-        if (n == 200){
-            ref = 0.1;
-        };
-        if (n == 300){
-            ref = 0.15;
-        };
-        if (n == 400){
-            ref = -0.05;
-        };
-        if (n == 500){
-            ref = 0.0;
-        };
-        if (n == 600){
-            ref = -0.18;
-        };
-        if (n == 600){
-            ref = 0.3;
-        };
         //ref = 0.1;
         evaluateModel();
         //setJoints();

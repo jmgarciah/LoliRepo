@@ -12,6 +12,6 @@ plot(t,y,'r')
 plot(t,x1,'g')
 plot(t,Ud,'k')
 
-title('K=[12.55, 4.91], Ki=0.01, Kp=-1.5, Ku=-2.5')
+title('K=[12.55, 4.91], Ki=10, Kp=-1.5, Ku=-2.05')
 xlabel('t [s]');
 legend('Uref','y{out}','x1','Ud(rad)')
