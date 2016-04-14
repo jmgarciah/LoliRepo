@@ -1,22 +1,5 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <iostream>
-#include <string.h>
-#include <signal.h>
-#include <sys/ioctl.h>
-#include <cmath>
-
-#define PI  3.141592
-#define TS 0.03
-#define L   1.03
-
+#include "global.h"
 #include "ratethread.h"
-
-using namespace std;
 
 //yarp::os::Port port0;
 //yarp::os::Port port1;

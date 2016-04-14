@@ -8,12 +8,6 @@
 #ifndef LIPM2D_H_
 #define LIPM2D_H_
 
-#include <iostream>
-#include <yarp/os/all.h>
-
-
-using namespace std;
-
 class LIPM2d{
 public:
     LIPM2d();
@@ -34,15 +28,13 @@ private:
     float _C[2];
     float _D;
     float _K[2]; // feedback LQR gain
-    float _Kp, _Ki, _Kd; // P, I, D gains
+    float _Kp, _Ki, _Ku; // P, I, U gains
     float _T; // sample time
     float _zmp_ref; // ZMP reference. Static posture = 0.0
 
-    float _z[3]; // model state variable
-
-    float _u; // model control signal
-
-    float pre_z;
+    float _z[2]; // model state variable
+    float _u; // model control signal. Compensated angle
+    float pre_z; // previous z --> z[k-1]
 
 };
 

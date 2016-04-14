@@ -4,12 +4,8 @@
  *  Created on: 03/12/2015
  *      Author: teo
  */
-#define g		9.81 // Gravity in m/s²
-#include <cmath>
+#include "global.h"
 #include "LIPM2d.h"
-
-
-
 
 LIPM2d::LIPM2d()
 {
@@ -24,11 +20,9 @@ LIPM2d::LIPM2d()
     _D = 0.3266;
     _K[0] = 12.5527;
     _K[1] = 4.9178;
-//    _K[0] = 23.18;
-//    _K[1] = 6.8;
-    _Ki = 100.0;
-    _Kd = 0.1;
-    _Kp = -3000.0;
+    _Ki = 10.0;
+    _Kp = -1.5;
+    _Ku = 2.05;
     _T = 0.03;
 
     cout << "Discrete-time Space State Model description:" << endl;
@@ -63,7 +57,7 @@ LIPM2d::LIPM2d()
     _u_ref = 0.0;
     y = 0.0;
     _zmp_ref = 0.0; // ZMP reference
-    cout<<"Constructor OK"<<endl;
+
 }
 
 LIPM2d::~LIPM2d(){
@@ -71,18 +65,17 @@ LIPM2d::~LIPM2d(){
 
 float LIPM2d::model(float zmp_real){
      /** STATE FEEDBACK WITH INTEGRAL ACTION **/
-    //_zmp_error = _zmp_ref - zmp_real;
-    _zmp_ref = zmp_real;
+    _zmp_error = _zmp_ref - zmp_real;
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
     _z[0] = _z[1];
     _u_ref = sin(_zmp_ref/1.03); // L is the pendulum longitude.
 
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + 10.0*(pre_z + _z[0])*_T - 1.5*_z[0] - 2.05*_u_ref;
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_z + _z[0])*_T + _Kp*_z[0] - _Ku*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-    _z[1] = _zmp_ref - y;
+    _z[1] = _zmp_error - y;
 
     pre_z = _z[0];
 
