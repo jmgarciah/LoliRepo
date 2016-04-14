@@ -12,6 +12,7 @@
 
 #define PI  3.141592
 #define TS 0.03
+#define L   1.03
 
 #include "ratethread.h"
 

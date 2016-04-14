@@ -51,7 +51,7 @@ LIPM2d::LIPM2d()
     cout << "\nSample Time : " << _T << " s" << endl;
 
     // Inicializacion variables
-    _r = 0.0;
+    _zmp_error = 0.0;
     _u = 0.0;
     _x1[0] = 0.0;
     _x1[1] = 0.0*3.1415/180;
@@ -60,87 +60,29 @@ LIPM2d::LIPM2d()
     _z[0] = 0.0;
     _z[1] = 0.0;
     _z[2] = 0.0;
-    Ud = 0;
+    _u_ref = 0.0;
     y = 0.0;
-    _pref = 0.0; // ZMP reference
+    _zmp_ref = 0.0; // ZMP reference
     cout<<"Constructor OK"<<endl;
 }
 
 LIPM2d::~LIPM2d(){
 }
 
-float LIPM2d::model(float p_real, float reference){
-    _pref = reference;
-     /** STATE FEEDBACK WITH PID ACTIONS **/
-    _r = _pref - p_real; //Variation of ZMP (ZMPref - ZMPreal). Model reference
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-    _z[0] = _z[1];
-
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Kp*(_r-y) + 100*_Ki*_z[0] + _Kd*_z[2];
-    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
-    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-    _z[1] = _r - y;
-    _z[2] = (_z[1] - _z[0])/_T;
-
-    return 0;
-}
-
-float LIPM2d::model2(float reference){
-    // IT WORKS BUT MODEL NOT COMPLETE //
-    Uref = reference;
-
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] - 5500 * Uref;
-    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
-    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-
-    cout << "Uref = " << Uref << endl;
-    cout << "x1[0] = " << _x1[0] << endl;
-    cout << "x2[0] = " << _x2[0] << endl;
-    return 0;
-}
-
-float LIPM2d::model3(float reference){
-    // DO Nuntitled.figOT WORK // ALWAYS ERROR IN STEADY STATE
-     /** STATE FEEDBACK WITH PI ACTIONS **/
-    _r = reference;
-
-    _x1[0] = _x1[1];
-    _x2[0] = _x2[1];
-    _z[0] = _z[1];
-
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + 100*(pre_z + _z[0])*_T - 3000*_z[0];
-    y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
-    _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
-    _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-    _z[1] = _r - y;
-    pre_z = _z[0];
-
-    return 0;
-}
-
-
-float LIPM2d::model4(float reference){
-    // COMPLETE MODEL WITH UD //
+float LIPM2d::model(float zmp_real){
      /** STATE FEEDBACK WITH INTEGRAL ACTION **/
-    _r = reference;
-
+    //_zmp_error = _zmp_ref - zmp_real;
+    _zmp_ref = zmp_real;
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
     _z[0] = _z[1];
-    Ud = sin(_r/1.03);
+    _u_ref = sin(_zmp_ref/1.03); // L is the pendulum longitude.
 
-    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + 10.0*(pre_z + _z[0])*_T - 1.5*_z[0] - 2.05*Ud;
+    _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + 10.0*(pre_z + _z[0])*_T - 1.5*_z[0] - 2.05*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
-    _z[1] = _r - y;
-
+    _z[1] = _zmp_ref - y;
 
     pre_z = _z[0];
 
