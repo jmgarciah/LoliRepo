@@ -90,10 +90,12 @@ In the equation \eqref{eq:TFpar} $x_{ZMP}(s)$ is the output and $U(s)$ is the in
 The state space representation of the dynamical system in the standard form is:
 \begin{equation}
 \mathbf{\dot{x}} = \mathbf{A}\textbf{x} + \mathbf{B}u
+\label{eq:ss1}
 \end{equation}
 
 \begin{equation}
 y = \mathbf{C}\textbf{x} + Du
+\label{eq:ss2}
 \end{equation}
 
 where $\mathbf{x}$ is a state ($n$-vector), $y$ is the output (escalar), $u$ - control (scalar), $\mathbf{A}$ - $n \times n$ constant  matrix, $\mathbf{B}$ - $n \times 1$ constant matrix, $\mathbf{C}$ - $1 \times n$ constant matrix and $D$ a scalar.
@@ -101,18 +103,14 @@ where $\mathbf{x}$ is a state ($n$-vector), $y$ is the output (escalar), $u$ - c
 To obtain the state representation of the inverted pendulum system let us define state variables $x_1$ and $x_2$ by:
 \begin{equation}
 x_1 = \theta
+\label{eq:x1}
 \end{equation}
 \begin{equation}
 x_2 = \dot{x_1} = \dot{\theta}
+\label{eq:x2}
 \end{equation} 
 
-where angle $\theta$ denotes the rotation of the pendulum about the ankle and $\dot{\theta}$ its angular velocity.
-
-
-
-
-
-From transfer function equation, we can obtain the space state model equations:
+where angle $\theta$ denotes the rotation of the pendulum about the ankle and $\dot{\theta}$ its angular velocity. We consider the $zmp$ as the output of the system, then $y = x_{ZMP}$ in the XZ plane case. From the definition of state space equations \eqref{eq:ss1} - \eqref{eq:x2} and the linearized equations of the inverted pendulum motions \eqref{eq:pendulo2} and \eqref{eq:pendulo3} we obtain the state space representation of the system:
 \begin{equation}
 \begin{bmatrix}
 \dot{x_1} \\
@@ -139,11 +137,13 @@ u
 y = \begin{bmatrix}
 -k_1\beta & 0 
 \end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix}
 + \begin{bmatrix}
 k_1
 \end{bmatrix}
 u
 \label{eq:state_space_out}
 \end{equation}
-
-where $ x_1 $ and $ x_2 $ are state variables and $y$ is the output of the system, then the $x_{ZMP}$

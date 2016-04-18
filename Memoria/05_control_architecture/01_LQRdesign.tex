@@ -3,29 +3,30 @@
 The quadratic optimal control method is one of the control methods applied in state space systems and it provides a systematic way of computing the state feedback control gain matrix \cite{Ogata}.
 Given the state space system equation
 \begin{equation}
-\dot{x} = Ax+Bu ,
-\label{eq:sseq}
+\mathbf{\dot{x}} = \mathbf{A}\textbf{x} + \mathbf{B}\mathbf{u}
 \end{equation}
-the LQR determines the matrix $K$ of the optima control vector
+the LQR determines the matrix $\mathbf{K}$ of the optimal control vector
 \begin{equation}
-u(t) = -Kx(t)
+\mathbf{u}(t) = -\mathbf{Kx}(t)
 \label{eq:control}
 \end{equation}
 so as to minimize the performance index
 \begin{equation}
-J = \int_{0}^{\infty}(x^{T}Qx+u^{T}Ru) dt
+J = \int_{0}^{\infty}(\mathbf{x}^{T}\mathbf{Qx}+\mathbf{u}^{T}\mathbf{Ru}) dt
 \end{equation}
 
-where $Q$ is a positive-definite (or positive-semidefinite) Hermitian or real symmetric matrix and $R$ is a positive-definite Hermitian or real symmetric matrix. Note that the matrices $Q$ and $R$ determine the relative importance of the error and the expenditure of the energy of the control signals.
-The linear control law given by equation \ref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $K = [K_1 \quad K_2]$ are determined so as to minimize the performance index, then $u(t) = -Kx$  is optimal for any initial state $x(0)$. The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure \ref{fig:block_diagram}. The controller maintain desired ($x_{ZMP}$) position of the single pendulum close to zero. Thus, the reference input of the control system in Figure [REF] is not zero.?????
+where $\mathbf{Q}$ is a positive-definite (or positive-semidefinite) Hermitian or real symmetric matrix and $\mathbf{R}$ is a positive-definite Hermitian or real symmetric matrix. Note that the matrices $\mathbf{Q}$ and $\mathbf{R}$ determine the relative importance of the error and the expenditure of the energy of the control signals.
+The linear control law given by equation \eqref{eq:control} is the optimal control law. Therefore, if the unknown elements of the matrix $\mathbf{K}$ are determined so as to minimize the performance index, then $\mathbf{u}(t) = -\mathbf{Kx}(t)$  is optimal for any initial state $x(0)$. 
+
+The block diagram showing the optimal configuration for the single inverted pendulum system is presented in Figure \ref{fig:block_diagram}. The controller maintain desired ($x_{ZMP}$) position , and also $\theta$, of the single inverted pendulum close to zero. Thus, the reference input of the control system in Figure \ref{fig:block_diagram} is zero. A further point of interest for the humanoid robot is to have command tracking so that the real humanoid robot joints could be positioned anywhere and this can be achieved by adding an offset to the desired angle of the ankle joint.
 \begin{figure}[!hbt]
 \centering
 \includegraphics[scale=0.4]{diagrama.pdf}
-\caption{Block diagram}
+\caption{LQR controller block diagram}
 \label{fig:block_diagram}
 \end{figure}
 
-The state space representation \ref{eq:state_space}, \ref{eq:state_space_out} is a controllable canonical form that is important for the LQR controller design. It is desired to keep the actual ZMP, measured and computed by force-torque sensors located in the feet of the humanoid robot, close to its stable reference position as was discussed in previous sections. As the system is a type 0 plant, it is necessary to insert an integrator in order to design a ZMP servo control system (type 1) and remove the steady state error. Therefore, we feed the output signal $y$ (which indicates the real ZMP) back to the input and an integrator in the feedforward path as is shown in Figure \ref{fig:diagrama_int}.
+The state space representation \ref{eq:state_space}, \ref{eq:state_space_out} is a controllable canonical form that is important for the LQR controller design. It is desired to keep the actual ZMP, measured and computed by force-torque sensors located in the feet of the humanoid robot, close to its stable reference position as was discussed in previous sections. As the system is a type 0 plant, it is necessary to insert an integrator in order to design a ZMP servo control system (type 1) and remove the steady state error. Therefore, we feed the output signal $y$ (which indicates the real ZMP) back to the input and an integrator in the feedforward path as is shown in Figure \ref{fig:diagrama_int}. Here, $z$ denotes the error between the actual and the reference ZMP, $u$ represents the commanded angle to the system and $u_D$ is the corresponding angle to the reference ZMP ($r$).
 
 \begin{figure}[!hbt]
 \centering
@@ -36,7 +37,7 @@ The state space representation \ref{eq:state_space}, \ref{eq:state_space_out} is
 
 Thus, referring equations \ref{eq:state_space} and \ref{eq:state_space_out} and Figure \ref{fig:diagrama_int} and considering the actual ZMP position as the output of the system and $r$ as the reference input signal we obtain the equations for the closed loop system as follows:
 \begin{equation}
-\dot{x} = \textbf{A}\textbf{x} + \textbf{B}u
+\mathbf{\dot{x}} = \mathbf{A}\textbf{x} + \mathbf{B}u
 \end{equation}
 
 \begin{equation}
@@ -44,7 +45,7 @@ y = \textbf{C}\textbf{x} + \textbf{D}u
 \end{equation}
 
 \begin{equation}
-u = - \textbf{K}\textbf{x} + K_i z
+u = - \textbf{K}\textbf{x} + K_i z - K_u u_D
 \end{equation}
 
 \begin{equation}
@@ -78,8 +79,9 @@ u = \begin{bmatrix}
 \end{bmatrix}
 \begin{bmatrix}
 \textbf{x}\\
-z
+z 
 \end{bmatrix}
+- K_u u_D
 \end{equation}
 
 The optimum $K$ matrix is obtained from equations \ref{eq:Kcont} and \ref{eq:Kdisc}.
@@ -101,8 +103,10 @@ P \rightarrow A^{T}PA+P-A^{T}PB(R+B^{T}PB)^{-1}B^{T}PA+Q = 0 \quad (discrete \qu
 \end{equation}
 
 
-In order to obtain the controller design for further simulations and experiments, the following mechanical parameters of the inverted pendulum (corresponding to Rh-2 humanoid robot) were taken: $m$ = 62.416 kg, $l$=1.03 m, $k$=0.1. \textcolor{red}{Valor y unidades de stiffness???}. For the optimum response of the control system, it is suggested to take $Q = C^{T}C = \begin{bmatrix}
-5.037 \cdot 10^{-8} & 0\\
+In order to obtain the controller design for further simulations and experiments, the following mechanical parameters of the inverted pendulum (corresponding to Rh-2 humanoid robot) were taken: $m$ = 62.416 kg, $l$=1.03 m, $k$=200. The high stiffness value is due to the rigidity of the pendulum (the leg in this case). If it has a high stiffness, the pendulum will behave as a so rigid link, but if it is lower, the pendulum will be considered as a flexible link and will react in a slower way.
+
+For the optimum response of the control system, it is suggested \textcolor{red}{REFERENCIA?} to take $Q = C^{T}C = \begin{bmatrix}
+0.9487 & 0\\
 0 & 0
 \end{bmatrix}$ and $R = 1 $. 
 %%% AÑADIR SOLO SI SE PRUEBA QUE ES MAS RAPIDO %%%%
@@ -110,7 +114,7 @@ In order to obtain the controller design for further simulations and experiments
 %1000 & 0\\
 %0 & 0
 %\end{bmatrix}$.  
-After the LQR controller was designed, the control gains matrix $K = [18.89 \quad 6.14]$ was obtained using a sample time $T = 0.001$ s.
+After the LQR controller was designed, the control gains matrix $K = [12.5527 \quad 4.9178]$ was obtained using a sample time $T = 0.03$ s.
 
 
 
