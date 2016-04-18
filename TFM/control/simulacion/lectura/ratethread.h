@@ -21,6 +21,7 @@ public:
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
+        if(n >= 150){ref = 0.0;}else{ref = 0.05;}
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -73,10 +74,10 @@ public:
 
     void evaluateModel(){
         /** EVALUACION MODELO **/
-        _eval_x.model(_xzmp);
+        _eval_x.model(_xzmp, ref);
        // _eval_y.model(_yzmp);
 
-        angle_x = asin(_eval_x.y/1.03)*180/PI;
+        angle_x = -asin(_eval_x.y/1.03)*180/PI;
         // angle_y = 90-(acos(_eval_y.y/1.03)*180/PI);
 
     }
@@ -130,6 +131,8 @@ private:
     float angle_y;
 
     double init_time, init_loop, curr_time, _dt;
+
+    float ref;
 };
 
 #endif //_ratethread_H_

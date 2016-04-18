@@ -13,7 +13,7 @@ public:
     LIPM2d();
     ~LIPM2d();
 
-    float model(float zmp_real);
+    float model(float zmp_real, float ref);
 
     float _x1[2]; // state variable
     float _x2[2]; // model state variable

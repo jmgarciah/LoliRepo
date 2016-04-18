@@ -63,8 +63,9 @@ LIPM2d::LIPM2d()
 LIPM2d::~LIPM2d(){
 }
 
-float LIPM2d::model(float zmp_real){
+float LIPM2d::model(float zmp_real, float ref){
      /** STATE FEEDBACK WITH INTEGRAL ACTION **/
+    _zmp_ref = ref;
     _zmp_error = _zmp_ref - zmp_real;
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
