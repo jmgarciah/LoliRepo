@@ -53,13 +53,14 @@ int main(void) {
     }
 
     ret=ioctl(fd,IOCTL0_JR3_GET_FULL_SCALES,&fs0);
-    printf("Full scales of Sensor 0 are %d %d %d %d %d %d\n",fs0.f[0],fs0.f[1],fs0.f[2],fs0.m[0],fs0.m[1],fs0.m[2]);
+    mvprintw(0,0,"Full scales of Sensor 0 are %d %d %d %d %d %d\n",fs0.f[0],fs0.f[1],fs0.f[2],fs0.m[0],fs0.m[1],fs0.m[2]);
     ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs1);
-    printf("Full scales of Sensor 1 are: %d %d %d %d %d %d\n", fs1.f[0],fs1.f[1],fs1.f[2],fs1.m[0],fs1.m[1],fs1.m[2]);
+    mvprintw(1,0,"Full scales of Sensor 1 are: %d %d %d %d %d %d\n", fs1.f[0],fs1.f[1],fs1.f[2],fs1.m[0],fs1.m[1],fs1.m[2]);
     ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs2);
-    printf("Full scales of Sensor 2 are: %d %d %d %d %d %d\n", fs2.f[0],fs2.f[1],fs2.f[2],fs2.m[0],fs2.m[1],fs2.m[2]);
+    mvprintw(2,0,"Full scales of Sensor 2 are: %d %d %d %d %d %d\n", fs2.f[0],fs2.f[1],fs2.f[2],fs2.m[0],fs2.m[1],fs2.m[2]);
     ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs3);
-    printf("Full scales of Sensor 3 are: %d %d %d %d %d %d\n", fs3.f[0],fs3.f[1],fs3.f[2],fs3.m[0],fs3.m[1],fs3.m[2]);
+    mvprintw(3,0,"Full scales of Sensor 3 are: %d %d %d %d %d %d\n", fs3.f[0],fs3.f[1],fs3.f[2],fs3.m[0],fs3.m[1],fs3.m[2]);
+
     ret=ioctl(fd,IOCTL0_JR3_ZEROOFFS);
     ret=ioctl(fd,IOCTL1_JR3_ZEROOFFS);
     ret=ioctl(fd,IOCTL2_JR3_ZEROOFFS);
@@ -87,8 +88,8 @@ int main(void) {
             m0[1] = 10*fm0.m[1]*fs0.m[1]/16384;
             m0[2] = 10*fm0.m[2]*fs0.m[2]/16384;
 
-            mvprintw(0,0,"Sensor 0 data :"); // Print at row 0, col 0
-            mvprintw(1,0,"[%d,%d,%d,%d,%d,%d]\n",f0[0],f0[1],f0[2],m0[0],m0[1],m0[2]);
+            mvprintw(5,0,"Sensor 0 data :"); // Print at row 0, col 0
+            mvprintw(6,0,"[%d,%d,%d,%d,%d,%d]\n",f0[0],f0[1],f0[2],m0[0],m0[1],m0[2]);
             // Other sensor data
             //printf("%d\n",(short)fs0.v[1]/16384);
             //printf("%d\n",(short)fs0.v[2]/16384);
@@ -100,8 +101,8 @@ int main(void) {
             my0 = (float) m0[1]/100;
             mz0 = (float) m0[2]/100;
 
-            mvprintw(2,0,"F0 = [%f, %f, %f] N\n", fx0,fy0,fz0);
-            mvprintw(3,0,"M0 = [%f, %f, %f] N·m\n", mx0,my0,mz0);
+            mvprintw(7,0,"F0 = [%+f, %+f, %+f] N\n", fx0,fy0,fz0);
+            mvprintw(8,0,"M0 = [%+f, %+f, %+f] N·m\n", mx0,my0,mz0);
 
             // -------- SENSOR 1 ------------ //
             f1[0] = 100*fm1.f[0]*fs1.f[0]/16384;
@@ -111,8 +112,8 @@ int main(void) {
             m1[1] = 10*fm1.m[1]*fs1.m[1]/16384;
             m1[2] = 10*fm1.m[2]*fs1.m[2]/16384;
 
-            mvprintw(4,0,"Sensor 1 data :");
-            mvprintw(5,0,"[%d,%d,%d,%d,%d,%d]\n",f1[0],f1[1],f1[2],m1[0],m1[1],m1[2]);
+            mvprintw(9,0,"Sensor 1 data :");
+            mvprintw(10,0,"[%d,%d,%d,%d,%d,%d]\n",f1[0],f1[1],f1[2],m1[0],m1[1],m1[2]);
             // Other sensor data
             //printf("%d\n",(short)fs1.v[1]/16384);
             //printf("%d\n",(short)fs1.v[2]/16384);
@@ -124,8 +125,8 @@ int main(void) {
             my1 = (float) m1[1]/100;
             mz1 = (float) m1[2]/100;
 
-            mvprintw(6,0,"F1 = [%f, %f, %f] N\n", fx1,fy1,fz1);
-            mvprintw(7,0,"M1 = [%f, %f, %f] N·m\n", mx1,my1,mz1);
+            mvprintw(11,0,"F1 = [%+f, %+f, %+f] N\n", fx1,fy1,fz1);
+            mvprintw(12,0,"M1 = [%+f, %+f, %+f] N·m\n", mx1,my1,mz1);
 
             // -------- SENSOR 2 ------------ //
             f2[0] = 100*fm2.f[0]*fs2.f[0]/16384;
@@ -135,8 +136,8 @@ int main(void) {
             m2[1] = 10*fm2.m[1]*fs2.m[1]/16384;
             m2[2] = 10*fm2.m[2]*fs2.m[2]/16384;
 
-            mvprintw(8,0,"Sensor 2 data :");
-            mvprintw(9,0,"[%d,%d,%d,%d,%d,%d]\n",f2[0],f2[1],f2[2],m2[0],m2[1],m2[2]);
+            mvprintw(13,0,"Sensor 2 data :");
+            mvprintw(14,0,"[%d,%d,%d,%d,%d,%d]\n",f2[0],f2[1],f2[2],m2[0],m2[1],m2[2]);
             // Other sensor data
             //printf("%d\n",(short)fs2.v[1]/16384);
             //printf("%d\n",(short)fs2.v[2]/16384);
@@ -148,8 +149,8 @@ int main(void) {
             my2 = (float) m2[1]/100;
             mz2 = (float) m2[2]/100;
 
-            mvprintw(10,0,"F2 = [%f, %f, %f] N\n", fx2,fy2,fz2);
-            mvprintw(11,0,"M2 = [%f, %f, %f] N·m\n", mx2,my2,mz2);
+            mvprintw(15,0,"F2 = [%+f, %+f, %+f] N\n", fx2,fy2,fz2);
+            mvprintw(16,0,"M2 = [%+f, %+f, %+f] N·m\n", mx2,my2,mz2);
 
             // -------- SENSOR 3 ------------ //
             f3[0] = 100*fm3.f[0]*fs3.f[0]/16384;
@@ -159,8 +160,8 @@ int main(void) {
             m3[1] = 10*fm3.m[1]*fs3.m[1]/16384;
             m3[2] = 10*fm3.m[2]*fs3.m[2]/16384;
 
-            mvprintw(12,0,"Sensor 3 data :");
-            mvprintw(13,0,"[%d,%d,%d,%d,%d,%d]\n",f3[0],f3[1],f3[2],m3[0],m3[1],m3[2]);
+            mvprintw(17,0,"Sensor 3 data :");
+            mvprintw(18,0,"[%d,%d,%d,%d,%d,%d]\n",f3[0],f3[1],f3[2],m3[0],m3[1],m3[2]);
             // Other sensor data
             //printf("%d\n",(short)fs3.v[1]/16384);
             //printf("%d\n",(short)fs3.v[2]/16384);
@@ -172,8 +173,8 @@ int main(void) {
             my3 = (float) m3[1]/100;
             mz3 = (float) m3[2]/100;
 
-            mvprintw(14,0,"F3 = [%f, %f, %f] N\n", fx3,fy3,fz3);
-            mvprintw(15,0,"M3 = [%f, %f, %f] N·m\n", mx3,my3,mz3);
+            mvprintw(19,0,"F3 = [%+f, %+f, %+f] N\n", fx3,fy3,fz3);
+            mvprintw(20,0,"M3 = [%+f, %+f, %+f] N·m\n", mx3,my3,mz3);
 
             /** SEND DATA **/
             b0.addDouble(fx0);
@@ -214,7 +215,7 @@ int main(void) {
 
         end = yarp::os::Time::now();
         t = end - init;
-        printf("t=%f\n",t);
+        mvprintw(21,0,"t=%f\n",t);
     }
     close(fd);
     endwin();
