@@ -33,10 +33,11 @@ int main(void) {
     six_axis_array fm0, fm1;
     force_array fs0, fs1;
     int ret, fd;
-    int f0[3], m0[3]; // F-T from the sensor 0 in Newton
-    int f1[3], m1[3]; // F-T from the sensor 1 in Newton
-    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0 in dN*m (0.1N*m)
-    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1 in dN*m (0.1N*m)
+    int f0[3], m0[3]; // F-T from the sensor 0 in cN (100*N) and cN*m (100*N*m)
+    int f1[3], m1[3]; // F-T from the sensor 1 in cN (100*N) and cN*m (100*N*m)
+// Jr3 provides Forces in Newton and Torques in dN*m. Scaled to get accuracy.
+    float fx0, fy0, fz0, mx0, my0, mz0; // F-T from sensor 0 in N and N*m
+    float fx1, fy1, fz1, mx1, my1, mz1; // F-T from sensor 1 in N and N*m
 
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
         perror("Can't open device. No way to read force!");

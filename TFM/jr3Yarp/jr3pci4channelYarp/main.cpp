@@ -35,14 +35,15 @@ int main(void) {
     six_axis_array fm0, fm1, fm2, fm3;
     force_array fs0, fs1, fs2, fs3;
     int ret, fd;
-    int f0[3], m0[3]; // F-T from the sensor 0 in Newton
-    int f1[3], m1[3]; // F-T from the sensor 1 in Newton
-    int f2[3], m2[3]; // F-T from the sensor 2 in dNewton*m (0.1N*m)
-    int f3[3], m3[3]; // F-T from the sensor 3 in dNewton*m (0.1N*m)
-    float fx0, fy0, fz0, mx0, my0, mz0; // Scaled F-T from sensor 0 in N*m
-    float fx1, fy1, fz1, mx1, my1, mz1; // Scaled F-T from sensor 1 in N*m
-    float fx2, fy2, fz2, mx2, my2, mz2; // Scaled F-T from sensor 2 in N*m
-    float fx3, fy3, fz3, mx3, my3, mz3; // Scaled F-T from sensor 3 in N*m
+    int f0[3], m0[3]; // F-T from the sensor 0 in cN (100*N) and cN*m (100*N*m)
+    int f1[3], m1[3]; // F-T from the sensor 1 in cN (100*N) and cN*m (100*N*m)
+    int f2[3], m2[3]; // F-T from the sensor 2 in cN (100*N) and cN*m (100*N*m)
+    int f3[3], m3[3]; // F-T from the sensor 3 in cN (100*N) and cN*m (100*N*m)
+    // Jr3 provides Forces in Newton and Torques in dNewton*m. Scaled to get accuracy.
+    float fx0, fy0, fz0, mx0, my0, mz0; // F-T from sensor 0 in N and N*m
+    float fx1, fy1, fz1, mx1, my1, mz1; // F-T from sensor 1 in N and N*m
+    float fx2, fy2, fz2, mx2, my2, mz2; // F-T from sensor 2 in N and N*m
+    float fx3, fy3, fz3, mx3, my3, mz3; // F-T from sensor 3 in N and N*m
 
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
         perror("Can't open device. No way to read force!");
