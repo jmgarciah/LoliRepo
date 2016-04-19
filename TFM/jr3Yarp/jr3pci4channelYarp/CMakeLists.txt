@@ -14,6 +14,7 @@ project(${KEYWORD})
 
 # Find YARP.  Point the YARP_DIR environment variable at your build.
 find_package(YARP REQUIRED)
+find_package(Curses REQUIRED)
 list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_PATH})
 
 # Search for source code.
@@ -38,12 +39,12 @@ foreach(header_file ${folder_header})
 endforeach(header_file ${folder_header})
 
 # Inclue any directories needed for YARP
-include_directories(${YARP_INCLUDE_DIRS})
+include_directories(${YARP_INCLUDE_DIRS} ${CURSES_INCLUDE_DIR})
 
 # Set up our main executable.
 if (folder_source)
   add_executable(${KEYWORD} ${folder_source} ${folder_header})
-  target_link_libraries(${KEYWORD} ${YARP_LIBRARIES})
+  target_link_libraries(${KEYWORD} ${YARP_LIBRARIES} ${CURSES_LIBRARIES})
 else (folder_source)
   message(FATAL_ERROR "No source code files found. Please add something")
 endif (folder_source)

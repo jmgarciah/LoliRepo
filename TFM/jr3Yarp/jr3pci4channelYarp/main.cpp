@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-
+#include <ncurses.h>
 #include <sys/ioctl.h>
 
 #include <yarp/os/all.h>
@@ -44,6 +44,9 @@ int main(void) {
     float fx1, fy1, fz1, mx1, my1, mz1; // F-T from sensor 1 in N and N*m
     float fx2, fy2, fz2, mx2, my2, mz2; // F-T from sensor 2 in N and N*m
     float fx3, fy3, fz3, mx3, my3, mz3; // F-T from sensor 3 in N and N*m
+
+    initscr(); // Init ncurses mode
+    curs_set(0); // Hide cursor
 
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
         perror("Can't open device. No way to read force!");
@@ -84,8 +87,8 @@ int main(void) {
             m0[1] = 10*fm0.m[1]*fs0.m[1]/16384;
             m0[2] = 10*fm0.m[2]*fs0.m[2]/16384;
 
-            printf("Sensor 0 data :");
-            printf("[%d,%d,%d,%d,%d,%d]\n",f0[0],f0[1],f0[2],m0[0],m0[1],m0[2]);
+            mvprintw(0,0,"Sensor 0 data :"); // Print at row 0, col 0
+            mvprintw(1,0,"[%d,%d,%d,%d,%d,%d]\n",f0[0],f0[1],f0[2],m0[0],m0[1],m0[2]);
             // Other sensor data
             //printf("%d\n",(short)fs0.v[1]/16384);
             //printf("%d\n",(short)fs0.v[2]/16384);
@@ -97,8 +100,8 @@ int main(void) {
             my0 = (float) m0[1]/100;
             mz0 = (float) m0[2]/100;
 
-            printf("F0 = [%f, %f, %f] N\n", fx0,fy0,fz0);
-            printf("M0 = [%f, %f, %f] N·m\n", mx0,my0,mz0);
+            mvprintw(2,0,"F0 = [%f, %f, %f] N\n", fx0,fy0,fz0);
+            mvprintw(3,0,"M0 = [%f, %f, %f] N·m\n", mx0,my0,mz0);
 
             // -------- SENSOR 1 ------------ //
             f1[0] = 100*fm1.f[0]*fs1.f[0]/16384;
@@ -108,8 +111,8 @@ int main(void) {
             m1[1] = 10*fm1.m[1]*fs1.m[1]/16384;
             m1[2] = 10*fm1.m[2]*fs1.m[2]/16384;
 
-            printf("Sensor 1 data :");
-            printf("[%d,%d,%d,%d,%d,%d]\n",f1[0],f1[1],f1[2],m1[0],m1[1],m1[2]);
+            mvprintw(4,0,"Sensor 1 data :");
+            mvprintw(5,0,"[%d,%d,%d,%d,%d,%d]\n",f1[0],f1[1],f1[2],m1[0],m1[1],m1[2]);
             // Other sensor data
             //printf("%d\n",(short)fs1.v[1]/16384);
             //printf("%d\n",(short)fs1.v[2]/16384);
@@ -121,8 +124,8 @@ int main(void) {
             my1 = (float) m1[1]/100;
             mz1 = (float) m1[2]/100;
 
-            printf("F1 = [%f, %f, %f] N\n", fx1,fy1,fz1);
-            printf("M1 = [%f, %f, %f] N·m\n", mx1,my1,mz1);
+            mvprintw(6,0,"F1 = [%f, %f, %f] N\n", fx1,fy1,fz1);
+            mvprintw(7,0,"M1 = [%f, %f, %f] N·m\n", mx1,my1,mz1);
 
             // -------- SENSOR 2 ------------ //
             f2[0] = 100*fm2.f[0]*fs2.f[0]/16384;
@@ -132,8 +135,8 @@ int main(void) {
             m2[1] = 10*fm2.m[1]*fs2.m[1]/16384;
             m2[2] = 10*fm2.m[2]*fs2.m[2]/16384;
 
-            printf("Sensor 2 data :");
-            printf("[%d,%d,%d,%d,%d,%d]\n",f2[0],f2[1],f2[2],m2[0],m2[1],m2[2]);
+            mvprintw(8,0,"Sensor 2 data :");
+            mvprintw(9,0,"[%d,%d,%d,%d,%d,%d]\n",f2[0],f2[1],f2[2],m2[0],m2[1],m2[2]);
             // Other sensor data
             //printf("%d\n",(short)fs2.v[1]/16384);
             //printf("%d\n",(short)fs2.v[2]/16384);
@@ -145,8 +148,8 @@ int main(void) {
             my2 = (float) m2[1]/100;
             mz2 = (float) m2[2]/100;
 
-            printf("F2 = [%f, %f, %f] N\n", fx2,fy2,fz2);
-            printf("M2 = [%f, %f, %f] N·m\n", mx2,my2,mz2);
+            mvprintw(10,0,"F2 = [%f, %f, %f] N\n", fx2,fy2,fz2);
+            mvprintw(11,0,"M2 = [%f, %f, %f] N·m\n", mx2,my2,mz2);
 
             // -------- SENSOR 3 ------------ //
             f3[0] = 100*fm3.f[0]*fs3.f[0]/16384;
@@ -156,8 +159,8 @@ int main(void) {
             m3[1] = 10*fm3.m[1]*fs3.m[1]/16384;
             m3[2] = 10*fm3.m[2]*fs3.m[2]/16384;
 
-            printf("Sensor 3 data :");
-            printf("[%d,%d,%d,%d,%d,%d]\n",f3[0],f3[1],f3[2],m3[0],m3[1],m3[2]);
+            mvprintw(12,0,"Sensor 3 data :");
+            mvprintw(13,0,"[%d,%d,%d,%d,%d,%d]\n",f3[0],f3[1],f3[2],m3[0],m3[1],m3[2]);
             // Other sensor data
             //printf("%d\n",(short)fs3.v[1]/16384);
             //printf("%d\n",(short)fs3.v[2]/16384);
@@ -169,8 +172,8 @@ int main(void) {
             my3 = (float) m3[1]/100;
             mz3 = (float) m3[2]/100;
 
-            printf("F3 = [%f, %f, %f] N\n", fx3,fy3,fz3);
-            printf("M3 = [%f, %f, %f] N·m\n", mx3,my3,mz3);
+            mvprintw(14,0,"F3 = [%f, %f, %f] N\n", fx3,fy3,fz3);
+            mvprintw(15,0,"M3 = [%f, %f, %f] N·m\n", mx3,my3,mz3);
 
             /** SEND DATA **/
             b0.addDouble(fx0);
@@ -206,6 +209,7 @@ int main(void) {
             port2.write(b2);
             port3.write(b3);
 
+            refresh();
         } else perror("Could not read device\n");
 
         end = yarp::os::Time::now();
@@ -213,5 +217,7 @@ int main(void) {
         printf("t=%f\n",t);
     }
     close(fd);
+    endwin();
+    return 0;
 }
 
