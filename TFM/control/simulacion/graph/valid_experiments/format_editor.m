@@ -1,3 +1,6 @@
+% Box 
+box on 
+
 % X-Y Grids
 grid on
 ax = gca;
