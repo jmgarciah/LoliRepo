@@ -22,4 +22,4 @@ set(hFig,'windowstyle','normal');
 set(hFig,'units','centimeters','Position',[0 0 20 10]);
 
 % Save Figure to eps 
-print('00_single_inverted_pendulum_control_with_non_zero_reference','-deps','-r0')
+print('011_ramp_response_no_integrator','-deps','-r0')
