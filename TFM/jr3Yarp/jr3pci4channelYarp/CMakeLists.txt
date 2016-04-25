@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 2.8.9)
 
-set(KEYWORD "yarpy")
+set(KEYWORD "jr3pci4channelYarp")
 
 # Start a project.
 project(${KEYWORD})
