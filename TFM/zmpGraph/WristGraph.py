@@ -22,11 +22,12 @@ def Plate():
     y_big = np.concatenate([y0])
     plt.plot(x_big,y_big,'k')
 
-    x_little = np.concatenate([x0])
-    y_little = np.concatenate([y0])
+    x_little = np.concatenate([x1])
+    y_little = np.concatenate([y1])
     plt.plot(x_little,y_little,'k')
 
-    plt.fill(x_little,y_little,'r')
+#    plt.fill(x_big,y_big,'r')
+    plt.fill(x_little,y_little,'k')
 
     return;
 
@@ -47,9 +48,9 @@ while 1:
     ax = fig.add_subplot(111)
     ax.grid()
     #ax.axis('equal')
-    plt.xlim(20,-20) # changed because of robot axes
-    plt.ylim(-20,20)
-    ax.set_title('ZMP REPRESENTATION IN SINGLE WRIST SUPPORT', fontsize=12, fontweight='bold')
+    plt.xlim(15,-15) # changed because of robot axes
+    plt.ylim(-15,15)
+    ax.set_title('ZMP REPRESENTATION SINGLE WRIST AND PLATE', fontsize=12, fontweight='bold')
     ax.set_xlabel('Y [mm]')  # changed because of robot axes
     ax.set_ylabel('X [mm]')  # changed because of robot axes
 
@@ -66,10 +67,17 @@ while 1:
     my = data.get(4).asDouble()
     mz = data.get(5).asDouble()
 
+    # data in the TEO body system reference
+    fx_teo = - fz
+    fy_teo = - fy
+    fz_teo = - fx
+    mx_teo = - mz
+    my_teo = - my
+    mz_teo = - mx
     # ZMP computation
     if fz != 0 :
-        x = - my / fz
-        y = mx / fz
+        x = - my_teo / fz_teo
+        y = mx_teo / fz_teo
     else:
         x = 0
         y = 0
@@ -79,11 +87,7 @@ while 1:
 #    print "fx = " + repr(fx)
 #    print "fy = " + repr(fy)
 
-    # AXES ROTATION
-    X = np.cos(alpha)*x - np.sin(alpha)*y
-    Y = np.sin(alpha)*x + np.cos(alpha)*y
-
-    plt.plot(Y, X,'ko') # changed because of robot axes
+    plt.plot(Y, X,'yo') # changed because of robot axes
 
     fig.show()
 
