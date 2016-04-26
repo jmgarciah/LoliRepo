@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 PI = np.pi
+alpha = np.pi
 rp = 22.5 / 2 # plate radius
 rp1 = 14/2 # black plate radius
 def Plate():
@@ -46,11 +47,11 @@ while 1:
     ax = fig.add_subplot(111)
     ax.grid()
     #ax.axis('equal')
-    plt.xlim(-20,20)
+    plt.xlim(20,-20) # changed because of robot axes
     plt.ylim(-20,20)
     ax.set_title('ZMP REPRESENTATION IN SINGLE WRIST SUPPORT', fontsize=12, fontweight='bold')
-    ax.set_xlabel('X [mm]')  # changed because of robot axes
-    ax.set_ylabel('Y [mm]')  # changed because of robot axes
+    ax.set_xlabel('Y [mm]')  # changed because of robot axes
+    ax.set_ylabel('X [mm]')  # changed because of robot axes
 
     # Plotting Plate Area
     Plate()
@@ -65,19 +66,24 @@ while 1:
     my = data.get(4).asDouble()
     mz = data.get(5).asDouble()
 
-#    # ZMP computation
-#    if fz != 0 :
-#        x = - my / fz
-#        y = mx / fz
-#    else:
-#        x = 0
-#        y = 0
-#    #Printing ZMP point
-#    print "zmp = [" + repr(x) + "," + repr(y) + "]"
+    # ZMP computation
+    if fz != 0 :
+        x = - my / fz
+        y = mx / fz
+    else:
+        x = 0
+        y = 0
+    #Printing ZMP point
+    print "zmp = [" + repr(x) + "," + repr(y) + "]"
 
-    print "fx = " + repr(fx)
-    print "fy = " + repr(fy)
-    plt.plot(fx,fy,'ko') # axes are changed because of robot axes
+#    print "fx = " + repr(fx)
+#    print "fy = " + repr(fy)
+
+    # AXES ROTATION
+    X = np.cos(alpha)*x - np.sin(alpha)*y
+    Y = np.sin(alpha)*x + np.cos(alpha)*y
+
+    plt.plot(Y, X,'ko') # changed because of robot axes
 
     fig.show()
 
