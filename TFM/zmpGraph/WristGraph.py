@@ -5,8 +5,10 @@ import matplotlib.animation as animation
 
 PI = np.pi
 alpha = np.pi
-rp = 22.5 / 2 # plate radius
-rp1 = 14/2 # black plate radius
+
+rp = 225 / 2 # plate radius in mm
+rp1 = 140/2 # black plate radius in mm
+d = 0.025 # distance in mm between the plate center and the sensor center
 def Plate():
     # Big circle
     ang = np.linspace(0,2*PI,360)
@@ -39,6 +41,7 @@ p = yarp.Port()
 p.open("/gui:i")
 # Connect output and input ports
 yarp.Network.connect("/jr3ch3:o", "/gui:i")
+print("Connection stablished")
 # Read the data from de port
 data = yarp.Bottle()
 
@@ -48,8 +51,8 @@ while 1:
     ax = fig.add_subplot(111)
     ax.grid()
     #ax.axis('equal')
-    plt.xlim(15,-15) # changed because of robot axes
-    plt.ylim(-15,15)
+    plt.xlim(150,-150) # changed because of robot axes
+    plt.ylim(-150,150)
     ax.set_title('ZMP REPRESENTATION SINGLE WRIST AND PLATE', fontsize=12, fontweight='bold')
     ax.set_xlabel('Y [mm]')  # changed because of robot axes
     ax.set_ylabel('X [mm]')  # changed because of robot axes
@@ -68,16 +71,17 @@ while 1:
     mz = data.get(5).asDouble()
 
     # data in the TEO body system reference
-    fx_teo = - fz
+    fx_teo = - fz 
     fy_teo = - fy
     fz_teo = - fx
     mx_teo = - mz
     my_teo = - my
     mz_teo = - mx
     # ZMP computation
-    if fz != 0 :
-        x = - my_teo / fz_teo
-        y = mx_teo / fz_teo
+    if fz_teo != 0 :
+        x =((- my_teo + (d*fx_teo)) / fz_teo) * 1000
+        y =((mx_teo + (d*fy_teo)) / fz_teo) * 1000
+	x = x - (d*1000)
     else:
         x = 0
         y = 0
@@ -87,7 +91,7 @@ while 1:
 #    print "fx = " + repr(fx)
 #    print "fy = " + repr(fy)
 
-    plt.plot(Y, X,'yo') # changed because of robot axes
+    plt.plot(y, x,'yo') # changed because of robot axes
 
     fig.show()
 
