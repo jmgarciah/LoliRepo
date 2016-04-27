@@ -6,7 +6,7 @@ import matplotlib.animation as animation
 PI = np.pi
 alpha = np.pi
 
-rp = 225 / 2 # plate radius in mm
+rp = 225/2 # plate radius in mm
 rp1 = 140/2 # black plate radius in mm
 d = 0.025 # distance in mm between the plate center and the sensor center
 def Plate():
@@ -51,7 +51,7 @@ while 1:
     ax = fig.add_subplot(111)
     ax.grid()
     #ax.axis('equal')
-    plt.xlim(150,-150) # changed because of robot axes
+    plt.xlim(150,-150) # changed because of robot axes [in mm]
     plt.ylim(-150,150)
     ax.set_title('ZMP REPRESENTATION SINGLE WRIST AND PLATE', fontsize=12, fontweight='bold')
     ax.set_xlabel('Y [mm]')  # changed because of robot axes
@@ -62,7 +62,7 @@ while 1:
 
     # Reading YARP port
     print "Reading..."
-    p.read(data)
+    p.read(data) # Forces in Newton and Torques in Newton*meter
     fx = data.get(0).asDouble()
     fy = data.get(1).asDouble()
     fz = data.get(2).asDouble()
@@ -79,17 +79,14 @@ while 1:
     mz_teo = - mx
     # ZMP computation
     if fz_teo != 0 :
-        x =((- my_teo + (d*fx_teo)) / fz_teo) * 1000
-        y =((mx_teo + (d*fy_teo)) / fz_teo) * 1000
+        x =((- my_teo + (d*fx_teo)) / fz_teo) * 1000 # xzmp in mm
+        y =((mx_teo + (d*fy_teo)) / fz_teo) * 1000 # yzmp in mm
 	x = x - (d*1000)
     else:
         x = 0
         y = 0
     #Printing ZMP point
     print "zmp = [" + repr(x) + "," + repr(y) + "]"
-
-#    print "fx = " + repr(fx)
-#    print "fy = " + repr(fy)
 
     plt.plot(y, x,'yo') # changed because of robot axes
 
