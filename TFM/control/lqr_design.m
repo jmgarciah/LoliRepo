@@ -1,8 +1,8 @@
 m  = 62.416; %System mass
 g = 9.81; %Gravity constant
 l = (92+330+299.897+123.005+191.7)/1000; %Pendulum longitude
-k = 0.1; %Stiffness
-T = 0.001; %Sample Time
+k = 200; %Stiffness
+T = 0.03; %Sample Time
 
 a = (k - m*g*l) / (m*l^2);
 b = k / (m*l^2);
@@ -64,7 +64,7 @@ r =0.1*ones(size(t));
 plot(t,y,'r');
 
 % Precompensator design
-N = -40000000;
+N = -35000000;
 sys_cl = ss(Ac,Bc*N,Cc,Dc,T);
 t = 0:T:20;
 r =0.1*ones(size(t));
