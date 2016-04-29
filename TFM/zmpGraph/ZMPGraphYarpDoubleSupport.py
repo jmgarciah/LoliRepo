@@ -6,6 +6,7 @@ import matplotlib.animation as animation
 PI = np.pi
 d = 70+37.5
 h = 0
+e = 0.194  # distance [m] between ground and sensor center
 def RightFoot():
     # Big semicircle
     ang = np.linspace(2*PI,PI,180)
@@ -59,14 +60,16 @@ def LeftFoot():
 # Initialise YARP
 yarp.Network.init()
 # Create a port
-p = yarp.Port()
+p0 = yarp.Port()
 # Open the port
-p.open("/gui:i")
+p0.open("/gui0:i")
+p1.open("/gui1:i")
 # Connect output and input ports
-yarp.Network.connect("/jr3:o", "/gui:i")
+yarp.Network.connect("/jr3ch0:o", "/gui0:i")
+yarp.Network.connect("/jr3ch1:o", "/gui1:i")
 # Read the data from de port
-data = yarp.Bottle()
-
+data0 = yarp.Bottle()
+data1 = yarp.Bottle()
 
 fig = plt.figure()
 #fig.hold(True)
@@ -87,13 +90,38 @@ while 1:
 
     # Reading YARP port
     print "Reading..."
-    p.read(data)
+    p0.read(data0)
+    p1.read(data1)
 
-    x = data.get(0).asDouble() * 1000 # in mm
-    y = data.get(1).asDouble() * 1000 # in mm
+    fx0 = data0.get(0).asDouble()
+    fy0 = data0.get(1).asDouble()
+    fz0 = data0.get(2).asDouble()
+    mx0 = data0.get(3).asDouble()
+    my0 = data0.get(4).asDouble()
+    mz0 = data0.get(5).asDouble()
+
+    fx1 = data1.get(0).asDouble()
+    fy1 = data1.get(1).asDouble()
+    fz1 = data1.get(2).asDouble()
+    mx1 = data1.get(3).asDouble()
+    my1 = data1.get(4).asDouble()
+    mz1 = data1.get(5).asDouble()
+
+    # ZMP computation
+    xzmp0 = (-my0 + e*fx) / fz0;
+    yzmp0 = (mx0 + e*fy) / fz0;
+
+    xzmp1 = (-my1 + e*fx) / fz1;
+    yzmp1 =( mx1 + e*fy) / fz1;
+
+    xzmp = (xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
+    yzmp = (yzmp0 * fz0 + yzmp1 * fz1) / (fz0 + fz1);
+
+    xzmp = xzmp * 1000 # in mm
+    yzmp = yzmp * 1000
 
     #Printing ZMP point
-    print "zmp = [" + repr(x) + "," + repr(y) + "]"
+    print "zmp = [" + repr(xzmp) + "," + repr(yzmp) + "] mm"
 
     plt.plot(y,x,'ko') # axes are changed because of robot axes
     fig.show()
