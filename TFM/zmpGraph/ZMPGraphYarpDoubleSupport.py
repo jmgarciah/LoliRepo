@@ -61,6 +61,7 @@ def LeftFoot():
 yarp.Network.init()
 # Create a port
 p0 = yarp.Port()
+p1 = yarp.Port()
 # Open the port
 p0.open("/gui0:i")
 p1.open("/gui1:i")
@@ -108,11 +109,11 @@ while 1:
     mz1 = data1.get(5).asDouble()
 
     # ZMP computation
-    xzmp0 = (-my0 + e*fx) / fz0;
-    yzmp0 = (mx0 + e*fy) / fz0;
+    xzmp0 = (-my0 + e*fx0) / fz0;
+    yzmp0 = (mx0 + e*fy0) / fz0;
 
-    xzmp1 = (-my1 + e*fx) / fz1;
-    yzmp1 =( mx1 + e*fy) / fz1;
+    xzmp1 = (-my1 + e*fx1) / fz1;
+    yzmp1 =( mx1 + e*fy1) / fz1;
 
     xzmp = (xzmp0 * fz0 + xzmp1 * fz1) / (fz0 + fz1);
     yzmp = (yzmp0 * fz0 + yzmp1 * fz1) / (fz0 + fz1);
@@ -123,7 +124,7 @@ while 1:
     #Printing ZMP point
     print "zmp = [" + repr(xzmp) + "," + repr(yzmp) + "] mm"
 
-    plt.plot(y,x,'ko') # axes are changed because of robot axes
+    plt.plot(yzmp,xzmp,'ko') # axes are changed because of robot axes
     fig.show()
     #Sample time 1ms
     plt.pause(0.001) #delay in seconds
