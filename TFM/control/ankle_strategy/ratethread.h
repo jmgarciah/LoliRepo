@@ -109,7 +109,7 @@ public:
           fprintf(fp,",%.15f", _xzmp);
           fprintf(fp,",%.15f", _eval_x.y);
           fprintf(fp,",%.15f", _eval_x._x1[0]);
-          fprintf(fp,",%.15f", _eval_x._u_ref);
+          fprintf(fp,",%.15f", _eval_x._zmp_ref);
           fprintf(fp,",%f", _eval_x._u);
           fprintf(fp,",%f", angle_x);
 
