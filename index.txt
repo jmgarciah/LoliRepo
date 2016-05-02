@@ -36,6 +36,9 @@ LIST OF ABREVIATIONS
 	4.5 Control strategies
 
 5. EXPERIMENTAL RESULTS
+	5.1 ZMP computation. Single and Double Support
+	5.2 Ankle strategy
+	5.3 Hip strategy
 	...
 
 6. CONCLUSIONS AND FUTURE WORK
