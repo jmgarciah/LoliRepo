@@ -25,6 +25,6 @@ plot(t,u,'m')
 plot(t,angle,'y')
 plot(t,front,'k--',t,back,'k--');
 
-title('K=[12.55, 4.91], Ki=10, Kp=-1.5, Ku=-2.05')
+title('K=[12.55, 4.91], Ki=10, Kp=-0.5, Ku=-2.05')
 xlabel('t [s]');
 legend('zmp','y{out}','x1','Ud(rad)','u(rad)','angle(deg)')
