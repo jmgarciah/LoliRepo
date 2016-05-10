@@ -56,6 +56,8 @@ LIPM2d::LIPM2d()
     _z[2] = 0.0;
     _u_ref = 0.0;
     y = 0.0;
+    pre_y = 0.0;
+    dy = 0.0;
     _zmp_ref = 0.0; // ZMP reference
 
 }
@@ -74,11 +76,13 @@ float LIPM2d::model(float zmp_real, float ref){
 
     _u = -_K[0]*_x1[0] -_K[1]*_x2[0] + _Ki*(pre_z + _z[0])*_T + _Kp*_z[0] - _Ku*_u_ref;
     y = _C[0]*_x1[0] + _C[1]*_x2[0] + _D*_u;
+    dy = (y - pre_y) / _T; // velocity
     _x1[1] = _A[0][0]*_x1[0] + _A[0][1]*_x2[0] + _B[0][0]*_u;
     _x2[1] = _A[1][0]*_x1[0] + _A[1][1]*_x2[0] + _B[1][0]*_u;
     _z[1] = _zmp_error - y;
 
     pre_z = _z[0];
+    pre_y = y;
 
     return 0;
 }
