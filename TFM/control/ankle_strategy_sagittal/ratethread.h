@@ -25,14 +25,9 @@ public:
     void run(){
         printf("----------\n Running\n");
         _dt = n*TS;
-        //if(n >= 300){ref = 0.01;}
-        //else{ref = 0.0;}
-        //  else if(n >= 430){ref= 0.0211;}
         if (n <= 300){ref = 0.0;}
         else if (n >= 300 && n <= 330){ref = (0.01/30)*n - 0.1;}
-        //else if (n >= 600 && n <= 630){ref = -(0.01/30)*n + 0.63;}
         else {ref = ref;}
-        //ref = 0.0;
         getInitialTime();
         readFTSensor();
         zmpComp();
@@ -103,7 +98,7 @@ public:
         _eval_x.model(_xzmp, ref);
         // _eval_y.model(_yzmp);
 
-        angle_x = -asin(_eval_x.y/1.03)*180/PI;
+        angle_x = -asin(_eval_x.y/L)*180/PI;
         // angle_y = asin(_eval_x.y/1.03)*180/PI;
         // vel = 1*_eval_x.dy * (1/1.03) * (180/PI); //velocity in degrees per second
     }
@@ -129,7 +124,7 @@ public:
 //        cout << "Ud = " << _eval_x._u_ref << endl;
 //        cout << "u = " << _eval_x._u << endl;
 //        cout << "angle_x = " << angle_x << endl;
-        cout << "vel = " << vel << endl;
+//        cout << "vel = " << vel << endl;
 
     }
     void saveToFile()

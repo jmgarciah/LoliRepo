@@ -11,18 +11,18 @@ LIPM2d::LIPM2d()
 {
     _A[0][0] = 1.003;
     _A[0][1] = 0.03003;
-    _A[1][0] = 0.1946;
+    _A[1][0] = 0.2096;
     _A[1][1] = 1.003;
     _B[0][0] = 0.0004503;
     _B[1][0] = 0.03003;
-    _C[0] = -0.974;
+    _C[0] = -1.306;
     _C[1] = 0.0;
-    _D = 0.3266;
-    _K[0] = 12.5527;
-    _K[1] = 4.9178;
+    _D = 0.3257;
+    _K[0] = 13.5366;
+    _K[1] = 5.1035;
     _Ki = 10.0;
-    _Kp = -0.7;
-    _Ku = 1.4;
+    _Kp = -0.5;
+    _Ku = 0.65;
     _T = 0.03;
 
     cout << "Discrete-time Space State Model description:" << endl;
@@ -127,7 +127,7 @@ float LIPM2d::model(float zmp_real, float ref){
     _x1[0] = _x1[1];
     _x2[0] = _x2[1];
 
-    _u_ref = sin(_zmp_ref/1.03); // L = 1.03 is the pendulum longitude.
+    _u_ref = sin(_zmp_ref/L); // L is the pendulum longitude.
     _zmp_error = _zmp_ref - zmp_real;
     _z[1] = zmp_real - y;
 

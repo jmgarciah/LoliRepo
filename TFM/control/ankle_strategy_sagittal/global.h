@@ -15,7 +15,8 @@
 
 #define PI  3.141592
 #define TS 0.03
-#define L   1.03 // Pendulum Longitude
+#define L   0.8927 // Pendulum Longitude
+#define M   62.589 // Robot mass
 #define g   9.81 // Gravity in m/s²
 
 using namespace std;
