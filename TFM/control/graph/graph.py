@@ -2,15 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-data = np.loadtxt('../ankle_strategy/data.csv', delimiter=",")
+data = np.loadtxt('/home/teo/data.csv', delimiter=",")
 n = data[:,0]
 t = data[:,1]
 zmp = data[:,2]
 y = data[:,3]
-x1 = data[:,4]
+error = data[:,4]
 ref = data[:,5]
 u = data[:,6]
-angle = data[:,7]
+x1 = data[:,7]
+x2 = data [:,8]
+angle = data[:,9]
 
 # Sole borders
 front = ((120+55)/1000)*np.ones(n.size);
@@ -21,10 +23,12 @@ back = -70/1000*np.ones(n.size);
 fig = plt.figure()
 
 plt.plot(t, zmp, 'g-', label= 'zmp')
-plt.plot(t, y, 'r-', label = 'zmp')
-plt.plot(t, x1, 'b-', label = 'x1')
+plt.plot(t, y, 'r-', label = 'zmp_model')
+plt.plot(t, error, 'b-', label = 'error')
 plt.plot(t,ref,'k-', label = 'ref')
 plt.plot(t,u,'m-', label = 'u')
+plt.plot(t,x1,'y')
+plt.plot(t,x2,'c')
 plt.plot(t,angle,'y-', label = 'angle')
 plt.plot(t,front,'k--',t,back,'k--');
 
