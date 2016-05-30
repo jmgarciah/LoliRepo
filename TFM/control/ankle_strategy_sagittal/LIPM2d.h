@@ -34,10 +34,13 @@ private:
     float _D;
     float _K[2]; // feedback LQR gain
     float _Kp, _Ki, _Ku; // P, I, U gains
+    float _Kd;
     float _T; // sample time
 
 
-    float pre_zmp_error; // previous z --> z[k-1]
+    float _pre_zmp_error; // previous z --> z[k-1]
+
+    float PIDout, Pout, Iout, Dout;
 
 };
 
