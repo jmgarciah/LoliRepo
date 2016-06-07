@@ -15,7 +15,7 @@ plot (angle_ref, test1AngleLL, '-ro', angle_ref, test1AngleRL, '-r*');
 plot (angle_ref, test2AngleLL, '-bo', angle_ref, test2AngleRL, '-b*');
 xlabel('Angle sent (deg)');
 ylabel('Angle read (deg)');
-legend('test1LL','tesangle_calct1RL', 'test2LL','test2RL');
+legend('test1LL','test1RL', 'test2LL','test2RL');
 title('ommanded angle - angle read from encoders');
 
 figure; hold on; box on;
