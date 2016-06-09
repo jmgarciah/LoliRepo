@@ -1,13 +1,13 @@
 % Data (measures in metres)
-zmp = [0 0.0015 0.0043 0.0085 0.013 0.017 0.021 0.024 0.027 0.033 0.0365];
+zmptest1 = [0 0.0015 0.0043 0.0085 0.013 0.017 0.021 0.024 0.027 0.033 0.0365];
 ref = [0 0.005 0.01 0.015 0.02 0.025 0.03 0.035 0.04 0.045 0.05];
-angle = -asin(zmp / 0.8927) *180/pi;
+angle = -asin(zmptest1 / 0.8927) *180/pi;
 angle_ref = -asin(ref / 0.8927) *180/pi;
 zmp_ideal =  ref;
 
 % Relation between the ZMP commanded and the ZMP obtained from sensors
 figure; hold on;
-plot(ref, zmp ,'bo');
+plot(ref, zmptest1 ,'bo');
 plot(ref, zmp_ideal, 'm');
 xlabel('ZMP referencia');
 ylabel('ZMP F/T');
@@ -23,14 +23,14 @@ ylabel('error')
 % Relation between angle commanded (ZMP/L)*180/pi and ZMP read
 figure; hold on;
 %plot(angle_ref, ref, 'r');
-plot(angle_ref, zmp, 'b')
+plot(angle_ref, zmptest1, 'b')
 xlabel('angle sent (deg)');
 ylabel('zmp read (mm)');
 
 
 %Comparation angle-ZMP
 figure; hold on;
-plot(angle_ref, zmp,'bo');
+plot(angle_ref, zmptest1,'bo');
 zmp1 = -0.01558 * angle_ref;
 plot(angle_ref, zmp1,'r')
 xlabel('angle(deg)');
@@ -85,12 +85,54 @@ xlabel('zmp')
 ylabel('|theta|');
 
 %% 7/06/2016
+clear;
 zmp_ref = [0:0.005:0.1];
 angle = zmp_ref/0.0135;
-zmp = [0 0.0032 0.0075 0.0115 0.0152 0.0202 0.0247 0.0327 0.037 0.043 ...
+zmptest1 = [0 0.0032 0.0075 0.0115 0.0152 0.0202 0.0247 0.0327 0.037 0.043 ...
     0.0525 0.0575 0.0637 0.071 0.0765 0.0833 0.09 0.102 0.105 0.1185 0.1205];
 zmp_ideal = zmp_ref;
 
-plot(zmp_ref, zmp_ideal, 'k', zmp_ref, zmp, 'bo');
-xlabel('Reference ZMP')
-legend('Ideal ZMP', 'ZMP F/T')
+% Second order fitting to zmp data
+p1 = polyfit(zmp_ref, zmptest1, 2);
+zmp_linearized = p1(1)*zmp_ref.^2 + p1(2)*zmp_ref + p1(3); 
+
+% Second order fitting to error
+error = zmp_ref - zmp_linearized;
+p2 = polyfit(zmp_ref, error, 2);
+error_line = p2(1)*zmp_ref.^2 + p2(2)*zmp_ref + p2(3); 
+
+% Angle that has to be commanded instead of the angle above
+angle2 = angle + (p2(1)*zmp_ref.^2 + p2(2)*zmp_ref)/0.0135
+angle3 = angle + (p2(1)*zmp_ref.^2 + 0.25*zmp_ref)/0.0135
+ 
+figure; hold on; box on; grid on;
+plot(zmp_ref, zmp_ideal, 'k', zmp_ref, zmptest1, 'bo');
+plot(zmp_ref, zmp_linearized, 'r');
+plot(zmp_ref, error,'g')
+title('Comparation real ZMP - ideal ZMP when angle = ZMP / 0.0135')
+xlabel('Reference ZMP [mm]')
+ylabel('[mm]')
+legend('Ideal ZMP', 'ZMP F/T','linearized ZMP F/T','error')
+text(0.01,-0.02,['ZMP = ',num2str(p1(1)),'*ZMP_{ref}^2 +',num2str(p1(2)), ...
+    '*ZMP_{ref} +', num2str(p1(3))])
+text(0.01,-0.03,['error = ',num2str(p2(1)),'*ZMP_{ref}^2 +',num2str(p2(2)), ...
+    '*ZMP_{ref} +', num2str(p2(3))])
+
+
+
+%% 8/06/2016
+% test with the cuadratic relation
+
+zmp_ref = [0 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.1];
+% For test 1 angle = -(zmp_ref -4.3948*zmp_ref.^2 + 0.19(2)*zmp_ref))/0.0135
+zmptest1 = [0 0.0085 0.018 0.029 0.038 0.0475 0.055 0.07 0.076 0.089 0.085];
+% For test 2 angle = -(zmp_ref -4.3948*zmp_ref.^2 + 0.25*zmp_ref))/0.0135
+zmptest2 = [0 0.0115 0.021 0.0317 0.0387 0.051 0.062 0.0715 0.079 0.091 0.095];
+zmp_ideal = zmp_ref;
+
+figure; hold on; box on; grid on;
+plot(zmp_ref, zmp_ideal, 'k', zmp_ref, zmptest1, 'bo', zmp_ref, zmptest2, 'mo');
+title('ZMP read (added cuadratic error)')
+xlabel('Reference ZMP [mm]')
+ylabel('ZMP read [mm]')
+legend('ideal', 'test1','test2')
