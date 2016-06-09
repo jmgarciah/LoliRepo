@@ -27,7 +27,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.07/30)*n - 0.7;}
+        else if (n >= 300 && n <= 330){ref = (0.02/30)*n - 0.2;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
@@ -98,19 +98,15 @@ public:
 
     void evaluateModel(){
         /** EVALUACION MODELO **/
-//        _eval_x.model(X, ref);
+        _eval_x.model(X, ref);
         // _eval_y.model(_yzmp);
 
-        //angle_x = -asin(ref/L)*180/PI;
-	//angle_x = -(1.5*ref/0.016);
-	if (ref == 0){angle_x = 0.0;} else { 
-	//angle_x = -(ref +0.0018)/0.0135;}
-	angle_x = -((ref/0.0135)+(0.5186*exp(-100*ref)));}
+        angle_x = -(_eval_x.y-(4.3948*pow(_eval_x.y,2))+0.23*_eval_x.y)/0.0135;
 
-//	angle_x = - _eval_x._u *180/PI;
-        // angle_y = asin(_eval_x.y/1.03)*180/PI;
-//        vel = 0.35* _eval_x.dy * (1/L) * (180/PI); //velocity in degrees per second
+//      angle_y = asin(_eval_x.y/1.03)*180/PI;
+//      vel = 0.35* _eval_x.dy * (1/L) * (180/PI); //velocity in degrees per second
     }
+
     void setJoints(){
         /** Position control **/
         posRightLeg->positionMove(4, angle_x); // position in degrees
