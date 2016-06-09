@@ -6,7 +6,9 @@ y = data(:,4);
 zmp_error = data(:,5);
 zmp_ref = data(:,6);
 u = data(:,7);
-angle = data(:,8);
+x1 = data(:,8);
+x2 = data(:,9);
+angle = data(:,10);
 
 
 %Sole borders
@@ -25,6 +27,6 @@ plot(t,u,'m')
 plot(t,angle,'y')
 plot(t,front,'k--',t,back,'k--');
 
-title('K=[12.55, 4.91], Ki=10, Kp=-0.7, Ku=-2.05')
+title('K=[13.53, 5.1035], Ki=10, Kp=-0.5, Ku=-1.6')
 xlabel('t [s]');
 legend('zmp','y{out}','zmp_error','zmp_ref','u','angle')
