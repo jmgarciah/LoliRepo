@@ -86,11 +86,20 @@ ylabel('|theta|');
 
 %% 7/06/2016
 clear;
-zmp_ref = [0:0.005:0.1];
-angle = zmp_ref/0.0135;
-zmptest1 = [0 0.0032 0.0075 0.0115 0.0152 0.0202 0.0247 0.0327 0.037 0.043 ...
-    0.0525 0.0575 0.0637 0.071 0.0765 0.0833 0.09 0.102 0.105 0.1185 0.1205];
+zmp_ref = [0:0.005:0.1]; % Reference setpoint
+angle = -zmp_ref/0.0135; % Commanded angle
+% ZMP F/T measuerment
+zmptest1 = [0 0.0032 0.0075 0.0115 0.0152 0.0202 0.0247 0.0327 0.037 ...
+    0.043 0.0525 0.0575 0.0637 0.071 0.0765 0.0833 0.09 0.102 0.105 ...
+    0.1185 0.1205];
 zmp_ideal = zmp_ref;
+% Angles of Right and Left Leg. Encoders measurements.
+angleLL = [0.15 -0.263 -0.615 -0.966 -1.31 -1.757 -2.108 -2.46 -2.811 ...
+    -3.251 -3.602 -3.95 -4.39 -4.74 -5.09 -5.536 -5.88 -6.239 -6.678 ...
+    -6.942 -7.293];
+angleRL = [-0.15 -0.509 -0.949 -1.3 -1.652 -2 -2.35 -2.794 -3.145 ...
+    -3.585 -3.936 -4.288 -4.63 -5.079 -5.430 -5.869 -6.13 -6.429 -6.836 ...
+    -7.188 -8.246];
 
 % Second order fitting to zmp data
 p1 = polyfit(zmp_ref, zmptest1, 2);
@@ -118,7 +127,11 @@ text(0.01,-0.02,['ZMP = ',num2str(p1(1)),'*ZMP_{ref}^2 +',num2str(p1(2)), ...
 text(0.01,-0.03,['error = ',num2str(p2(1)),'*ZMP_{ref}^2 +',num2str(p2(2)), ...
     '*ZMP_{ref} +', num2str(p2(3))])
 
+% Comparation between commanded angle and RL and LL encoder data..
+.
 
+figure; hold on; box on; grid on;
+plot(angle, angle, 'k', angle, angleLL, 'ob-', angle, angleRL, 'or-');
 
 %% 8/06/2016
 % test with the cuadratic relation
