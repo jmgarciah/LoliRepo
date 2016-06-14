@@ -27,7 +27,7 @@ public:
         printf("----------\n Running\n");
         _dt = n*TS;
         if (n <= 300){ref = 0.0;}
-        else if (n >= 300 && n <= 330){ref = (0.02/30)*n - 0.2;}
+        else if (n >= 300 && n <= 330){ref = (0.06/30)*n - 0.6;}
         else {ref = ref;}
         getInitialTime();
         readFTSensor();
