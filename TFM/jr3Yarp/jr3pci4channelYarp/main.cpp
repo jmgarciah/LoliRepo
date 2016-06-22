@@ -20,17 +20,13 @@
 #include "jr3pci-ioctl.h"
 
 int main(void) {
-    
+ 
     yarp::os::Network yarp;
     yarp::os::Port port0, port1, port2, port3;
 
     double init;
     double end;
     double t;
-    port0.open("/jr3ch0:o");
-    port1.open("/jr3ch1:o");
-    port2.open("/jr3ch2:o");
-    port3.open("/jr3ch3:o");
 
     six_axis_array fm0, fm1, fm2, fm3;
     force_array fs0, fs1, fs2, fs3;
@@ -48,17 +44,31 @@ int main(void) {
     initscr(); // Init ncurses mode
     curs_set(0); // Hide cursor
 
+    /** Check YARP Network **/
+    if (!yarp.checkNetwork()) {
+        perror("Please start a yarp name server first\n");
+       return(-1);
+    }
+
+    /** Opening YARP ports **/
+    port0.open("/jr3ch0:o");
+    port1.open("/jr3ch1:o");
+    port2.open("/jr3ch2:o");
+    port3.open("/jr3ch3:o");
+
+    /** Open device **/
     if ((fd=open("/dev/jr3",O_RDWR)) < 0) {
         perror("Can't open device. No way to read force!");
+	return(-1);
     }
 
     ret=ioctl(fd,IOCTL0_JR3_GET_FULL_SCALES,&fs0);
     mvprintw(0,0,"Full scales of Sensor 0 are %d %d %d %d %d %d\n",fs0.f[0],fs0.f[1],fs0.f[2],fs0.m[0],fs0.m[1],fs0.m[2]);
     ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs1);
     mvprintw(1,0,"Full scales of Sensor 1 are: %d %d %d %d %d %d\n", fs1.f[0],fs1.f[1],fs1.f[2],fs1.m[0],fs1.m[1],fs1.m[2]);
-    ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs2);
+    ret=ioctl(fd,IOCTL2_JR3_GET_FULL_SCALES,&fs2);
     mvprintw(2,0,"Full scales of Sensor 2 are: %d %d %d %d %d %d\n", fs2.f[0],fs2.f[1],fs2.f[2],fs2.m[0],fs2.m[1],fs2.m[2]);
-    ret=ioctl(fd,IOCTL1_JR3_GET_FULL_SCALES,&fs3);
+    ret=ioctl(fd,IOCTL3_JR3_GET_FULL_SCALES,&fs3);
     mvprintw(3,0,"Full scales of Sensor 3 are: %d %d %d %d %d %d\n", fs3.f[0],fs3.f[1],fs3.f[2],fs3.m[0],fs3.m[1],fs3.m[2]);
 
     ret=ioctl(fd,IOCTL0_JR3_ZEROOFFS);
