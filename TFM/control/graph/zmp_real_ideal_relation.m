@@ -127,8 +127,7 @@ text(0.01,-0.02,['ZMP = ',num2str(p1(1)),'*ZMP_{ref}^2 +',num2str(p1(2)), ...
 text(0.01,-0.03,['error = ',num2str(p2(1)),'*ZMP_{ref}^2 +',num2str(p2(2)), ...
     '*ZMP_{ref} +', num2str(p2(3))])
 
-% Comparation between commanded angle and RL and LL encoder data..
-.
+% Comparation between commanded angle and RL and LL encoder data...
 
 figure; hold on; box on; grid on;
 plot(angle, angle, 'k', angle, angleLL, 'ob-', angle, angleRL, 'or-');
