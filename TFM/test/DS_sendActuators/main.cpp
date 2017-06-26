@@ -65,147 +65,126 @@ int main(int argc, char *argv[]) {
     posRightLeg->positionMove(4, 0.0);
     printf("test Left Leg positionMove(4, 0)\n");
     posLeftLeg->positionMove(4, 0.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -0.5)\n");
     posRightLeg->positionMove(4, -0.5);
     printf("test Left Leg positionMove(4, -0.5)\n");
     posLeftLeg->positionMove(4, -0.5);
-    printf("Delaying 5 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -1.0)\n");
     posRightLeg->positionMove(4, -1.0);
     printf("test Left Leg positionMove(4, -1.0)\n");
     posLeftLeg->positionMove(4, -1.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -1.5)\n");
     posRightLeg->positionMove(4, -1.5);
     printf("test Left Leg positionMove(4, -1.5)\n");
     posLeftLeg->positionMove(4, -1.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -2.0)\n");
     posRightLeg->positionMove(4, -2.0);
     printf("test Left Leg positionMove(4, -2.0)\n");
     posLeftLeg->positionMove(4, -2.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -2.5)\n");
     posRightLeg->positionMove(4, -2.5);
     printf("test Left Leg positionMove(4, -2.5)\n");
     posLeftLeg->positionMove(4, -2.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -3.0)\n");
     posRightLeg->positionMove(4, -3.0);
     printf("test Left Leg positionMove(4, -3.0)\n");
     posLeftLeg->positionMove(4, -3.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -3.5)\n");
     posRightLeg->positionMove(4, -3.5);
     printf("test Left Leg positionMove(4, -3.5)\n");
     posLeftLeg->positionMove(4, -3.5);
-    printf("Delaying 5 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -4.0)\n");
     posRightLeg->positionMove(4, -4.0);
     printf("test Left Leg positionMove(4, -4.0)\n");
     posLeftLeg->positionMove(4, -4.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -4.5)\n");
     posRightLeg->positionMove(4, -4.5);
     printf("test Left Leg positionMove(4, -4.5)\n");
     posLeftLeg->positionMove(4, -4.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -5.0)\n");
     posRightLeg->positionMove(4, -5.0);
     printf("test Left Leg positionMove(4, -5.0)\n");
     posLeftLeg->positionMove(4, -5.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -5.5)\n");
     posRightLeg->positionMove(4, -5.5);
     printf("test Left Leg positionMove(4, -5.5)\n");
     posLeftLeg->positionMove(4, -5.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -6.0)\n");
     posRightLeg->positionMove(4, -6.0);
     printf("test Left Leg positionMove(4, -6.0)\n");
     posLeftLeg->positionMove(4, -6.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -6.5)\n");
     posRightLeg->positionMove(4, -6.5);
     printf("test Left Leg positionMove(4, -6.5)\n");
     posLeftLeg->positionMove(4, -6.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -7.0)\n");
     posRightLeg->positionMove(4, -7.0);
     printf("test Left Leg positionMove(4, -7.0)\n");
     posLeftLeg->positionMove(4, -7.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -7.5)\n");
     posRightLeg->positionMove(4, -7.5);
     printf("test Left Leg positionMove(4, -7.5)\n");
     posLeftLeg->positionMove(4, -7.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -8.0)\n");
     posRightLeg->positionMove(4, -8.0);
     printf("test Left Leg positionMove(4, -8.0)\n");
     posLeftLeg->positionMove(4, -8.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -8.5)\n");
     posRightLeg->positionMove(4, -8.5);
     printf("test Left Leg positionMove(4, -8.5)\n");
     posLeftLeg->positionMove(4, -8.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -9.0)\n");
     posRightLeg->positionMove(4, -9.0);
     printf("test Left Leg positionMove(4, -9.0)\n");
     posLeftLeg->positionMove(4, -9.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -9.5)\n");
     posRightLeg->positionMove(4, -9.5);
     printf("test Left Leg positionMove(4, -9.5)\n");
     posLeftLeg->positionMove(4, -9.5);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     printf("test Right Leg positionMove(4, -10.0)\n");
     posRightLeg->positionMove(4, -10.0);
     printf("test Left Leg positionMove(4, -10.0)\n");
     posLeftLeg->positionMove(4, -10.0);
-    printf("Delaying 15 seconds ...\n");
     Time::delay(15);
 
     return 0;
