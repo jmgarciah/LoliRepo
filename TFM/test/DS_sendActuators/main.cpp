@@ -163,7 +163,7 @@ int main(int argc, char *argv[]) {
     posLeftLeg->positionMove(4, -8.0);
     Time::delay(15);
 
-    printf("test Right Leg positionMove(4, -8.5)\n");
+/*    printf("test Right Leg positionMove(4, -8.5)\n");
     posRightLeg->positionMove(4, -8.5);
     printf("test Left Leg positionMove(4, -8.5)\n");
     posLeftLeg->positionMove(4, -8.5);
@@ -185,7 +185,7 @@ int main(int argc, char *argv[]) {
     posRightLeg->positionMove(4, -10.0);
     printf("test Left Leg positionMove(4, -10.0)\n");
     posLeftLeg->positionMove(4, -10.0);
-    Time::delay(15);
+    Time::delay(15);*/
 
     return 0;
 }

@@ -63,17 +63,19 @@ int main(int argc, char *argv[]) {
 // initial trajectory
 
     /** POSITION CONTROL. RIGHT AND LEFT LEGS**/
-    double initPosRight[6] = {0,X,0,0,0,X};
+    printf("test init pos 1\n");
+    double initPosRight[6] = {0,8.5,0,0,0,8.5};
     posRightLeg->positionMove(initPosRight);
-    double initPosLeft[6] = {0,-X,0,0,0,-X};
-    posRightLeg->positionMove(initPosLeft);
-    Time::delay(3);
+    double initPosLeft[6] = {0,-8.5,0,0,0,-8.5};
+    posLeftLeg->positionMove(initPosLeft);
+    Time::delay(5);
     // set poss (0 -X -20 40 -20 -X)
-    initPosRight[6] = {0,X,0,0,0,X};
-    posRightLeg->positionMove(initPosRight);
-    initPosLeft[6] = {0,-X,-20,-40,-20,-X};
-    posRightLeg->positionMove(initPosLeft);
-    Time::delay(3);
+    printf("test init pos 2\n");
+    double initPosRight1[6] = {0,8.5,0,0,0,8.5};
+    posRightLeg->positionMove(initPosRight1);
+    double initPosLeft1[6] = {0,-8.5,-20,40,-20,-8.5};
+    posLeftLeg->positionMove(initPosLeft1);
+    Time::delay(15);
 
 // test trajectory
 
